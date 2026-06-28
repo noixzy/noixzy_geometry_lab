@@ -14,7 +14,7 @@ Current baseline:
 - legacy planning docs stored in _legacy_planning_docs
 
 Next priority:
-Rebuild gallery/shell as the only visible product layer.
+Rebuild home/shell as the only visible product layer.
 
 ## Repo declutter pass
 

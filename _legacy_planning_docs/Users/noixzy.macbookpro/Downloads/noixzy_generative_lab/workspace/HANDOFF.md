@@ -14,10 +14,10 @@ double-click (p5.js / WebGL from CDN — needs internet for the CDN).
 |---|---|
 | `~/noixzy_generative_lab/` | **source of truth** (working copy) |
 | `~/Downloads/noixzy_generative_lab/` | your open/use copy (kept in sync) |
-| `<lab>/gallery/index.html` | visual index — thumbnails of every module, click to open |
-| `<lab>/gallery/thumbs/*.png` | generated preview thumbnails |
+| `<lab>/home/home.html` | visual index — thumbnails of every module, click to open |
+| `<lab>/home/thumbs/*.png` | generated preview thumbnails |
 | `<lab>/build_lab.js` | **generator** for the 9 engine modules (edit here, not the HTML) |
-| `<lab>/contact_sheet.js` | renders `contact_sheet.png` + the gallery thumbnails |
+| `<lab>/contact_sheet.js` | renders `contact_sheet.png` + the home thumbnails |
 | `~/Documents/__Blender 5.1 Projects/PROJ_LabToBlend_v01.blend` | lab→3D demo (displace + scatter) |
 | `~/Documents/__Blender 5.1 Projects/PROJ_SDFForm_v01.blend` | SDF form as Blender metaballs |
 

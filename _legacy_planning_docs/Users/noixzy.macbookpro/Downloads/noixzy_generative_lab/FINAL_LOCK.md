@@ -8,5 +8,5 @@ noixzy_geometry_lab
 Direction moved to:
 - modules as geometry engines
 - no hand-authored/generated split
-- central gallery/shell/header/rail system
+- central home/shell/header/rail system
 - old module-local panels hidden/preserved only as source

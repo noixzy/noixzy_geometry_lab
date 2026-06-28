@@ -14,8 +14,8 @@ You are helping extend a generative art project. Read everything in this prompt 
 - Artist: noixzy (always lowercase, never "Noixzy")
 - Working dir: `~/Downloads/noixzy_generative_lab/`
 - Canonical source: `~/noixzy_generative_lab/` (keep mirrored)
-- Gallery: `~/Downloads/noixzy_generative_lab/gallery/index.html`
-- Live: `https://noixzy.github.io/noixzy_generative_lab/gallery/`
+- Home: `~/Downloads/noixzy_generative_lab/home/home.html`
+- Live: `https://noixzy.github.io/noixzy_generative_lab/home/`
 - Generator: `node build_lab.js` (only for generated modules — see below)
 
 ## Module count: 22 total
@@ -258,7 +258,7 @@ git commit -m "..."
 git push                 # auto-deploys to GitHub Pages
 ```
 
-Gallery entry format (`gallery/index.html` pieces array):
+Home entry format (`home/home.html` pieces array):
 ```js
 {id:"module_id", title:"display title", path:"../module_id/noixzy_module_id.html", thumb:"thumbs/module_id.png"}
 ```
@@ -295,9 +295,9 @@ Build each as a new hand-authored HTML file in its own folder. See `NEXT_MODULES
 - **All 4 new modules**: pin/fav system (same localStorage pattern as gyroid)
 - **All 4 new modules**: dbl-click slider reset (set `el.defaultValue` in PARAMS loop)
 
-### 4 — Gallery thumbnails
+### 4 — Home thumbnails
 
-Open each module in Chrome, let it render, click `→ thumb`, pick `gallery/thumbs/` folder. Files needed: `hex_grid.png`, `rose_curve.png`, `lissajous_mesh.png`, `torus_knot.png`.
+Open each module in Chrome, let it render, click `→ thumb`, pick `home/thumbs/` folder. Files needed: `hex_grid.png`, `rose_curve.png`, `lissajous_mesh.png`, `torus_knot.png`.
 
 ---
 

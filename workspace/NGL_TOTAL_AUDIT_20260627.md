@@ -319,8 +319,8 @@ canvas.style.filter = 'contrast(1.06) saturate(1.08)';
 
 - `build_lab.js` — no changes made (camera phase 1 already complete)
 - `unified_shell.html` — no changes made (already production quality)
-- `gallery/index.html` — untouched
-- `gallery/thumbs/` — untouched
+- `home/home.html` — untouched
+- `home/thumbs/` — untouched
 - `modules.manifest.json` — untouched
 - all 9 generated engine module HTML files — untouched
 - `noixzy_lab_shell_v1.html` — untouched
@@ -371,8 +371,8 @@ workspace/module_escrow_20260627/escrow_shell.html                         (full
 ```
 build_lab.js
 unified_shell.html
-gallery/index.html
-gallery/thumbs/*
+home/home.html
+home/thumbs/*
 modules.manifest.json
 noixzy_lab_shell_v1.html
 modules/*.html  (all 9 generated engine modules)
@@ -386,10 +386,10 @@ workspace/module_escrow_20260627/candidates/*.html  (all existing candidates)
 **high value, low risk:**
 1. Camera Phase 2 — u_dist orbit radius on gyroid.html (SDF uniform, 2–3 lines)
 2. Experimental Physics simulation layer — add physicsForce vector to flow_field particle velocity
-3. Promote tier 1 escrow candidates to unified shell gallery (brutalist_massing, modernist_facade, DLA frost)
+3. Promote tier 1 escrow candidates to unified shell home (brutalist_massing, modernist_facade, DLA frost)
 
 **medium value, defined effort:**
-4. Unified shell: add `noixzy_proto_curl_noise_fluid` and `noixzy_proto_domain_marble` to gallery
+4. Unified shell: add `noixzy_proto_curl_noise_fluid` and `noixzy_proto_domain_marble` to home
 5. Build `noixzy_proto_lenia_life` into a build_lab.js engine module slot (new slot 10, alongside existing 9)
 6. Falling sand performance fix — typed array CA with requestAnimationFrame throttle
 

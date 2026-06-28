@@ -82,5 +82,5 @@ and pinned looks are unchanged.
 
 ## Out of scope
 
-Don't touch the Blender projects or gallery layout, don't add modules or new dependencies, keep it
+Don't touch the Blender projects or home layout, don't add modules or new dependencies, keep it
 self-contained (no build step beyond `node build_lab.js`).

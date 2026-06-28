@@ -42,10 +42,10 @@ However, no document formally establishes this as a project-wide rule.
 The three-tier escrow system (Tier 1 = ready, Tier 2 = needs defaults, Tier 3 = needs polish)
 is described. Tier 1 candidates are named. But the formal criteria for promotion — what a
 module must demonstrate to be added to `unified_shell.html`, `modules.manifest.json`, and
-`gallery/index.html` — has never been written as a standard.
+`home/home.html` — has never been written as a standard.
 
 **What needs to be defined:**
-- Visual quality bar (defaults must be gallery-worthy)
+- Visual quality bar (defaults must be home-worthy)
 - Technical requirements (browser verify, console clean, controls respond, thumbnails exist)
 - Feature parity checklist (does it need pause, reset, pin, theme, etc.?)
 - Whether the module must pass through `build_lab.js` or can be added as a hand-authored
@@ -73,7 +73,7 @@ written.
   "title": "Display Title",
   "kind": "hand-authored | generated",
   "path": "module_id/noixzy_module_id.html",
-  "thumbnail": "gallery/thumbs/module_id.png",
+  "thumbnail": "home/thumbs/module_id.png",
   "description": "...",
   "tags": ["field", "simulation"],
   "enabled": true,
@@ -225,13 +225,13 @@ a Blender Python script rebuilds it." But no JSON schema has been defined.
 `IDEAS_module_expansion.md` Part 2 gives per-module enhancement notes (e.g., flow_field
 "variable line weight by speed," contour_field "quantize into terraces"). `CODEX_QUEUE.md`
 Task 6 ("strong default looks") defers all default tuning to a taste pass. But there is no
-formal standard for what a "gallery-worthy default" requires per module type.
+formal standard for what a "home-worthy default" requires per module type.
 
 **What needs to be defined:**
 - Minimum visual quality bar for a module's cold-open defaults
 - Which param groups must be tuned (system defaults, look defaults, material defaults)
 - Whether defaults are locked in `build_lab.js` or overridden by the theme system
-- A review process: "gallery-worthy" requires browser-verified, not just coded
+- A review process: "home-worthy" requires browser-verified, not just coded
 
 **Where it is partially addressed:**
 `CODEX_QUEUE.md` Task 6, `IDEAS_module_expansion.md` Parts 2 & 3
@@ -265,7 +265,7 @@ engine SHARED params array.
 ## MS-11 — Thumbnail generation workflow and spec 🟡
 
 **What is referenced but not defined:**
-Thumbnails exist at `gallery/thumbs/<module_id>.png`. They are captured manually
+Thumbnails exist at `home/thumbs/<module_id>.png`. They are captured manually
 via a `→ thumb` button or via `node contact_sheet.js`. But the spec for a thumbnail
 (size, format, timing after load, how many frames to let run before capture) has never
 been formally defined.
@@ -275,7 +275,7 @@ been formally defined.
 - Capture timing (how many frames / seconds after module load?)
 - Whether thumbnails are captured at default params or at a designated "showcase frame"
 - The exact relationship between `contact_sheet.js` and `→ thumb` (both produce
-  `gallery/thumbs/*.png` but via different mechanisms)
+  `home/thumbs/*.png` but via different mechanisms)
 
 **Where it is partially addressed:**
 `HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md`, `unified_shell_functionality_restoration_20260627.md`

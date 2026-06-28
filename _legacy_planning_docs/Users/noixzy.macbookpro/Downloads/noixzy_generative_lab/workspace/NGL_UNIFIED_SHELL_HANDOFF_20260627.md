@@ -251,8 +251,8 @@ Do not reapply that old module rail redesign unless the user explicitly asks.
 Do nor touch unless explicitly requested:
 
 - `build_lab.js`
-- `gallery/index.html`
-- `gallery/thumbs`
+- `home/home.html`
+- `home/thumbs`
 - `modules.manifest.json`
 - all module HTML files
 - `noixzy_lab_shell_v1.html`
@@ -315,7 +315,7 @@ cd /Users/noixzy.macbookpro/Downloads/noixzy_generative_lab && {
   git diff --stat
   echo
   echo "=== PROTECTED FILES ==="
-  git status --short build_lab.js gallery/index.html gallery/thumbs modules.manifest.json
+  git status --short build_lab.js home/home.html home/thumbs modules.manifest.json
 } | tee /dev/tty | pbcopy
 ```
 

@@ -95,7 +95,7 @@ Uses `ctx.shadowColor`, `shadowBlur`, `shadowOffsetX` to produce bas-relief dept
 
 ### 3.5 `noixzy_structural_grid.html` — Tier 2 (Real Isometric Grid)
 
-Uses `isoPoint()` for a 3D structural lattice. Generates horizontal floor plates, vertical columns, and diagonal braces in correct isometric space. The z-coordinate system and depth ordering are properly implemented. Strength: the structural logic produces clean geometric authority. Weakness: the output can read as diagrammatic rather than visceral — needs material finish (stroke weight hierarchy, glow on key members) before gallery promotion.
+Uses `isoPoint()` for a 3D structural lattice. Generates horizontal floor plates, vertical columns, and diagonal braces in correct isometric space. The z-coordinate system and depth ordering are properly implemented. Strength: the structural logic produces clean geometric authority. Weakness: the output can read as diagrammatic rather than visceral — needs material finish (stroke weight hierarchy, glow on key members) before home promotion.
 
 ---
 
@@ -133,7 +133,7 @@ Clifford and de Jong attractors with proper per-point iteration. The visual outp
 
 ### 4.1 Brutalist Massing — 10 of 13 variants redundant
 
-`asymmetric`, `chambers`, `cluster`, `folded`, `linear`, `mat`, `megaform`, `modular`, `slabs`, `split` — these are all the same isometric box renderer with minor layout rule changes. From a viewer's perspective they are indistinguishable at a glance. Keeping all 13 in the gallery creates clutter and dilutes the brand of the genuinely strong variants.
+`asymmetric`, `chambers`, `cluster`, `folded`, `linear`, `mat`, `megaform`, `modular`, `slabs`, `split` — these are all the same isometric box renderer with minor layout rule changes. From a viewer's perspective they are indistinguishable at a glance. Keeping all 13 in the home creates clutter and dilutes the brand of the genuinely strong variants.
 
 **Recommendation:** Promote base + towers + cantilever. Archive the remaining 10.
 
@@ -157,7 +157,7 @@ All 10 share a single draw function branched by `mode` string, with identical 6 
 
 ### 4.4 Batches 15 and 16 (50 lines of runtime for 20 modules)
 
-At 5 render lines per module, these are concept sketches that happened to be deployed. The renders are functional (they draw something) but are not gallery-quality. The batch 16 `clifford` variant is the exception — that attractor math is correct even though the surrounding shell is thin.
+At 5 render lines per module, these are concept sketches that happened to be deployed. The renders are functional (they draw something) but are not home-quality. The batch 16 `clifford` variant is the exception — that attractor math is correct even though the surrounding shell is thin.
 
 **Recommendation:** Archive all except `clifford`. Extract `clifford` into a standalone or promote to batch 12 math alongside `strange_attractor_dust`.
 
@@ -175,7 +175,7 @@ Uses `ctx.shadowColor` for depth illusion like `concrete_relief` but produces a 
 
 This module does not clearly belong to the isometric, simulation, or pattern families. The entropy mask approach (noise-seeded field with threshold masking) produces abstract fields that overlap conceptually with `reaction_diffusion` and `flow_field` in the Unified Shell. No distinct visual identity.
 
-**Recommendation:** Keep in escrow for a taste pass. If defaults are not gallery-worthy after one tuning session, archive.
+**Recommendation:** Keep in escrow for a taste pass. If defaults are not home-worthy after one tuning session, archive.
 
 ---
 
@@ -189,7 +189,7 @@ These modules have geometry and concept quality worth eventual promotion, but re
 3. Add SHARED params: `zoom`, `rot`, `mirror`, `cx`, `cy`, `metallic`, `rough`, `sheen`, `alpha`, `contrast`, `vig`, `grain`, `glow`, `speed`, `drift`
 4. Rename controls to Template A IDs for shell bridge compatibility
 5. Bind all UI in `setup()` — not `DOMContentLoaded`, not inline
-6. Browser-verify defaults are gallery-worthy (not just coded)
+6. Browser-verify defaults are home-worthy (not just coded)
 
 **Priority order for promotion engineering:**
 1. `brutalist_massing` (base) — strongest geometry, clearest promotion path
@@ -333,7 +333,7 @@ For each:
 3. Add SHARED params block to the module's param list
 4. Rename controls to Template A IDs
 5. Bind UI in `setup()`
-6. Browser-verify defaults are gallery-worthy
+6. Browser-verify defaults are home-worthy
 
 This produces 8 fully promotion-ready candidates without touching the other 120.
 
@@ -390,7 +390,7 @@ Promoting a 2-line stub HTML file that points to `noixzy_batch_15_generated_runt
 The correct move is deep work on 8 modules, not shallow wiring of 130. The escrow's core problem is insufficient implementation depth. Adding interface wiring to a 5-line render function produces a polished empty shell. Geometry first, interface second.
 
 **Do not keep all 13 brutalist massing variants.**  
-The visual redundancy undermines the gallery experience. 13 modules that produce nearly identical isometric block fields dilutes the perceived range of the lab. Three strong variants are more compelling than thirteen similar ones.
+The visual redundancy undermines the home experience. 13 modules that produce nearly identical isometric block fields dilutes the perceived range of the lab. Three strong variants are more compelling than thirteen similar ones.
 
 **Do not implement "Experimental Physics" as real physics.**  
 The CSS transform drift behavior is appropriate for the escrow's purpose: a gestural vitality hint. Implementing real force accumulation at the canvas level (as opposed to per-module particle physics) creates a maintenance burden with no visual payoff over the current CSS approach. Per-module physics belongs in the specific modules that warrant it (`pressure_thread_physics`, `falling_sand`).
@@ -398,7 +398,7 @@ The CSS transform drift behavior is appropriate for the escrow's purpose: a gest
 **Do not add audio reactivity to escrow modules before SHARED params are wired.**  
 The audio reactive mapping contract (MS-05 in `06_MISSING_STANDARDS.md`) depends on the SHARED params existing as named inputs. Adding audio to a module without SHARED params creates a parallel mapping scheme that will need to be refactored. Do the params pass first.
 
-**Do not deploy batches 15 and 16 to the gallery.**  
+**Do not deploy batches 15 and 16 to the home.**  
 These are concept sketches at 5 lines per module. They exist as a speculative ideation record, not as production candidates. The one exception — the `clifford` attractor in batch 16 — should be extracted and given a proper standalone implementation.
 
 **Do not create more batch runtimes.**  

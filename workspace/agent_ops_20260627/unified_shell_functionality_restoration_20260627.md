@@ -14,7 +14,7 @@
 - `modules.manifest.json` — confirmed 58 modules, 57 enabled, stale `fold` ref unchanged
 - `workspace/agent_ops_20260627/unified_shell_module_builder_handoff_20260627.md` — Codex handoff read before any edits
 - `build_lab.js` — confirmed source-of-truth for generated modules; not modified in this pass
-- `gallery/index.html` — not modified
+- `home/home.html` — not modified
 - All module HTML files — surveyed control IDs via grep to determine template generations
 
 ## Module Template Audit

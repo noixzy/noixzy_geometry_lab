@@ -61,7 +61,7 @@ These are the best next candidates because they are visually distinct from the c
 | 1 | `concrete_relief` | Brutalist | Turns generative fields into cast wall panels and depth maps. |
 | 2 | `cantilever_stack` | Wright / modern | Dramatic slab compositions; works as WEBGL or fake-isometric 2D. |
 | 2 | `leaded_glass_grid` | Wright-inspired | Ornament that still feels geometric and algorithmic. |
-| 2 | `axonometric_city` | Modern / brutalist | Isometric block fields; gallery-friendly and production-useful. |
+| 2 | `axonometric_city` | Modern / brutalist | Isometric block fields; home-friendly and production-useful. |
 | 2 | `brise_soleil` | Modern | Kinetic facade screen with light/shadow rhythm. |
 | 2 | `site_section` | Organic modern | Contours + architecture; extends terrain/topographic modules. |
 | 3 | `megastructure` | Brutalist / metabolist | Larger, stranger, modular architectural fiction. |
@@ -80,7 +80,7 @@ These are the best next candidates because they are visually distinct from the c
 |---|---|---|---|
 | `minimal_parti` | Abstract architectural parti diagrams using circles, bars, walls, voids, and axes. | void ratio, axis bias, block count, line weight | Great default opener: black/white, one accent, lots of negative space. |
 | `quiet_grid` | Sparse orthogonal grid with occasional interruptions, courtyards, and shifted bays. | bay count, deletion rate, offset, stroke hierarchy | A minimalist counterpart to `recursive_grid`. |
-| `white_space_field` | Layout engine that composes only a few geometric masses against a large empty ground. | mass count, margin, alignment, tension | Useful for album covers and gallery stills. |
+| `white_space_field` | Layout engine that composes only a few geometric masses against a large empty ground. | mass count, margin, alignment, tension | Useful for album covers and home stills. |
 | `monolith_sequence` | Single or repeated slab forms arranged by interval, scale, and shadow. | slab count, spacing, lean, shadow length | Minimal/brutalist crossover. |
 | `line_weight_study` | Architectural drawing generator: centerlines, poche, hidden lines, index lines. | scale, hierarchy, hatch density, ghost lines | More drawing-like than painterly. |
 | `proportion_bands` | Rectangular bands based on root-2, golden ratio, silver ratio, and modular scales. | ratio system, subdivision depth, accent band, gap | Modernist poster and facade source. |
@@ -165,7 +165,7 @@ These are the best next candidates because they are visually distinct from the c
 |---|---|---|---|
 | `courtyard_plan` | Courtyard-building generator using rings, bars, courts, and thresholds. | court count, ring thickness, entries, garden ratio | Strong architectural identity. |
 | `floorplan_bsp` | Binary-space-partition room plans with walls, doors, corridors. | split depth, room ratio, corridor width, door count | Already mentioned generally; make it lab-specific. |
-| `gallery_plan` | Museum/gallery plan with rooms arranged around sightlines and circulation loops. | room count, sightline, loop strength, wall thickness | Fitting for art lab context. |
+| `home_plan` | Museum/home plan with rooms arranged around sightlines and circulation loops. | room count, sightline, loop strength, wall thickness | Fitting for art lab context. |
 | `section_cut` | Building section generator with floors, stairs, shafts, terrain, and light. | floor count, cut depth, stair logic, terrain | Distinct from top-down plan modules. |
 | `circulation_loop` | Paths organize spaces as loops, spines, branches, or spirals. | path type, room density, width, compression | Can generate abstract diagrams or plans. |
 | `stair_core` | Parametric stair, landings, rail rhythm, and shadows. | rise/run, turns, width, landing count | A crisp architectural object module. |
@@ -193,7 +193,7 @@ These are the best next candidates because they are visually distinct from the c
 
 | Module ID | Concept | Key controls | Output / notes |
 |---|---|---|---|
-| `axonometric_city` | Isometric city blocks with height, setbacks, courtyards, streets. | block count, height rule, street width, shadow | Great gallery module. |
+| `axonometric_city` | Isometric city blocks with height, setbacks, courtyards, streets. | block count, height rule, street width, shadow | Great home module. |
 | `urban_parcels` | Parcel subdivision from roads, setbacks, and zoning envelopes. | road density, parcel size, setback, FAR | Architectural/urban generator. |
 | `modernist_superblock` | Towers in park, slabs, plazas, paths, and landscape fields. | tower count, slab length, park ratio, path curves | Modernist planning as pattern. |
 | `brutalist_campus` | Heavy connected blocks, plazas, bridges, and sunken courts. | mass count, bridge density, plaza size, level changes | Distinct urban/brutalist vibe. |

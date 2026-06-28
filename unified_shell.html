@@ -458,8 +458,8 @@
 <div class="shell">
   <header class="rail" aria-label="module rail">
     <nav class="thumbRail" id="moduleRail" aria-label="modules"></nav>
-    <a class="logoOverlay" href="gallery/index.html" aria-label="Back to gallery">
-      <img src="gallery/gallery.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
+    <a class="logoOverlay" href="home/home.html" aria-label="Back to home">
+      <img src="home/home.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
     </a>
     <div class="settingsShell">
       <button class="settingsButton" id="settingsButton" type="button" aria-label="Settings" aria-haspopup="true" aria-expanded="false" aria-controls="settingsMenu" title="Settings">
@@ -500,7 +500,7 @@
   };
   let enabledModules = [];
   let activeId = "";
-  const galleryOrder = [
+  const homeOrder = [
     "grid_extrude",
     "sdf_raymarch",
     "gyroid",
@@ -549,7 +549,7 @@
     "lissajous_mesh",
     "torus_knot"
   ];
-  const galleryOrderIndex = new Map(galleryOrder.map((id, index) => [id, index]));
+  const homeOrderIndex = new Map(homeOrder.map((id, index) => [id, index]));
 
   const setStatus = (message) => {
     status.textContent = message;
@@ -681,7 +681,7 @@
     button.ariaLabel = module.title || module.id;
 
     const img = document.createElement("img");
-    img.src = `gallery/thumbs/${module.id}.png`;
+    img.src = `home/thumbs/${module.id}.png`;
     img.alt = "";
     img.loading = "lazy";
     img.decoding = "async";
@@ -699,12 +699,12 @@
     enabledModules.forEach((module) => moduleRail.append(createThumb(module)));
   };
 
-  const sortByGalleryOrder = (modules) => {
+  const sortByHomeOrder = (modules) => {
     return modules
       .map((module, manifestIndex) => ({ module, manifestIndex }))
       .sort((a, b) => {
-        const aIndex = galleryOrderIndex.has(a.module.id) ? galleryOrderIndex.get(a.module.id) : Infinity;
-        const bIndex = galleryOrderIndex.has(b.module.id) ? galleryOrderIndex.get(b.module.id) : Infinity;
+        const aIndex = homeOrderIndex.has(a.module.id) ? homeOrderIndex.get(a.module.id) : Infinity;
+        const bIndex = homeOrderIndex.has(b.module.id) ? homeOrderIndex.get(b.module.id) : Infinity;
         return aIndex - bIndex || a.manifestIndex - b.manifestIndex;
       })
       .map((entry) => entry.module);
@@ -718,7 +718,7 @@
       }
 
       const manifest = await response.json();
-      enabledModules = sortByGalleryOrder(
+      enabledModules = sortByHomeOrder(
         (manifest.modules || []).filter((module) => module.enabledInShell === true)
       );
       renderRail();

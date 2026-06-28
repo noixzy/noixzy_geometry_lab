@@ -4,12 +4,12 @@
   let raf = 0;
 
   function targetElements() {
-    const galleryTargets = [
+    const homeTargets = [
       ...document.querySelectorAll(".thumb"),
       ...document.querySelectorAll(".card img")
     ].filter(Boolean);
 
-    if (galleryTargets.length) return galleryTargets;
+    if (homeTargets.length) return homeTargets;
 
     const moduleTarget =
       document.querySelector("canvas") ||

@@ -91,10 +91,10 @@ geometry (paths, not a rasterized image).
 ## TASK 6 — Strong default looks (taste pass, do LAST)
 **Goal:** each module should open on a striking composition, not a flat default.
 **Approach:** for every module, tune the default param values (system + material/depth/look/
-motion) so the first frame is gallery-worthy — good negative space, palette, a touch of glow/
+motion) so the first frame is home-worthy — good negative space, palette, a touch of glow/
 grain, sensible extrude where it helps. Update defaults in `build_lab.js` (and the two
 flagships). Regenerate. Refresh thumbnails: `node contact_sheet.js`.
-**Acceptance:** opening each module cold looks intentional; the gallery thumbnails reflect the
+**Acceptance:** opening each module cold looks intentional; the home thumbnails reflect the
 new defaults.
 
 ---

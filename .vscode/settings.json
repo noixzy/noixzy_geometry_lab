@@ -4,7 +4,7 @@
   },
   "search.exclude": {
     "workspace/_archive_*": true,
-    "gallery/thumbs": true
+    "home/thumbs": true
   },
   "files.associations": {
     "*.md": "markdown",

@@ -187,7 +187,7 @@ If no agent is available:
 
 ## Files NOT to Edit
 
-- `gallery/index.html` — no camera changes needed here
-- `gallery/thumbs/*` — retake thumbnails separately after camera defaults are confirmed
+- `home/home.html` — no camera changes needed here
+- `home/thumbs/*` — retake thumbnails separately after camera defaults are confirmed
 - Any generated HTML in the module folders — always edit `build_lab.js` instead
 - `grid_extrude/noixzy_grid_extrude.html` — already has zoom, pan, rotate; complete, do not disturb

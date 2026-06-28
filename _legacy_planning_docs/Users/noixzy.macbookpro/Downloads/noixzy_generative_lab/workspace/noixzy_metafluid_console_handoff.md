@@ -21,8 +21,8 @@ Local working path used in the previous chat:
 Live/local test paths used:
 
 ```text
-https://noixzy.github.io/noixzy_generative_lab/gallery/
-http://192.168.1.156:8010/gallery/
+https://noixzy.github.io/noixzy_generative_lab/home/
+http://192.168.1.156:8010/home/
 http://192.168.1.156:8010/metafluid/noixzy_metafluid.html
 ```
 

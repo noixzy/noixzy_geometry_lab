@@ -187,23 +187,23 @@ changes. (*`CHATGPT_BRIEF.md`*)
 
 ---
 
-## 6. Gallery
+## 6. Home
 
-**S-G-01** The gallery lives at `gallery/index.html`. It reads from the pieces array
-hardcoded in that file and from `gallery/thumbs/*.png`. (*`HANDOFF.md`*)
+**S-G-01** The home lives at `home/home.html`. It reads from the pieces array
+hardcoded in that file and from `home/thumbs/*.png`. (*`HANDOFF.md`*)
 
 **S-G-02** Adding a new module requires:
 1. Create `<module_id>/noixzy_<module_id>.html`
-2. Add entry to `gallery/index.html` pieces array: `["module_id","title","description","tags","h|e"]`
+2. Add entry to `home/home.html` pieces array: `["module_id","title","description","tags","h|e"]`
    — `"h"` = hand-authored (✦ badge), `"e"` = generated (◎ badge)
 3. Add `{id:"module_id", title:"display title"}` to `ALL_MODULES` in **every existing module**
-4. Add thumbnail to `gallery/thumbs/<module_id>.png`
+4. Add thumbnail to `home/thumbs/<module_id>.png`
 5. Run `node contact_sheet.js` to refresh the contact sheet
 (*`GPT_HANDOFF_2026_06_25.md`, `HANDOFF.md`*)
 
-**S-G-03** Gallery metadata and `build_lab.js` PIECES array must stay in sync. The `sdf`
+**S-G-03** Home metadata and `build_lab.js` PIECES array must stay in sync. The `sdf`
 module is a known drift risk — it exists as a generated module but has historically been
-absent from the gallery. Resolve before adding new modules. (*`NGL_PLAN_06062026.md`*)
+absent from the home. Resolve before adding new modules. (*`NGL_PLAN_06062026.md`*)
 
 ---
 
@@ -217,7 +217,7 @@ stale reference — pre-existing, not yet resolved. (*`unified_shell_functionali
 export types, audio-reactive status, transparent background, schema availability.
 (*`NGL_PLAN_06062026.md`*)
 
-**S-M-03** Gallery metadata, build_lab.js PIECES, and the manifest are three separate
+**S-M-03** Home metadata, build_lab.js PIECES, and the manifest are three separate
 sources of truth that must stay synchronized. Future work should consolidate to one
 canonical manifest consumed by all three. (*`NGL_PLAN_06062026.md`*)
 
@@ -260,7 +260,7 @@ Confirm: renders, controls respond, console is clean. A clean parse is not proof
 (*`READ_FIRST.md`, `CODEX_QUEUE.md`*)
 
 **S-QA-02** **Additive only.** Never remove or regress existing params, pins, reset,
-palettes, save PNG, the full-bleed translucent UI, or the gallery. (*`READ_FIRST.md`*)
+palettes, save PNG, the full-bleed translucent UI, or the home. (*`READ_FIRST.md`*)
 
 **S-QA-03** After any engine change run `node build_lab.js` and confirm it exits cleanly
 with `done: N pieces` before opening a browser. (*`CHATGPT_BRIEF.md`*)
@@ -293,7 +293,7 @@ For engine changes: `git add build_lab.js` + all regenerated module HTML.
 tree. (*`unified_shell_functionality_restoration_20260627.md`*)
 
 **S-GIT-04** Protected files — never modify without explicit scope change:
-`build_lab.js`, `gallery/index.html`, `gallery/thumbs/`, `modules.manifest.json`,
+`build_lab.js`, `home/home.html`, `home/thumbs/`, `modules.manifest.json`,
 all generated module HTML, `noixzy_lab_shell_v1.html`, parked Blender/workspace files.
 (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`, `NGL_TOTAL_AUDIT_20260627.md`*)
 

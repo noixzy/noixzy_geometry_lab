@@ -109,7 +109,7 @@ On 2026-06-24, four new standalone modules were added simultaneously: `hex_grid`
 - `torus_knot` — GLSL SDF tube-around-parametric-curve, true WebGL geometry
 
 The `SESSION_BRIDGE.md` log for 2026-06-24 reads like a quick expansion week: four modules added,
-the `ALL_MODULES` array updated to 22 entries across all modules simultaneously, gallery and
+the `ALL_MODULES` array updated to 22 entries across all modules simultaneously, home and
 `build_lab.js` updated.
 
 On 2026-06-25, `metafluid` was committed — a GLSL SDF raymarcher with 32 spheres, AO,
@@ -156,7 +156,7 @@ the default. This was a taste decision, not a technical one.
 ### Stage 3 — The Scale Jump (23 → 47 → 58 modules)
 
 The most dramatic phase of the project's growth. Between the GPT_HANDOFF_2026_06_25 state and
-the NGL_PLAN_06062026 architectural audit, the module count grew from 23 to 47 gallery-listed
+the NGL_PLAN_06062026 architectural audit, the module count grew from 23 to 47 home-listed
 live modules — a near-doubling — and the generated module count grew from 12 to 35+ pieces
 (with `node build_lab.js` reporting `done: 46 pieces` by 2026-06-27).
 
@@ -173,7 +173,7 @@ By the time `modules.manifest.json` was formally audited (2026-06-27), it contai
 This scale jump revealed structural drift. The NGL_PLAN_06062026 architectural audit identified:
 - Three template generations coexisting in the codebase (Template A, B, C) with different
   control ID conventions, making reliable shell integration impossible without fallback lookups
-- Gallery metadata duplicated across `gallery/index.html`, `build_lab.js`, and
+- Home metadata duplicated across `home/home.html`, `build_lab.js`, and
   `modules.manifest.json`, already drifting (the `sdf` module was listed in two but absent from
   the third)
 - Hand-authored modules with "visual feature parity" but "inconsistent internal APIs" — some
@@ -337,11 +337,11 @@ not as a big-bang refactor.
 
 The `modules.manifest.json` file grew into the canonical module registry as the shell needed a
 stable index of what existed. But it was always one of three sources of truth (the others being
-`gallery/index.html` and `build_lab.js`'s PIECES array), and all three drift independently.
+`home/home.html` and `build_lab.js`'s PIECES array), and all three drift independently.
 
 The `sdf` module — one of the original 11 — illustrates the problem: it exists as a generated
 module, was listed in the original `HANDOFF.md`, is produced by `build_lab.js`, but was found
-absent from the gallery during the Stage 3 audit. Three years of parallel metadata maintenance
+absent from the home during the Stage 3 audit. Three years of parallel metadata maintenance
 had produced a gap.
 
 Consolidating to a single manifest consumed by all three systems is recognized as future work.
@@ -555,7 +555,7 @@ flagship modules. The lesson is not "don't use try/catch" but specifically that 
 block around module render code will break the module in a way that produces no error message
 and no visible failure other than a blank canvas.
 
-### `loading="lazy"` on Gallery Thumbnails
+### `loading="lazy"` on Home Thumbnails
 
 An optimization that broke in backgrounded tabs. Lazy-loaded images do not load when the page
 is not visible, so thumbnails captured in background tabs (a common workflow) would simply not
@@ -587,7 +587,7 @@ Template C modules to Template A IDs, one by one — is deferred but recognized.
 
 ### The Three-Source-of-Truth Problem
 
-`gallery/index.html`, `build_lab.js` PIECES, and `modules.manifest.json` are three independent
+`home/home.html`, `build_lab.js` PIECES, and `modules.manifest.json` are three independent
 registries that must stay synchronized. They have already drifted — the `sdf` module gap is
 documented. The problem gets worse with every new module added.
 
@@ -609,7 +609,7 @@ eliminates an entire category of maintenance burden.
 **2. One source of truth per layer of the system.**
 The generator is the truth for engine modules. Individual HTML files are the truth for flagships.
 The manifest is the truth for the module registry (or should be). When multiple sources of truth
-exist for the same information, they drift. The `sdf` gallery gap is the cost.
+exist for the same information, they drift. The `sdf` home gap is the cost.
 
 **3. A clean parse is not proof.**
 Two separate bugs — the `DOMContentLoaded` binding failure and the `}catch(e)` scope collapse —
@@ -672,7 +672,7 @@ The noixzy Generative Lab is an **authored visual engine** — a set of algorith
 unified by a common aesthetic and connected to a production pipeline, that generates raw material
 for noixzy's work in 3D, motion, and music visuals.
 
-It is not a gallery platform, a tool for others, or a demonstration of algorithmic variety.
+It is not a home platform, a tool for others, or a demonstration of algorithmic variety.
 Every decision from the beginning has been made for one artist's production workflow.
 
 What it has become is more than its parts suggest. The individual modules are interesting on
@@ -739,7 +739,7 @@ sharper promotion criteria.
 
 A formal module manifest schema (proposed in `06_MISSING_STANDARDS.md`) with capability flags,
 tier status, and tags would make the library navigable by visual type, technique, production
-use, and quality tier. The gallery would become a genuine catalog rather than a flat list.
+use, and quality tier. The home would become a genuine catalog rather than a flat list.
 
 What the next evolution looks like, taken together, is a **creative operating system**: a single
 application that generates visual material across every technique the project has mastered,

@@ -154,7 +154,7 @@ select:hover { border-color:var(--accent); }
     background:#000 !important;
   }
   body.geoOnly .navBar,
-  body.geoOnly .galleryMark,
+  body.geoOnly .homeMark,
   body.geoOnly .navCurrent,
   body.geoOnly .stageThumbs,
   body.geoOnly #stageThumbs,
@@ -798,7 +798,7 @@ function buildNav(){
     const a=document.createElement("a"); a.href="../"+m.id+"/noixzy_"+m.id+".html"; a.title=m.title;
     a.className="navThumb"+(m.id===PIECE?" active":"");
     a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); window.location.href=a.href; };
-    const img=document.createElement("img"); img.src="../gallery/thumbs/"+m.id+".png"; img.alt=m.title;
+    const img=document.createElement("img"); img.src="../home/thumbs/"+m.id+".png"; img.alt=m.title;
     a.appendChild(img); strip.appendChild(a);
   });
 

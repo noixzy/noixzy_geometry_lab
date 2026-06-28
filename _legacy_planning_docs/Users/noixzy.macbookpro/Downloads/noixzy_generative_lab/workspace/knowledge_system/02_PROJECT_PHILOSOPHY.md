@@ -6,7 +6,7 @@
 ## 1. Purpose
 
 The noixzy Generative Lab is a **personal production instrument**, not a public app or a
-gallery platform. It exists to feed real output: Blender scenes, music visuals, stills,
+home platform. It exists to feed real output: Blender scenes, music visuals, stills,
 textures, displacement maps, and scatter fields that enter the noixzy body of work.
 
 Every module is a "visual machine" — a small, contained algorithm that produces a pattern,
@@ -127,7 +127,7 @@ finished. (*`READ_FIRST.md`, `CODEX_QUEUE.md`*)
 
 ### Additive work — no regressions
 Existing params, pins, reset, palettes, save PNG, full-bleed translucent UI, and the
-gallery must not be broken by new work. Any change that removes existing capability is a
+home must not be broken by new work. Any change that removes existing capability is a
 regression. (*`READ_FIRST.md`, `CODEX_QUEUE.md`*)
 
 ---

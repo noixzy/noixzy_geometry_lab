@@ -199,6 +199,6 @@ Open in browser:
 
 ## Out of scope
 
-Do not touch the Blender projects, add new modules, add npm dependencies, change gallery layout,
+Do not touch the Blender projects, add new modules, add npm dependencies, change home layout,
 or alter existing params/pins/reset/palette behavior. Keep everything self-contained (no build
 step beyond `node build_lab.js`).

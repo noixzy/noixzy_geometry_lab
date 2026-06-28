@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// gen_thumbs.js — auto-generate gallery/thumbs/<id>.png for every module
+// gen_thumbs.js — auto-generate home/thumbs/<id>.png for every module
 // Usage: node workspace/gen_thumbs.js [id1 id2 ...]
 // With no args: regenerates all modules listed in MODULES.
 // With IDs: only regenerates those modules.
@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const THUMBS = path.join(ROOT, 'gallery', 'thumbs');
+const THUMBS = path.join(ROOT, 'home', 'thumbs');
 
 // All modules: [id, wait_ms]
 // wait_ms — how long to let the module render before screenshotting.
@@ -74,7 +74,7 @@ async function thumb(page, id, waitMs, port) {
 
   // crop/resize to THUMB_SIZE square using Canvas API via sharp if available,
   // otherwise just save as-is (Playwright screenshot is already the element bounds).
-  console.log(`  ✓ ${id} → gallery/thumbs/${id}.png`);
+  console.log(`  ✓ ${id} → home/thumbs/${id}.png`);
 }
 
 (async () => {
@@ -119,5 +119,5 @@ async function thumb(page, id, waitMs, port) {
   server.close();
 
   console.log(`\nDone: ${ok} ok, ${fail} failed.`);
-  if (ok) console.log('Refresh gallery/index.html to see updated thumbnails.');
+  if (ok) console.log('Refresh home/home.html to see updated thumbnails.');
 })();

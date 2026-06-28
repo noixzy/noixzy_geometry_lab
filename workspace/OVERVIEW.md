@@ -20,7 +20,7 @@ Everything lives in two places:
 - **The working copy:** `~/noixzy_generative_lab/`
 - **Your copy to actually use:** `~/Downloads/noixzy_generative_lab/`
 
-Open **`gallery/index.html`** to see them all as thumbnails and click into any one.
+Open **`home/home.html`** to see them all as thumbnails and click into any one.
 
 ---
 
@@ -93,7 +93,7 @@ once, and there's only one place to fix things. The two flagships (grid extrude,
 are hand-built because they're special. This is why the lab grew so fast without becoming a
 mess.
 
-A separate little script renders the **thumbnails** you see in the gallery.
+A separate little script renders the **thumbnails** you see in the home.
 
 ---
 
@@ -102,7 +102,7 @@ A separate little script renders the **thumbnails** you see in the gallery.
 - ✅ 11 working modules, all full-screen, all with the full control set.
 - ✅ 10 color palettes, pin/save/reset, PNG export.
 - ✅ extrude + displace on every module.
-- ✅ A visual gallery with real preview thumbnails.
+- ✅ A visual home with real preview thumbnails.
 - ✅ Proven pipeline into Blender (displacement, scatter, metaballs).
 - ✅ Handoff + task docs so another tool (or a fresh session) can keep building.
 

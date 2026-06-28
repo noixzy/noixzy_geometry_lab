@@ -11,7 +11,7 @@ All new modules follow the **new standalone pattern** (see CHATGPT_PROMPT.md "Ne
 - Theme system (12 PALETTES), color pickers + value sliders
 - `→ thumb` button, `ALL_MODULES` nav strip (22+ entries), prev/next navBar
 - `const PIECE = "module_id";`
-- After building: add entry to `gallery/index.html` pieces array AND to `ALL_MODULES` in every existing module file
+- After building: add entry to `home/home.html` pieces array AND to `ALL_MODULES` in every existing module file
 
 ---
 
@@ -122,10 +122,10 @@ All new modules follow the **new standalone pattern** (see CHATGPT_PROMPT.md "Ne
 
 1. Create folder: `module_id/`
 2. Create `module_id/noixzy_module_id.html`
-3. Add to `gallery/index.html` pieces array
+3. Add to `home/home.html` pieces array
 4. Add to `ALL_MODULES` in ALL 22 existing module HTML files (+ the new one)
 5. Add to `build_lab.js` ALL_MODULES array (if that's where the list lives)
-6. Capture thumbnail: open in Chrome, `→ thumb`, save to `gallery/thumbs/module_id.png`
+6. Capture thumbnail: open in Chrome, `→ thumb`, save to `home/thumbs/module_id.png`
 7. Browser verify: console clean, controls respond, pause/play, theme switch, save png
 
 ---

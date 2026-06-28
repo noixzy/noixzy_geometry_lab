@@ -51,7 +51,7 @@
     -webkit-backdrop-filter:blur(14px) saturate(1.15);
   }
 
-  .galleryMark {
+  .homeMark {
     display:block;
     width:auto;
     height:45px;
@@ -202,7 +202,7 @@
 </head>
 <body>
   <div class="navBar">
-    <a href="home.html" aria-label="home"><img class="galleryMark" src="gallery.svg" alt="home"></a>
+    <a href="home.html" aria-label="home"><img class="homeMark" src="home.svg" alt="home"></a>
   </div>
 
   <div class="thumbRailWrap">
@@ -225,8 +225,8 @@
 
   function thumbPath(module) {
     const id = module.id || (module.file || "").split("/")[0];
-    const raw = module.thumb || `gallery/thumbs/${id}.png`;
-    return raw.replace(/^gallery\//, "");
+    const raw = module.thumb || `home/thumbs/${id}.png`;
+    return raw.replace(/^home\//, "");
   }
 
   function shellHref(module) {

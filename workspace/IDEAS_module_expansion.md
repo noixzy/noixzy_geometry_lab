@@ -150,7 +150,7 @@ Sliders: tile set · arc radius · tube thickness · scale variation.
 **20. Stipple / Voronoi portrait**
 Relax points toward an image's tones → dotted portrait.
 Sliders: dot count · size range · relax iterations · invert.
-noixzy: run your own stills / the anchor through it. Restrained, gallery-feel.
+noixzy: run your own stills / the anchor through it. Restrained, home-feel.
 
 **21. Flow field on image gradient**
 Particles follow the *edges* of a dropped image → painterly rendering of your own frames.
@@ -216,7 +216,7 @@ noixzy: luxe iridescent gradients for release-art backdrops.
 
 # PART 2 — Make the existing 11 hit harder
 
-Most of these are *default-value* and small-feature changes, not rewrites. Goal: each module opens on something gallery-worthy.
+Most of these are *default-value* and small-feature changes, not rewrites. Goal: each module opens on something home-worthy.
 
 **grid_extrude** — drive per-cell height from a coherent noise field (not pure random) so you get readable ridges/canyons/dunes instead of static. Add emissive top edges, AO in the valleys, and a 3-preset triad (city / canyon / dune).
 
@@ -244,7 +244,7 @@ Most of these are *default-value* and small-feature changes, not rewrites. Goal:
 
 # PART 3 — The noixzy house look (shared finishing recipe)
 
-The fastest way to make all 11 (and every new module) feel like one authored set: a single, opinionated default-finishing pass. Right now defaults read "flat." Give the engine these *default* look values and the whole gallery levels up at once.
+The fastest way to make all 11 (and every new module) feel like one authored set: a single, opinionated default-finishing pass. Right now defaults read "flat." Give the engine these *default* look values and the whole home levels up at once.
 
 **Value structure (the big one):** every default should land on three values — a dark ground (~10–15% luminance), a mid field, and a small bright focal (~85–95%). Most flat-looking generative art is mid-grey soup; enforcing this one rule fixes 80% of it.
 

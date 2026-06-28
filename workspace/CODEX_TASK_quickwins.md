@@ -52,5 +52,5 @@ press `?` (overlay toggles). Reload, confirm clean console and no regressions.
 
 ## Out of scope
 
-Don't touch the Blender projects, gallery layout, or add modules/dependencies. Keep it
+Don't touch the Blender projects, home layout, or add modules/dependencies. Keep it
 self-contained (no build step beyond `node build_lab.js`); regenerate and mirror to Downloads.

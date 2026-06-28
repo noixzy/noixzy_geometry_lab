@@ -13,7 +13,7 @@ The previous restoration pass (unified_shell_functionality_restoration_20260627.
 
 - `unified_shell.html` — full read (756 lines, pre-bridge rollback state)
 - `modules.manifest.json` — full read (58 modules, fold listed as missing)
-- `gallery/index.html` — full read (card links, pieces array)
+- `home/home.html` — full read (card links, pieces array)
 - `workspace/agent_ops_20260627/unified_shell_functionality_restoration_20260627.md` — read
 - `workspace/agent_ops_20260627/unified_shell_module_builder_handoff_20260627.md` — read
 - `displacement/noixzy_displacement.html` — audited control IDs (Template C)
@@ -28,9 +28,9 @@ The previous restoration pass (unified_shell_functionality_restoration_20260627.
 
 | File | Change |
 |------|--------|
-| `unified_shell.html` | Full rewrite (756 → 873 lines): control strip CSS, prev/next buttons, all 15 bridge controls, search, keyboard nav, wrapping navRail, fold removed from galleryOrder |
-| `gallery/index.html` | Removed fold from pieces array; all card hrefs now route through `../unified_shell.html?module=${dir}` |
-| `modules.manifest.json` | fold: `enabledInShell: false`, `listedInGallery: false`, `status: "archived"`; summary counts updated; discrepancies updated |
+| `unified_shell.html` | Full rewrite (756 → 873 lines): control strip CSS, prev/next buttons, all 15 bridge controls, search, keyboard nav, wrapping navRail, fold removed from homeOrder |
+| `home/home.html` | Removed fold from pieces array; all card hrefs now route through `../unified_shell.html?module=${dir}` |
+| `modules.manifest.json` | fold: `enabledInShell: false`, `listedInHome: false`, `status: "archived"`; summary counts updated; discrepancies updated |
 
 No other files touched. build_lab.js not modified.
 
@@ -53,7 +53,7 @@ No other files touched. build_lab.js not modified.
 
 ---
 
-## 2. Gallery Routing
+## 2. Home Routing
 
 ### Before
 ```js
@@ -67,7 +67,7 @@ Only `grid_extrude` routed through the shell. All other modules linked directly 
 ```js
 a.href = `../unified_shell.html?module=${dir}`;
 ```
-All gallery cards now route through `../unified_shell.html?module=${dir}`. Gallery layout, thumbnails, search, and card structure are unchanged.
+All home cards now route through `../unified_shell.html?module=${dir}`. Home layout, thumbnails, search, and card structure are unchanged.
 
 ---
 
@@ -170,21 +170,21 @@ Generated modules (`flow_field`, etc.) have `<title>noixzy // <name></title>` as
 
 ### Before
 - `enabledInShellCount: 57` (included broken fold)
-- `listedInGalleryCount: 57` (included broken fold)
+- `listedInHomeCount: 57` (included broken fold)
 - `missingFiles: ["fold"]` (acknowledged but fold still enabled)
 
 ### After
 - `enabledInShellCount: 56`
-- `listedInGalleryCount: 56`
+- `listedInHomeCount: 56`
 - `missingFiles: []`
 - `archived: ["fold"]`
-- fold entry: `enabledInShell: false`, `listedInGallery: false`, `status: "archived"`, reason field added
+- fold entry: `enabledInShell: false`, `listedInHome: false`, `status: "archived"`, reason field added
 
 ### Verification
 ```
 total modules    : 58
 enabled in shell : 56
-listed in gallery: 56
+listed in home: 56
 missing files    : []
 archived         : [ 'fold' ]
 summary.enabled  : 56
@@ -215,9 +215,9 @@ Browser testing requires a local server or `file://` direct open. Based on code 
 - ← / → arrows do the same
 - URL updates to `?module=<id>` on each navigation
 - Rail highlight updates (aria-selected, scroll-into-view)
-- gallery/index.html cards all link to `../unified_shell.html?module=<id>`
-- gallery search still works (unchanged)
-- fold card removed from gallery
+- home/home.html cards all link to `../unified_shell.html?module=<id>`
+- home search still works (unchanged)
+- fold card removed from home
 
 Not browser-verified in this pass (no headless runner available). Structural/logic verification complete via code review.
 
@@ -229,13 +229,13 @@ Not browser-verified in this pass (no headless runner available). Structural/log
 2. **pause for hand-authored**: No `pause` button in Template C or hand-authored modules. Shows "not supported" status — this is honest, not broken.
 3. **btntransparentBg for hand-authored**: Same — not present, shows status.
 4. **Standalone module opening**: Modules opened directly (not through shell) don't have a back-to-shell nav link. Deferred.
-5. **fold thumb still in gallery/thumbs/**: `gallery/thumbs/fold.png` may or may not exist. Since fold is no longer listed in gallery or enabled in shell, it is harmless.
+5. **fold thumb still in home/thumbs/**: `home/thumbs/fold.png` may or may not exist. Since fold is no longer listed in home or enabled in shell, it is harmless.
 
 ---
 
 ## Recommended Next Pass
 
-1. Browser smoke-test: open shell in browser, verify prev/next, verify gallery routing, verify 5+ hand-authored module bridge controls.
+1. Browser smoke-test: open shell in browser, verify prev/next, verify home routing, verify 5+ hand-authored module bridge controls.
 2. Add back-to-shell nav link to standalone module opens (small injection into module template via build_lab.js).
 3. Evaluate upgrading Template C hand-authored modules (gyroid, mandelbulb, displacement, sdf_raymarch, lissajous_mesh) to Template A to gain pause/bg support.
 4. Consider restoring fold from `_archive/fold` if the module is wanted back in rotation.

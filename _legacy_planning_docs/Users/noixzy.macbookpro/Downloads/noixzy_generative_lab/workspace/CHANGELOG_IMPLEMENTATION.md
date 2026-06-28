@@ -30,7 +30,7 @@ Status: approved.
 
 Changed:
 - `grid_extrude/noixzy_grid_extrude.html`
-- `gallery/thumbs/grid_extrude.png`
+- `home/thumbs/grid_extrude.png`
 
 Approved default values:
 - depth: `0.88`
@@ -45,7 +45,7 @@ Approved default values:
 
 Thumbnail workflow:
 - Browser saves/downloads stay in Downloads.
-- Terminal copies the approved image into `gallery/thumbs/grid_extrude.png`.
+- Terminal copies the approved image into `home/thumbs/grid_extrude.png`.
 - No browser download-setting changes.
 
 ---
@@ -87,10 +87,10 @@ Default target:
   - cylinder
   - pyramid
   - flat plane
-- Confirmed branch loads from gallery.
+- Confirmed branch loads from home.
 - Confirmed primitive selector is a dropdown, not a slider.
 - Confirmed pyramid and flat plane are working.
-- Current thumbnail exists at `gallery/thumbs/displacement_primitives.png`.
+- Current thumbnail exists at `home/thumbs/displacement_primitives.png`.
 - Status: approved / stable enough to continue Phase 2 order.
 
 Next: resume Claude Phase 2 order with `mandelbulb`.

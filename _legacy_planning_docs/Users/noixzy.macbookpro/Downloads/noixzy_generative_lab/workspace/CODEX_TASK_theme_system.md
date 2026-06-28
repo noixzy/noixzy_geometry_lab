@@ -93,6 +93,6 @@ Check the console is clean.
 
 ## Out of scope
 
-Don't touch the volumetric-extrude work, the Blender projects, or the gallery layout. Don't add
+Don't touch the volumetric-extrude work, the Blender projects, or the home layout. Don't add
 new modules or new dependencies. Keep everything self-contained (no build step beyond
 `node build_lab.js`). Author credit in any new file headers: **Chris Tucker** only.

@@ -22,11 +22,11 @@ Severity ratings:
 - `GPT_HANDOFF_2026_06_25.md`: "23 total" (after 4 new standalones + metafluid)
 - `SESSION_BRIDGE.md` (2026-06-25): "22 modules total"
 - `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md`: "48 modules registered in modules.manifest.json"
-- `NGL_PLAN_06062026.md`: "47 gallery-listed live modules: 12 hand-authored and 35 generated"
+- `NGL_PLAN_06062026.md`: "47 home-listed live modules: 12 hand-authored and 35 generated"
 - `unified_shell_functionality_restoration_20260627.md`: "58 in manifest, 57 enabled"
 
 **Severity:** 🟡 Confusing — counts differ because they were written at different points
-in time, and because "modules" means different things (gallery-listed, manifest-registered,
+in time, and because "modules" means different things (home-listed, manifest-registered,
 or including escrow candidates).
 
 **Resolution:** The authoritative current count is the `modules.manifest.json` file itself.
@@ -148,16 +148,16 @@ Until then, agents should understand that "extrude" in 2D canvas modules = depth
 
 ---
 
-### C-04 — Whether `sdf` module is gallery-listed
+### C-04 — Whether `sdf` module is home-listed
 **Conflict:**
-- `NGL_PLAN_06062026.md` (audit): "`sdf` exists as generated but is not gallery-listed"
+- `NGL_PLAN_06062026.md` (audit): "`sdf` exists as generated but is not home-listed"
 - `CHATGPT_BRIEF.md`: includes `sdf` in the per-piece params table; implies it is live
-- `HANDOFF.md`: lists `sdf` as one of the 11 modules; includes it in the gallery order
+- `HANDOFF.md`: lists `sdf` as one of the 11 modules; includes it in the home order
 
-**Severity:** 🟡 Confusing — `sdf` exists as a generated module but the gallery listing
+**Severity:** 🟡 Confusing — `sdf` exists as a generated module but the home listing
 may have been dropped at some point.
 
-**Resolution:** Verify in `gallery/index.html`. If `sdf` is missing, add it. The `sdf`
+**Resolution:** Verify in `home/home.html`. If `sdf` is missing, add it. The `sdf`
 module folder exists (`sdf/noixzy_sdf.html`) and the generator produces it.
 
 ---
@@ -233,10 +233,10 @@ and `NGL_TOTAL_AUDIT_20260627.md` for current state, not rely on `CHATGPT_PROMPT
 
 ## 4. Unresolved Decisions
 
-### U-01 — Whether `sdf` should be gallery-visible
+### U-01 — Whether `sdf` should be home-visible
 **Conflict:** `NGL_PLAN_06062026.md` identifies this as "a concrete metadata drift risk."
 No decision has been documented.
-**Action needed:** Decide: add `sdf` to `gallery/index.html` or mark it as internal-only.
+**Action needed:** Decide: add `sdf` to `home/home.html` or mark it as internal-only.
 
 ---
 
@@ -273,8 +273,8 @@ template IDs but defers this to a future pass.
 
 ---
 
-### U-06 — Gallery metadata consolidation (three sources of truth)
-**Conflict:** Gallery metadata exists in three places: `gallery/index.html`, `build_lab.js`
+### U-06 — Home metadata consolidation (three sources of truth)
+**Conflict:** Home metadata exists in three places: `home/home.html`, `build_lab.js`
 PIECES array, and `modules.manifest.json`. They are already drifting (`sdf` mismatch).
 `NGL_PLAN_06062026.md` recommends consolidating to one manifest consumed by all three.
 **Action needed:** Define the single source of truth and migration plan.

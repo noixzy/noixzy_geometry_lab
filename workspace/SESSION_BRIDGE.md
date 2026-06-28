@@ -62,14 +62,14 @@ const ALL_MODULES=[
   - `lissajous_mesh`: same `P.depth` approach — z-scale + y-offset per curve
   - `torus_knot`: WEBGL GLSL SDF, color pickers wired to existing `cs` uniforms, camera orbit drag/scroll
 - ✅ **Stray `}catch(e){_captureThumb()...}` syntax error** removed from all 5 GLSL flagships: `gyroid`, `sdf_raymarch`, `displacement`, `displacement_primitives`, `mandelbulb`. This bug silently killed their entire script — nothing rendered, thumb didn't work.
-- ✅ **Gallery + build_lab.js** updated with all 22 module entries
+- ✅ **Home + build_lab.js** updated with all 22 module entries
 - ✅ `mix()` crash fixed in `hex_grid` and `rose_curve` (GLSL built-in not available in p5.js 2D)
 - ✅ `torus_knot` shader performance reduced ~3× (64 closest-point steps, tetrahedral normals, 2 AO samples, 60 march steps, `pixelDensity(1)`)
 
 ### Known issues / still pending
 
 - ⏳ **`displacement_primitives`** — still missing: audio, pin/fav, `→ thumb` button. Has nav + camera orbit + theme. Priority task.
-- ⏳ **Gallery thumbnails** for 4 new modules — need manual browser capture: open each, click `→ thumb`, pick `gallery/thumbs/` folder.
+- ⏳ **Home thumbnails** for 4 new modules — need manual browser capture: open each, click `→ thumb`, pick `home/thumbs/` folder.
 - ⏳ **Pin/fav + dbl-click reset** not yet on the 4 new modules (hex_grid, rose_curve, lissajous_mesh, torus_knot).
 - ⏳ **Audio reactivity** not yet on the 4 new modules.
 - ⏳ **New flagship modules** — not yet started (see `NEXT_MODULES.md`).
@@ -93,7 +93,7 @@ const ALL_MODULES=[
 
 ### 2026-06-25 (continued)
 - **flow_field density** — slider was capped at max:0.20 but render mapped 0→1; fixed to full 0→1 range, raised ceiling to 6000 strands
-- **navBar gallery link** — generated modules showed module title as center link text; changed to "⊞ gallery" matching hand-authored modules. Also removed `pointer-events:none` so the link is clickable.
+- **navBar home link** — generated modules showed module title as center link text; changed to "⊞ home" matching hand-authored modules. Also removed `pointer-events:none` so the link is clickable.
 - **`_edgeMask(out,G)` engine helper** — added to build_lab.js, applied at every `heightField()` return point in all 12 generated modules. Heights fade to 0 within 15% of each edge (smoothstep 0.15→0.30), inner ~70% extrudes at full strength. Borders stay flat.
 - **Modules opening from page bottom** — root cause: generated modules used `el.scrollIntoView({block:"nearest"})` in `buildNav()`, which scrolled the panel vertically to show the thumb strip. Fixed by switching to `strip.scrollLeft` horizontal-only offset (matching hand-authored modules).
 - **`→ thumb` click listener missing** — gyroid, displacement, mandelbulb, fold all had the button in HTML and `saveThumb()` defined but no `addEventListener`. Added to all four.
@@ -110,7 +110,7 @@ const ALL_MODULES=[
 - Fixed mix() undefined crash in hex_grid and rose_curve
 - Added → thumb button to all 4 new modules
 - Reduced torus_knot shader cost ~3×
-- Updated ALL_MODULES (22 entries) across all modules + build_lab.js + gallery
+- Updated ALL_MODULES (22 entries) across all modules + build_lab.js + home
 
 ### 2026-06-23
 - Prior session — see older entries if needed

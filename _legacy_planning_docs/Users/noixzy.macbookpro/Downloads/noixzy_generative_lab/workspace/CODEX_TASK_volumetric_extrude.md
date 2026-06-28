@@ -84,7 +84,7 @@ offset copies. At extrude = 0 it must look exactly like today (flat).
 - displace, symmetry, palette (all 10), material, look, motion, pins, reset, save png still work.
 - No console errors. Controls bound (test: clicking "new seed" changes the on-canvas seed).
 - `node build_lab.js` regenerates cleanly; changed files copied to `~/Downloads/...`.
-- Refresh gallery thumbnails afterward: `node contact_sheet.js` (optional but nice).
+- Refresh home thumbnails afterward: `node contact_sheet.js` (optional but nice).
 
 ## How to verify
 
@@ -94,5 +94,5 @@ Check the console is clean and "new seed" / sliders respond.
 
 ## Out of scope
 
-Don't touch grid_extrude, sdf_raymarch, the gallery layout, or the Blender projects.
+Don't touch grid_extrude, sdf_raymarch, the home layout, or the Blender projects.
 Keep everything self-contained (no build step beyond `node build_lab.js`, no new deps).

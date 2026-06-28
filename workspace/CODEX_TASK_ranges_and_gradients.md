@@ -82,7 +82,7 @@ and pinned looks are unchanged.
 
 ## Out of scope
 
-Don't touch the Blender projects or gallery layout, don't add modules or new dependencies, keep it
+Don't touch the Blender projects or home layout, don't add modules or new dependencies, keep it
 self-contained (no build step beyond `node build_lab.js`).
 
 ---
@@ -149,6 +149,6 @@ and confirm the default frame is unchanged.
 ## Out of scope
 
 Don't change defaults, add params, add modules, or touch the volumetric-extrude / theme tasks,
-the Blender projects, or the gallery. Keep it self-contained (no build step beyond
+the Blender projects, or the home. Keep it self-contained (no build step beyond
 `node build_lab.js`). File-header author credit, if any: **Chris Tucker** only.
 

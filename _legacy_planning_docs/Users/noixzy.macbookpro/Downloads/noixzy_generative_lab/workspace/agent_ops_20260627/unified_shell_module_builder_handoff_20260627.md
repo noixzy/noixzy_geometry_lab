@@ -4,10 +4,10 @@
 
 - Repository root: `/Users/noixzy.macbookpro/Downloads/noixzy_generative_lab`
 - Unified Shell entry: `unified_shell.html`
-- Unified Shell loads modules from `modules.manifest.json` and uses `galleryOrder` inside `unified_shell.html` for visible ordering.
+- Unified Shell loads modules from `modules.manifest.json` and uses `homeOrder` inside `unified_shell.html` for visible ordering.
 - Generated modules are authored in `build_lab.js` and emitted as one HTML file per module directory by running `node build_lab.js`.
-- Gallery entries are maintained in `gallery/index.html`.
-- Thumbnail assets live in `gallery/thumbs/`.
+- Home entries are maintained in `home/home.html`.
+- Thumbnail assets live in `home/thumbs/`.
 - Do not work on `workspace/module_escrow_20260627` for Unified Shell continuation.
 - Do not redesign the Unified Shell chrome; this pass only added modules and integration references.
 
@@ -75,7 +75,7 @@
 
 ## Modules Partially Completed
 
-- None in this pass. All ten modules were generated, integrated into the shell, listed in gallery data, added to manifest, thumbnailed, and smoke-tested.
+- None in this pass. All ten modules were generated, integrated into the shell, listed in home data, added to manifest, thumbnailed, and smoke-tested.
 
 ## Files Created
 
@@ -89,16 +89,16 @@
 - `phyllotaxis_stack/noixzy_phyllotaxis_stack.html`
 - `origami_fold_field/noixzy_origami_fold_field.html`
 - `woven_lattice_relief/noixzy_woven_lattice_relief.html`
-- `gallery/thumbs/hyperbolic_tiling.png`
-- `gallery/thumbs/voronoi_tower_field.png`
-- `gallery/thumbs/catenary_web.png`
-- `gallery/thumbs/reaction_terraces.png`
-- `gallery/thumbs/quasicrystal_relief.png`
-- `gallery/thumbs/agent_swarm_relief.png`
-- `gallery/thumbs/tensegrity_nodes.png`
-- `gallery/thumbs/phyllotaxis_stack.png`
-- `gallery/thumbs/origami_fold_field.png`
-- `gallery/thumbs/woven_lattice_relief.png`
+- `home/thumbs/hyperbolic_tiling.png`
+- `home/thumbs/voronoi_tower_field.png`
+- `home/thumbs/catenary_web.png`
+- `home/thumbs/reaction_terraces.png`
+- `home/thumbs/quasicrystal_relief.png`
+- `home/thumbs/agent_swarm_relief.png`
+- `home/thumbs/tensegrity_nodes.png`
+- `home/thumbs/phyllotaxis_stack.png`
+- `home/thumbs/origami_fold_field.png`
+- `home/thumbs/woven_lattice_relief.png`
 - `workspace/agent_ops_20260627/unified_shell_module_builder_handoff_20260627.md`
 
 ## Files Modified
@@ -109,10 +109,10 @@
   - Running `node build_lab.js` regenerated generated-module HTML outputs.
 
 - `unified_shell.html`
-  - Added the ten new module ids to `galleryOrder` before `flow_field`.
+  - Added the ten new module ids to `homeOrder` before `flow_field`.
 
-- `gallery/index.html`
-  - Added ten gallery entries with title, description, and category strings.
+- `home/home.html`
+  - Added ten home entries with title, description, and category strings.
 
 - `modules.manifest.json`
   - Added ten generated module entries.
@@ -183,15 +183,15 @@ Known nonfatal smoke-test note:
 ## Integration Notes
 
 - New modules are enabled in shell through `modules.manifest.json` with `enabledInShell: true`.
-- New module ordering is controlled by the added ids in `unified_shell.html` `galleryOrder`.
-- New thumbnails were captured by Playwright at `1280x720` and saved directly to `gallery/thumbs/`.
+- New module ordering is controlled by the added ids in `unified_shell.html` `homeOrder`.
+- New thumbnails were captured by Playwright at `1280x720` and saved directly to `home/thumbs/`.
 - Do not add a `form` UI group to generated modules; current generated convention uses `system`, `extrude`, `material`, `frame`, `look`, and `motion`.
 - Continue adding modules through `build_lab.js` unless intentionally creating a hand-authored module.
 
 ## Pending TODO Items
 
 - Fix or intentionally retire the stale `fold/noixzy_fold.html` manifest entry.
-- Consider a later pass to regenerate all gallery thumbnails for visual consistency.
+- Consider a later pass to regenerate all home thumbnails for visual consistency.
 - Add a lightweight automated smoke script to the repo if the user wants repeatable module validation.
 - Continue adding production-ready generated modules in batches, avoiding concepts already covered by the current list.
 
@@ -201,17 +201,17 @@ Known nonfatal smoke-test note:
 2. Add the next batch of generated modules to `build_lab.js`.
 3. Run `node --check build_lab.js`.
 4. Run `node build_lab.js`.
-5. Add module ids to `unified_shell.html` `galleryOrder`.
-6. Add gallery records to `gallery/index.html`.
+5. Add module ids to `unified_shell.html` `homeOrder`.
+6. Add home records to `home/home.html`.
 7. Add manifest records to `modules.manifest.json`.
 8. Start a local server and browser-smoke every new module for nonblank canvas output.
-9. Capture thumbnails into `gallery/thumbs/`.
+9. Capture thumbnails into `home/thumbs/`.
 10. Update this handoff or create the next dated agent handoff.
 
 ## Suggested Next Steps For Copilot
 
 - Make a compact manifest maintenance patch for the stale `fold` entry.
-- Add a small validation script that checks module files, thumbs, shell ordering, and gallery coverage.
+- Add a small validation script that checks module files, thumbs, shell ordering, and home coverage.
 - Keep future generated modules inside `build_lab.js` and avoid direct patching of generated HTML unless debugging a one-off issue.
 
 ## Suggested Next Steps For Claude
@@ -231,28 +231,28 @@ Known nonfatal smoke-test note:
 
 - Safe to continue adding generated modules immediately after the `woven_lattice_relief` `PIECES` definition in `build_lab.js`.
 - Safe to append future shell ids near the new ten ids in `unified_shell.html`.
-- Safe to append future gallery entries near the new ten entries in `gallery/index.html`.
+- Safe to append future home entries near the new ten entries in `home/home.html`.
 - Safe to add future manifest entries following the schema used for these ten modules.
 
 ## Git Status Snapshot For This Pass
 
 ```text
  M build_lab.js
- M gallery/index.html
+ M home/home.html
  M modules.manifest.json
  M unified_shell.html
 ?? agent_swarm_relief/
 ?? catenary_web/
-?? gallery/thumbs/agent_swarm_relief.png
-?? gallery/thumbs/catenary_web.png
-?? gallery/thumbs/hyperbolic_tiling.png
-?? gallery/thumbs/quasicrystal_relief.png
-?? gallery/thumbs/reaction_terraces.png
-?? gallery/thumbs/origami_fold_field.png
-?? gallery/thumbs/phyllotaxis_stack.png
-?? gallery/thumbs/tensegrity_nodes.png
-?? gallery/thumbs/voronoi_tower_field.png
-?? gallery/thumbs/woven_lattice_relief.png
+?? home/thumbs/agent_swarm_relief.png
+?? home/thumbs/catenary_web.png
+?? home/thumbs/hyperbolic_tiling.png
+?? home/thumbs/quasicrystal_relief.png
+?? home/thumbs/reaction_terraces.png
+?? home/thumbs/origami_fold_field.png
+?? home/thumbs/phyllotaxis_stack.png
+?? home/thumbs/tensegrity_nodes.png
+?? home/thumbs/voronoi_tower_field.png
+?? home/thumbs/woven_lattice_relief.png
 ?? hyperbolic_tiling/
 ?? origami_fold_field/
 ?? phyllotaxis_stack/

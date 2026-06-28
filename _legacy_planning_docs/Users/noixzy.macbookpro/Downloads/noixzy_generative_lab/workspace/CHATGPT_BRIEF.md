@@ -30,7 +30,7 @@ fold/noixzy_fold.html                       ← Sierpinski IFS, kaleidoscopic fo
 
 These are hand-authored WebGL/p5.js modules. New engine features added to `build_lab.js` do not automatically apply here — port manually as needed.
 
-**Archived (not in gallery):**
+**Archived (not in home):**
 ```
 _archive/sdf/   ← original SDF piece, archived due to rendering issues
 ```
@@ -91,11 +91,11 @@ All five SDF/raymarch modules share the same pattern:
 
 ---
 
-## Gallery
+## Home
 
-`gallery/index.html` — a grid of 15 cards with thumbnails. All thumbnails exist in `gallery/thumbs/`. Opens directly in browser.
+`home/home.html` — a grid of 15 cards with thumbnails. All thumbnails exist in `home/thumbs/`. Opens directly in browser.
 
-Current order in gallery:
+Current order in home:
 1. grid_extrude ★
 2. sdf_raymarch
 3. gyroid
@@ -157,7 +157,7 @@ Full plan in `workspace/CAMERA_CONTROLS_PLAN.md`. Summary:
 - Add `u_dist` (orbit radius) and `u_elev` (elevation angle) uniforms to each
 - Add sliders to panel HTML, wire `setUniform` calls in JS
 
-**Do not touch:** grid_extrude (already complete), gallery, thumbnails, metallic/sheen params (separate pass).
+**Do not touch:** grid_extrude (already complete), home, thumbnails, metallic/sheen params (separate pass).
 
 ---
 

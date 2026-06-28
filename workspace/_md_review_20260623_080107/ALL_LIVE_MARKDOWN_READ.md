@@ -115,10 +115,10 @@ geometry (paths, not a rasterized image).
 ## TASK 6 — Strong default looks (taste pass, do LAST)
 **Goal:** each module should open on a striking composition, not a flat default.
 **Approach:** for every module, tune the default param values (system + material/depth/look/
-motion) so the first frame is gallery-worthy — good negative space, palette, a touch of glow/
+motion) so the first frame is home-worthy — good negative space, palette, a touch of glow/
 grain, sensible extrude where it helps. Update defaults in `build_lab.js` (and the two
 flagships). Regenerate. Refresh thumbnails: `node contact_sheet.js`.
-**Acceptance:** opening each module cold looks intentional; the gallery thumbnails reflect the
+**Acceptance:** opening each module cold looks intentional; the home thumbnails reflect the
 new defaults.
 
 ---
@@ -295,7 +295,7 @@ press `?` (overlay toggles). Reload, confirm clean console and no regressions.
 
 ## Out of scope
 
-Don't touch the Blender projects, gallery layout, or add modules/dependencies. Keep it
+Don't touch the Blender projects, home layout, or add modules/dependencies. Keep it
 self-contained (no build step beyond `node build_lab.js`); regenerate and mirror to Downloads.
 
 
@@ -387,7 +387,7 @@ and pinned looks are unchanged.
 
 ## Out of scope
 
-Don't touch the Blender projects or gallery layout, don't add modules or new dependencies, keep it
+Don't touch the Blender projects or home layout, don't add modules or new dependencies, keep it
 self-contained (no build step beyond `node build_lab.js`).
 
 ---
@@ -454,7 +454,7 @@ and confirm the default frame is unchanged.
 ## Out of scope
 
 Don't change defaults, add params, add modules, or touch the volumetric-extrude / theme tasks,
-the Blender projects, or the gallery. Keep it self-contained (no build step beyond
+the Blender projects, or the home. Keep it self-contained (no build step beyond
 `node build_lab.js`). File-header author credit, if any: **Chris Tucker** only.
 
 
@@ -558,7 +558,7 @@ Check the console is clean.
 
 ## Out of scope
 
-Don't touch the volumetric-extrude work, the Blender projects, or the gallery layout. Don't add
+Don't touch the volumetric-extrude work, the Blender projects, or the home layout. Don't add
 new modules or new dependencies. Keep everything self-contained (no build step beyond
 `node build_lab.js`). Author credit in any new file headers: **Chris Tucker** only.
 
@@ -653,7 +653,7 @@ offset copies. At extrude = 0 it must look exactly like today (flat).
 - displace, symmetry, palette (all 10), material, look, motion, pins, reset, save png still work.
 - No console errors. Controls bound (test: clicking "new seed" changes the on-canvas seed).
 - `node build_lab.js` regenerates cleanly; changed files copied to `~/Downloads/...`.
-- Refresh gallery thumbnails afterward: `node contact_sheet.js` (optional but nice).
+- Refresh home thumbnails afterward: `node contact_sheet.js` (optional but nice).
 
 ## How to verify
 
@@ -663,7 +663,7 @@ Check the console is clean and "new seed" / sliders respond.
 
 ## Out of scope
 
-Don't touch grid_extrude, sdf_raymarch, the gallery layout, or the Blender projects.
+Don't touch grid_extrude, sdf_raymarch, the home layout, or the Blender projects.
 Keep everything self-contained (no build step beyond `node build_lab.js`, no new deps).
 
 
@@ -742,10 +742,10 @@ double-click (p5.js / WebGL from CDN — needs internet for the CDN).
 |---|---|
 | `~/noixzy_generative_lab/` | **source of truth** (working copy) |
 | `~/Downloads/noixzy_generative_lab/` | your open/use copy (kept in sync) |
-| `<lab>/gallery/index.html` | visual index — thumbnails of every module, click to open |
-| `<lab>/gallery/thumbs/*.png` | generated preview thumbnails |
+| `<lab>/home/home.html` | visual index — thumbnails of every module, click to open |
+| `<lab>/home/thumbs/*.png` | generated preview thumbnails |
 | `<lab>/build_lab.js` | **generator** for the 9 engine modules (edit here, not the HTML) |
-| `<lab>/contact_sheet.js` | renders `contact_sheet.png` + the gallery thumbnails |
+| `<lab>/contact_sheet.js` | renders `contact_sheet.png` + the home thumbnails |
 | `~/Documents/__Blender 5.1 Projects/PROJ_LabToBlend_v01.blend` | lab→3D demo (displace + scatter) |
 | `~/Documents/__Blender 5.1 Projects/PROJ_SDFForm_v01.blend` | SDF form as Blender metaballs |
 
@@ -967,7 +967,7 @@ Sliders: tile set · arc radius · tube thickness · scale variation.
 **20. Stipple / Voronoi portrait**
 Relax points toward an image's tones → dotted portrait.
 Sliders: dot count · size range · relax iterations · invert.
-noixzy: run your own stills / the anchor through it. Restrained, gallery-feel.
+noixzy: run your own stills / the anchor through it. Restrained, home-feel.
 
 **21. Flow field on image gradient**
 Particles follow the *edges* of a dropped image → painterly rendering of your own frames.
@@ -1033,7 +1033,7 @@ noixzy: luxe iridescent gradients for release-art backdrops.
 
 # PART 2 — Make the existing 11 hit harder
 
-Most of these are *default-value* and small-feature changes, not rewrites. Goal: each module opens on something gallery-worthy.
+Most of these are *default-value* and small-feature changes, not rewrites. Goal: each module opens on something home-worthy.
 
 **grid_extrude** — drive per-cell height from a coherent noise field (not pure random) so you get readable ridges/canyons/dunes instead of static. Add emissive top edges, AO in the valleys, and a 3-preset triad (city / canyon / dune).
 
@@ -1061,7 +1061,7 @@ Most of these are *default-value* and small-feature changes, not rewrites. Goal:
 
 # PART 3 — The noixzy house look (shared finishing recipe)
 
-The fastest way to make all 11 (and every new module) feel like one authored set: a single, opinionated default-finishing pass. Right now defaults read "flat." Give the engine these *default* look values and the whole gallery levels up at once.
+The fastest way to make all 11 (and every new module) feel like one authored set: a single, opinionated default-finishing pass. Right now defaults read "flat." Give the engine these *default* look values and the whole home levels up at once.
 
 **Value structure (the big one):** every default should land on three values — a dark ground (~10–15% luminance), a mid field, and a small bright focal (~85–95%). Most flat-looking generative art is mid-grey soup; enforcing this one rule fixes 80% of it.
 
@@ -1198,7 +1198,7 @@ Everything lives in two places:
 - **The working copy:** `~/noixzy_generative_lab/`
 - **Your copy to actually use:** `~/Downloads/noixzy_generative_lab/`
 
-Open **`gallery/index.html`** to see them all as thumbnails and click into any one.
+Open **`home/home.html`** to see them all as thumbnails and click into any one.
 
 ---
 
@@ -1271,7 +1271,7 @@ once, and there's only one place to fix things. The two flagships (grid extrude,
 are hand-built because they're special. This is why the lab grew so fast without becoming a
 mess.
 
-A separate little script renders the **thumbnails** you see in the gallery.
+A separate little script renders the **thumbnails** you see in the home.
 
 ---
 
@@ -1280,7 +1280,7 @@ A separate little script renders the **thumbnails** you see in the gallery.
 - ✅ 11 working modules, all full-screen, all with the full control set.
 - ✅ 10 color palettes, pin/save/reset, PNG export.
 - ✅ extrude + displace on every module.
-- ✅ A visual gallery with real preview thumbnails.
+- ✅ A visual home with real preview thumbnails.
 - ✅ Proven pipeline into Blender (displacement, scatter, metaballs).
 - ✅ Handoff + task docs so another tool (or a fresh session) can keep building.
 
@@ -1459,7 +1459,7 @@ A **rolling continuity log + current focus**, separate from the static project d
 
 - Source of truth: `~/noixzy_generative_lab/`
 - Use copy (mirror): `~/Downloads/noixzy_generative_lab/`
-- Gallery: `<lab>/gallery/index.html` · thumbs: `<lab>/gallery/thumbs/*.png`
+- Home: `<lab>/home/home.html` · thumbs: `<lab>/home/thumbs/*.png`
 - Generator: `<lab>/build_lab.js` · thumbnails: `<lab>/contact_sheet.js`
 - Blender finals → SSD: `/Volumes/noixzy T5 EVO SSD/ASSET LIBRARY/______newDemo Renders`
 

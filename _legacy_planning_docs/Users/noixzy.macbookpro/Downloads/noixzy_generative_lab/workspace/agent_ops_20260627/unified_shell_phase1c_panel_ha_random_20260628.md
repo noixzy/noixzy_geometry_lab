@@ -227,7 +227,7 @@ Manual browser testing required. Based on code review:
 - `grid_extrude` — Template B, injection applies
 
 **Prev/next navigation:** unchanged, still wraps
-**Gallery routing:** unchanged, still routes through shell
+**Home routing:** unchanged, still routes through shell
 **Bridge controls:** unchanged for Template A, improved for HA
 
 ---

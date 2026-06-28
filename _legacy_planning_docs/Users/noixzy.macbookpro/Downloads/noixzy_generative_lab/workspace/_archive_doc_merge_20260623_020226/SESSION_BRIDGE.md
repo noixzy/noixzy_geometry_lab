@@ -39,7 +39,7 @@ A **rolling continuity log + current focus**, separate from the static project d
 
 - Source of truth: `~/noixzy_generative_lab/`
 - Use copy (mirror): `~/Downloads/noixzy_generative_lab/`
-- Gallery: `<lab>/gallery/index.html` · thumbs: `<lab>/gallery/thumbs/*.png`
+- Home: `<lab>/home/home.html` · thumbs: `<lab>/home/thumbs/*.png`
 - Generator: `<lab>/build_lab.js` · thumbnails: `<lab>/contact_sheet.js`
 - Blender finals → SSD: `/Volumes/noixzy T5 EVO SSD/ASSET LIBRARY/______newDemo Renders`
 

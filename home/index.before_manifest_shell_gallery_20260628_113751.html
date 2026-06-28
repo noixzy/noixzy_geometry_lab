@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noixzy // generative lab</title>
+<style>
+  :root { --bg:#0e0e10; --panel:#1a1a1d; --ink:#e8e8ea; --accent:#b7ff2a; --dim:#7a7a7e; }
+  html,body { margin:0; background:var(--bg); color:var(--ink);
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  header { padding:28px 28px 10px; }
+  h1 { margin:0; font-size:15px; letter-spacing:.16em; text-transform:lowercase; color:var(--accent); }
+  .sub { color:var(--dim); margin-top:6px; max-width:620px; }
+  .searchWrap { padding:14px 28px 0; max-width:460px; }
+  #homeSearch { width:100%; box-sizing:border-box; background:#050506; color:var(--ink);
+    border:1px solid #2a2a2e; border-radius:8px; padding:10px 12px;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; outline:none; }
+  #homeSearch:focus { border-color:var(--accent); }
+  #homeSearch::placeholder { color:var(--dim); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:14px; padding:18px 28px 40px; }
+  a.card { display:block; text-decoration:none; color:var(--ink);
+    background:var(--panel); border:1px solid #222; border-radius:8px; overflow:hidden; }
+  a.card:hover { border-color:#ffffff; }
+  .thumb { aspect-ratio:1/1; background:#000; position:relative; overflow:hidden; }
+  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .meta { padding:11px 13px; }
+  .name { color:var(--accent); text-transform:lowercase; letter-spacing:.06em; }
+  .desc { color:var(--dim); margin-top:4px; font-size:12px; }
+  .tag { display:inline-block; margin-top:8px; padding:2px 7px; border:1px solid #333;
+    border-radius:3px; color:var(--dim); font-size:11px; }
+  .badge { position:absolute; top:8px; right:8px; padding:2px 6px;
+    border-radius:3px; font-size:10px; letter-spacing:.07em; line-height:1.4; }
+  .badge-h { background:transparent; border:1px solid rgba(255,255,255,.65);
+    color:#b7ff2a; }
+  .badge-e { background:rgba(183,255,42,.14); border:1px solid #b7ff2a;
+    color:#fff; }
+  /* NOIXZY_CENTER_GALLERY */
+  body {
+    text-align:center;
+  }
+  header {
+    max-width:960px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .sub {
+    margin:6px auto 0;
+  }
+  .searchWrap {
+    margin:0 auto;
+  }
+  .grid {
+    max-width:1480px;
+    margin:0 auto;
+    justify-content:center;
+  }
+  a.card {
+    text-align:left;
+  }
+
+  /* NOIXZY_HEADER_1500X50 */
+  .navBar {
+    position: fixed !important;
+    top: 12px !important;
+    left: 50% !important;
+    width: min(1500px, calc(100vw - 32px)) !important;
+    height: 50px !important;
+    transform: translateX(-50%) !important;
+    z-index: 50 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 0 18px !important;
+    background: rgba(0, 0, 0, 0.34) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 16px !important;
+    box-shadow:
+      0 14px 40px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+    backdrop-filter: blur(14px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.15) !important;
+  }
+
+  .navBar a {
+    color: var(--accent, #e8c86c) !important;
+    text-decoration: none !important;
+    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    letter-spacing: .08em !important;
+  }
+
+  body {
+    padding-top: 74px !important;
+    box-sizing: border-box !important;
+  }
+
+  main,
+  .app {
+    box-sizing: border-box !important;
+  }
+
+  /* NOIXZY_CUSTOM_SVG_HEADER */
+  .navBar {
+    justify-content: center !important;
+  }
+
+  .navBar a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    line-height: 1 !important;
+  }
+
+  .navBar .homeMark {
+    display: block !important;
+    width: auto !important;
+    height: 45px !important;
+    max-width: 460px !important;
+    object-fit: contain !important;
+    opacity: .96 !important;
+    filter: drop-shadow(0 0 7px rgba(255,255,255,.18)) !important;
+  }
+
+  /* NOIXZY_GALLERY_16X9_THUMBS */
+  .card {
+    overflow: hidden !important;
+  }
+
+  .thumb {
+    aspect-ratio: 16 / 9 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+
+  .thumb img,
+  .card img {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+</style>
+</head>
+<body>
+<div class="navBar">
+  <a href="index.html" aria-label="home"><img class="homeMark" src="home.svg" alt="home"></a>
+</div>
+
+<header>
+  <h1>noixzy // generative lab</h1>
+  <div class="sub">small algorithmic experiments. each is one self-contained file —
+    seed on canvas, four sliders, png export. feed them into blender, music visuals,
+    stills, or textures.</div>
+</header>
+<div class="searchWrap">
+  <input id="homeSearch" type="search" placeholder="search modules…">
+</div>
+<div class="grid" id="grid"></div>
+<script>
+const pieces=[
+  ["grid_extrude","grid extrude","2.5D extruded blocks · stacked param layers","loop / still / scene","h"],
+  ["sdf_raymarch","sdf raymarch","metaball field, smooth booleans, orbit loop","loop / still","h"],
+  ["gyroid","gyroid","TPMS shell SDF · animated phase orbit","loop / still","h"],
+  ["displacement","displacement sphere","noise-displaced sphere · fbm breathing surface","loop / still","h"],
+  ["displacement_primitives","displacement primitives","branched displacement module · primitive type tests","loop / shape / displacement","h"],
+  ["mandelbulb","mandelbulb","power-8 fractal DE · orbit trap coloring · morph","loop / still","h"],
+  ["fold","fold","kaleidoscopic IFS · menger-style space folding","loop / still","h"],
+  ["metafluid","metafluid","smooth-min SDF metaballs · animated blob merging · viscous fluid","loop / still","h"],
+  ["moire_field","moire field","interference bands · animated warped line field","loop / texture / graphic","e"],
+  ["particle_orbitals","particle orbitals","orbiting points and trails around attractor wells","loop / motion / particles","e"],
+  ["radial_noise","radial noise","radial rings and spoke-noise field · circular interference","loop / texture / radial","e"],
+  ["kaleidoscope_field","kaleidoscope field","mirrored wedge field · folded circular pattern system","loop / texture / symmetry","e"],
+  ["topographic_rings","topographic rings","contour-ring elevation fields · topographic relief","loop / texture / relief","e"],
+  ["ribbon_flow","ribbon flow","spline ribbon trails · layered motion-graphic curves","loop / motion / ribbon","e"],
+  ["glyph_field","glyph field","procedural symbols and noisy typography-like marks","still / texture / glyphs","e"],
+  ["crystal_growth","crystal growth","branching crystalline structures · faceted growth marks","loop / structure / relief","e"],
+  ["vector_scope","vector scope","oscilloscope-style lissajous traces and glowing vector paths","loop / motion / signal","e"],
+  ["wave_lattice","wave lattice","crossed wave grids · animated interference lattice","loop / texture / grid","e"],
+  ["fractal_tiles","fractal tiles","recursive tile fields · folded geometric mosaic texture","loop / texture / pattern","e"],
+  ["plasma_membrane","plasma membrane","soft cellular plasma field · organic membrane relief","loop / organic / relief","e"],
+  ["interference_grid","interference grid","cross-wave grid field · phase-bent interference mesh","loop / texture / grid","e"],
+  ["cellular_bloom","cellular bloom","glowing organic cells · blooming soft particle field","loop / organic / glow","e"],
+  ["vortex_sheet","vortex sheet","curling sheet streams · layered vortex flow ribbons","loop / motion / flow","e"],
+  ["prism_moire","prism moire","angled prism-line interference · split moire refraction","loop / texture / prism","e"],
+  ["terrain_slice","terrain slice","stacked elevation slices · animated strata contour sheet","loop / relief / terrain","e"],
+  ["signal_weave","signal weave","interlaced signal paths · woven phase ribbons","loop / field / weave","e"],
+  ["crater_field","crater field","eroded crater basins · rimmed relief terrain","loop / relief / terrain","e"],
+  ["spiral_lattice","spiral lattice","radial spiral arms · node lattice orbital paths","loop / lattice / spiral","e"],
+  ["signal_rain","signal rain","falling signal streaks · layered scanline weather","loop / signal / overlay","e"],
+  ["echo_contours","echo contours","delayed contour rings · recursive topographic echoes","loop / contour / echo","e"],
+  ["magnetic_dust","magnetic dust","charged grain field · invisible magnetic flow lines","loop / particles / field","e"],
+  ["neural_lattice","neural lattice","pulsing node links · reconnecting network mesh","loop / lattice / neural","e"],
+  ["flow_field","flow field","noise-advected particles leaving trails","still / loop","e"],
+  ["reaction_diffusion","reaction diffusion","gray-scott organic spots & tendrils","texture / displacement","e"],
+  ["voronoi","voronoi","relaxed cell field, edge↔fill","scaffold / texture","e"],
+  ["contour_field","contour field","marching-squares isolines over noise","still / loop","e"],
+  ["truchet","truchet","flipped arc tiles → flowing curves","tileable texture","e"],
+  ["truchet_b","truchet // color","arc tiles · noise-gradated color field · round cap","still / loop","e"],
+  ["l_system","l-system","stochastic turtle branching","asset / overlay","e"],
+  ["cellular_erosion","cellular erosion","CA-smoothed worn surface depth","displacement + roughness","e"],
+  ["recursive_grid","recursive grid","noise-thresholded quad subdivision","layout / structure","e"],
+  ["wave_interference","wave interference","multi-source ripple field · moiré zones · interference rings","still / loop / texture","e"],
+  ["stipple","stipple","rejection-sampled dot field · luminance-driven density · breathing dots","still / texture","e"],
+  ["hex_grid","hex grid","noise-pulsed hexagonal tiling · wave ripple glow","loop / texture","h"],
+  ["rose_curve","rose curve","animated polar rose r=cos(n/d·θ) · layered phase mesh","loop / still","h"],
+  ["lissajous_mesh","lissajous mesh","frequency-ratio Lissajous curves · woven phase drift","loop / still","h"],
+  ["torus_knot","torus knot","p:q parametric torus knot SDF · raymarched tube · orbit drag","loop / still","h"],
+];
+const g=document.getElementById("grid");
+for(const [dir,name,desc,tag,type] of pieces){
+  const a=document.createElement("a");
+  a.className="card";
+  a.href = dir === "grid_extrude"
+    ? `../unified_shell.html?module=${dir}`
+    : `../${dir}/noixzy_${dir}.html`;
+  const badgeCls=type==="h"?"badge badge-h":"badge badge-e";
+  const badgeTxt=type==="h"?"✦ authored":"◎ generated";
+  a.innerHTML=`<div class="thumb"><img src="thumbs/${dir}.png" alt="${name}">
+      <span class="${badgeCls}">${badgeTxt}</span></div>
+    <div class="meta"><div class="name">${name}</div>
+    <div class="desc">${desc}</div><span class="tag">${tag}</span></div>`;
+  g.appendChild(a);
+}
+
+function initHomeSearch(){
+  const input=document.getElementById("homeSearch");
+  const grid=document.getElementById("grid");
+  if(!input || !grid) return;
+
+  const filter=()=>{
+    const q=input.value.trim().toLowerCase();
+    const cards=Array.from(grid.querySelectorAll("a.card"));
+    cards.forEach(card=>{
+      const text=(card.textContent || "").toLowerCase();
+      card.style.display = !q || text.includes(q) ? "" : "none";
+    });
+  };
+
+  input.addEventListener("input",filter);
+  filter();
+}
+setTimeout(initHomeSearch,0);
+
+</script>
+
+<script src="noixzy_ruler_overlay.js"></script>
+</body>
+</html>

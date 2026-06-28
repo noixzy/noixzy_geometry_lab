@@ -20,7 +20,7 @@
 - Artist: noixzy (always lowercase)
 - Working dir: `~/Downloads/noixzy_generative_lab/`
 - Canonical mirror: `~/noixzy_generative_lab/` (keep in sync with `cp -r`)
-- Gallery: `gallery/index.html`
+- Home: `home/home.html`
 - Generator: `node build_lab.js` — only for the 12 generated modules. Never hand-edit their HTML outputs.
 
 ---
@@ -135,20 +135,20 @@ This module is still missing audio reactivity, pin/fav localStorage, and thumb s
 
 Paste `displacement_primitives/noixzy_displacement_primitives.html` and add all three. Follow `gyroid/noixzy_gyroid.html` as the reference.
 
-### 2 — Gallery thumbnails
+### 2 — Home thumbnails
 
-These modules are missing `gallery/thumbs/*.png`:
+These modules are missing `home/thumbs/*.png`:
 - `metafluid.png` (new)
 - `hex_grid.png`
 - `rose_curve.png`
 - `lissajous_mesh.png`
 - `torus_knot.png`
 
-Open each in Chrome, let it run for a few seconds, click `→ thumb` in the stageTools bar, pick the `gallery/thumbs/` folder.
+Open each in Chrome, let it run for a few seconds, click `→ thumb` in the stageTools bar, pick the `home/thumbs/` folder.
 
 ### 3 — New flagship modules (build one at a time)
 
-Each is a new hand-authored HTML file in its own folder, added to `gallery/index.html` and to `ALL_MODULES` in every existing module's file (or batched via a find-replace across all 23). See NEXT_MODULES.md for full specs.
+Each is a new hand-authored HTML file in its own folder, added to `home/home.html` and to `ALL_MODULES` in every existing module's file (or batched via a find-replace across all 23). See NEXT_MODULES.md for full specs.
 
 #### 3a — julia_set
 
@@ -300,7 +300,7 @@ git commit -m "..."
 git push                   # auto-deploys to GitHub Pages
 ```
 
-Gallery entry format (`gallery/index.html` pieces array):
+Home entry format (`home/home.html` pieces array):
 ```js
 ["module_id","display title","short description","tag1 / tag2","h"],
 // "h" = hand-authored (✦ authored badge), "e" = generated (◎ generated badge)
@@ -308,9 +308,9 @@ Gallery entry format (`gallery/index.html` pieces array):
 
 When adding a new module:
 1. Create `module_id/noixzy_module_id.html`
-2. Add entry to `gallery/index.html` pieces array
+2. Add entry to `home/home.html` pieces array
 3. Add `{id:"module_id",title:"display title"}` to `ALL_MODULES` in ALL 23 existing module files (or use find-replace)
-4. Add thumbnail to `gallery/thumbs/module_id.png`
+4. Add thumbnail to `home/thumbs/module_id.png`
 
 ---
 

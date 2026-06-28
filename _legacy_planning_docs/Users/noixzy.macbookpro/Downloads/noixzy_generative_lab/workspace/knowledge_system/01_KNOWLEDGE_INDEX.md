@@ -40,7 +40,7 @@ full paths are under `workspace/` unless noted otherwise.
 | Unified shell + iframe bridge architecture | `NGL_PLAN_06062026.md`, `CODEX_TASK_engine_shell.md` | `unified_shell_functionality_restoration_20260627.md` |
 | postMessage bridge protocol | `CODEX_TASK_engine_shell.md`, `NGL_PLAN_06062026.md` | `unified_shell_functionality_restoration_20260627.md` |
 | Module manifest (`modules.manifest.json`) | `NGL_PLAN_06062026.md`, `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` | — |
-| Gallery (`gallery/index.html`) | `HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md` | — |
+| Home (`home/home.html`) | `HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md` | — |
 | Escrow shell (candidate staging area) | `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md`, `NGL_TOTAL_AUDIT_20260627.md` | `noixzy_randomization_geometry_audit_20260627.md` |
 
 ---
@@ -122,7 +122,7 @@ full paths are under `workspace/` unless noted otherwise.
 | Lighter alternatives for heavy modules | `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` | `NGL_TOTAL_AUDIT_20260627.md` |
 | `heightField` performance budget (G≈130, 50fps) | `CODEX_TASK_volumetric_extrude.md` | — |
 | `thumbnails must NOT use loading="lazy"` | `HANDOFF.md` | — |
-| `contact_sheet.js` / gallery thumb refresh | `READ_FIRST.md`, `HANDOFF.md` | — |
+| `contact_sheet.js` / home thumb refresh | `READ_FIRST.md`, `HANDOFF.md` | — |
 | Additive work rule (no regressions) | `READ_FIRST.md`, `CODEX_QUEUE.md` | — |
 
 ---

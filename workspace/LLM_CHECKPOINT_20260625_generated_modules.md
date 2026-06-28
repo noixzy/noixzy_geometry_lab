@@ -136,7 +136,7 @@ The project now has 12 new generated modules:
 
 Each has:
 - module HTML file
-- gallery card entry
+- home card entry
 - thumbnail PNG
 - generated UI groups only
 - z depth control
@@ -240,22 +240,22 @@ plasma_membrane/noixzy_plasma_membrane.html
 
 Expected live thumbnails:
 
-gallery/thumbs/moire_field.png
-gallery/thumbs/particle_orbitals.png
-gallery/thumbs/radial_noise.png
-gallery/thumbs/kaleidoscope_field.png
-gallery/thumbs/topographic_rings.png
-gallery/thumbs/ribbon_flow.png
-gallery/thumbs/glyph_field.png
-gallery/thumbs/crystal_growth.png
-gallery/thumbs/vector_scope.png
-gallery/thumbs/wave_lattice.png
-gallery/thumbs/fractal_tiles.png
-gallery/thumbs/plasma_membrane.png
+home/thumbs/moire_field.png
+home/thumbs/particle_orbitals.png
+home/thumbs/radial_noise.png
+home/thumbs/kaleidoscope_field.png
+home/thumbs/topographic_rings.png
+home/thumbs/ribbon_flow.png
+home/thumbs/glyph_field.png
+home/thumbs/crystal_growth.png
+home/thumbs/vector_scope.png
+home/thumbs/wave_lattice.png
+home/thumbs/fractal_tiles.png
+home/thumbs/plasma_membrane.png
 
-Expected gallery/build refs:
+Expected home/build refs:
 - `build_lab.js` includes all 12 modules in ALL_MODULES/nav and PIECES.
-- `gallery/index.html` includes all 12 gallery cards.
+- `home/home.html` includes all 12 home cards.
 
 ## Verification Commands
 
@@ -293,18 +293,18 @@ cd /Users/noixzy.macbookpro/Downloads/noixzy_generative_lab
   echo
   echo "=== NEW THUMBS ==="
   ls -la \
-    gallery/thumbs/moire_field.png \
-    gallery/thumbs/particle_orbitals.png \
-    gallery/thumbs/radial_noise.png \
-    gallery/thumbs/kaleidoscope_field.png \
-    gallery/thumbs/topographic_rings.png \
-    gallery/thumbs/ribbon_flow.png \
-    gallery/thumbs/glyph_field.png \
-    gallery/thumbs/crystal_growth.png \
-    gallery/thumbs/vector_scope.png \
-    gallery/thumbs/wave_lattice.png \
-    gallery/thumbs/fractal_tiles.png \
-    gallery/thumbs/plasma_membrane.png
+    home/thumbs/moire_field.png \
+    home/thumbs/particle_orbitals.png \
+    home/thumbs/radial_noise.png \
+    home/thumbs/kaleidoscope_field.png \
+    home/thumbs/topographic_rings.png \
+    home/thumbs/ribbon_flow.png \
+    home/thumbs/glyph_field.png \
+    home/thumbs/crystal_growth.png \
+    home/thumbs/vector_scope.png \
+    home/thumbs/wave_lattice.png \
+    home/thumbs/fractal_tiles.png \
+    home/thumbs/plasma_membrane.png
   echo
   echo "=== GROUP CHECK ==="
   grep -n 'const GROUPS=' \
@@ -349,7 +349,7 @@ Do not separately merge old batch branches unless Git history requires it.
 
 ## Known Remaining Work / Backlog
 
-- Decide whether all 12 modules should remain in final gallery or if only the original 10 target should be emphasized.
+- Decide whether all 12 modules should remain in final home or if only the original 10 target should be emphasized.
 - Consider later visual polish passes module-by-module.
 - Consider later audio verification as its own branch.
 - Consider later cleanup of tracked legacy backup files, but do not mix that with generated-module feature work.
