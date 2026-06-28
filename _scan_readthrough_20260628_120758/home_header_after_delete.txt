@@ -1,0 +1,58 @@
+=== GIT STATUS ===
+ M home/home.html
+?? _scan_readthrough_20260628_120758/
+
+=== HOME HEADER CHECK ===
+53:.thumbRailWrap {
+68:  .thumbRail {
+196:  <div class="thumbRailWrap">
+197:    <nav class="thumbRail" id="thumbRail" aria-label="module thumbnails"></nav>
+211:  const rail = document.getElementById("thumbRail");
+
+=== HOME TOP SOURCE ===
+    letter-spacing:.08em;
+  }
+
+  .error {
+    color:#ff7676;
+    border:1px solid rgba(255,118,118,.3);
+    padding:16px;
+    border-radius:14px;
+    background:rgba(255,118,118,.08);
+  }
+</style>
+</head>
+<body>
+  <div class="navBar">
+  </div>
+
+  <div class="thumbRailWrap">
+    <nav class="thumbRail" id="thumbRail" aria-label="module thumbnails"></nav>
+  </div>
+
+  <main>
+    <div class="topLine">
+      <h1>home</h1>
+      <div class="count" id="count">loading</div>
+    </div>
+    <section class="grid" id="grid"></section>
+  </main>
+
+<script>
+(async function(){
+  const grid = document.getElementById("grid");
+  const rail = document.getElementById("thumbRail");
+  const count = document.getElementById("count");
+
+  function thumbPath(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    const raw = module.thumb || `home/thumbs/${id}.png`;
+    return raw.replace(/^home\//, "");
+  }
+
+  function shellHref(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+  }
+
+  try {

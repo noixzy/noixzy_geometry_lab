@@ -1,0 +1,243 @@
+=== ROOT TREE ===
+.
+./.claude
+./.claude/settings.local.json
+./.git
+./.gitignore
+./.vscode
+./.vscode/extensions.json
+./.vscode/settings.json
+./PROJECT_STATE.md
+./README.md
+./_legacy_import
+./_legacy_planning_docs
+./_scan_readthrough_20260628_120758
+./_scan_readthrough_20260628_120758/home_header_after_delete.txt
+./_scan_readthrough_20260628_120758/repo_scan_readthrough.txt
+./agent_swarm_relief
+./agent_swarm_relief/noixzy_agent_swarm_relief.html
+./catenary_web
+./catenary_web/noixzy_catenary_web.html
+./cellular_bloom
+./cellular_bloom/noixzy_cellular_bloom.html
+./cellular_erosion
+./cellular_erosion/make_displacement_map.js
+./cellular_erosion/noixzy_cellular_erosion.html
+./cellular_erosion/noixzy_cellular_erosion_map_7.png
+./contour_field
+./contour_field/noixzy_contour_field.html
+./crater_field
+./crater_field/noixzy_crater_field.html
+./crystal_growth
+./crystal_growth/noixzy_crystal_growth.html
+./displacement
+./displacement/noixzy_displacement.html
+./displacement_primitives
+./displacement_primitives/noixzy_displacement_primitives.html
+./echo_contours
+./echo_contours/noixzy_echo_contours.html
+./flow_field
+./flow_field/noixzy_flow_field.html
+./fractal_tiles
+./fractal_tiles/noixzy_fractal_tiles.html
+./glyph_field
+./glyph_field/noixzy_glyph_field.html
+./grid_extrude
+./grid_extrude/noixzy_grid_extrude.html
+./grid_extrude/noixzy_grid_extrude.html.bak_before_correct_grid_defaults
+./grid_extrude/noixzy_grid_extrude.html.bak_before_new_defaults
+./grid_extrude/noixzy_grid_extrude.html.bak_before_thumbnail_defaults
+./gyroid
+./gyroid/noixzy_gyroid.html
+./hex_grid
+./hex_grid/noixzy_hex_grid.html
+./home
+./home/gallery.svg
+./home/home.html
+./home/index.before_manifest_shell_gallery_20260628_113751.html
+./home/index.html
+./home/noixzy_ruler_overlay.js
+./home/thumbs
+./hyperbolic_tiling
+./hyperbolic_tiling/noixzy_hyperbolic_tiling.html
+./interference_grid
+./interference_grid/noixzy_interference_grid.html
+./kaleidoscope_field
+./kaleidoscope_field/noixzy_kaleidoscope_field.html
+./l_system
+./l_system/noixzy_l_system.html
+./lissajous_mesh
+./lissajous_mesh/noixzy_lissajous_mesh.html
+./magnetic_dust
+./magnetic_dust/noixzy_magnetic_dust.html
+./mandelbulb
+./mandelbulb/noixzy_mandelbulb.html
+./metafluid
+./metafluid/noixzy_metafluid.html
+./modules.manifest.json
+./moire_field
+./moire_field/noixzy_moire_field.html
+./neural_lattice
+./neural_lattice/noixzy_neural_lattice.html
+./origami_fold_field
+./origami_fold_field/noixzy_origami_fold_field.html
+./package-lock.json
+./package.json
+./particle_orbitals
+./particle_orbitals/noixzy_particle_orbitals.html
+./phyllotaxis_stack
+./phyllotaxis_stack/noixzy_phyllotaxis_stack.html
+./plasma_membrane
+./plasma_membrane/noixzy_plasma_membrane.html
+./prism_moire
+./prism_moire/noixzy_prism_moire.html
+./quasicrystal_relief
+./quasicrystal_relief/noixzy_quasicrystal_relief.html
+./radial_noise
+./radial_noise/noixzy_radial_noise.html
+./reaction_diffusion
+./reaction_diffusion/noixzy_reaction_diffusion.html
+./reaction_terraces
+./reaction_terraces/noixzy_reaction_terraces.html
+./recursive_grid
+./recursive_grid/noixzy_recursive_grid.html
+./ribbon_flow
+./ribbon_flow/noixzy_ribbon_flow.html
+./rose_curve
+./rose_curve/noixzy_rose_curve.html
+./scripts
+./scripts/create_neural_lattice_hybrid_blender_scene.py
+./sdf
+./sdf/noixzy_sdf.html
+./sdf_raymarch
+./sdf_raymarch/noixzy_sdf_raymarch.html
+./signal_rain
+./signal_rain/noixzy_signal_rain.html
+./signal_weave
+./signal_weave/noixzy_signal_weave.html
+./spiral_lattice
+./spiral_lattice/noixzy_spiral_lattice.html
+./stipple
+./stipple/noixzy_stipple.html
+./tensegrity_nodes
+./tensegrity_nodes/noixzy_tensegrity_nodes.html
+./terrain_slice
+./terrain_slice/noixzy_terrain_slice.html
+./topographic_rings
+./topographic_rings/noixzy_topographic_rings.html
+./torus_knot
+./torus_knot/noixzy_torus_knot.html
+./truchet
+./truchet/noixzy_truchet.html
+./truchet_b
+./truchet_b/noixzy_truchet_b.html
+./unified_shell.html
+./vector_scope
+./vector_scope/noixzy_vector_scope.html
+./voronoi
+./voronoi/noixzy_voronoi.html
+./voronoi_tower_field
+./voronoi_tower_field/noixzy_voronoi_tower_field.html
+./vortex_sheet
+./vortex_sheet/noixzy_vortex_sheet.html
+./wave_interference
+./wave_interference/noixzy_wave_interference.html
+./wave_lattice
+./wave_lattice/noixzy_wave_lattice.html
+./workspace
+./workspace/ALGORITHMIC_ARCHITECTURAL_ART.md
+./workspace/ARCHITECTURAL_ALGORITHMIC_MODULE_IDEAS_20260627.md
+./workspace/CAMERA_CONTROLS_PLAN.md
+./workspace/CHANGELOG_IMPLEMENTATION.md
+./workspace/CHANGELOG_IMPLEMENTATION.md.bak_remove_duplicate_sdf_checkpoint
+./workspace/CHATGPT_BRIEF.md
+./workspace/CHATGPT_PROMPT.md
+./workspace/CODEX_QUEUE.md
+./workspace/CODEX_TASK_engine_shell.md
+./workspace/CODEX_TASK_quickwins.md
+./workspace/CODEX_TASK_ranges_and_gradients.md
+./workspace/CODEX_TASK_session2_upgrades.md
+./workspace/CODEX_TASK_theme_system.md
+./workspace/CODEX_TASK_volumetric_extrude.md
+./workspace/EXPANSION_V2.md
+./workspace/FUTURE_INSTALLMENTS.md
+./workspace/GPT_HANDOFF_2026_06_25.md
+./workspace/HANDOFF.md
+./workspace/IDEAS_module_expansion.md
+./workspace/LLM_CHECKPOINT_20260625_generated_modules.md
+./workspace/MERGE_LOG_ranges_gradients_20260623_020226.md
+./workspace/NEXT_MODULES.md
+./workspace/NGL_CREATIVE_DIRECTOR_REPORT_20260627.md
+./workspace/NGL_PLAN_06062026.md
+./workspace/NGL_TOTAL_AUDIT_20260627.md
+./workspace/NGL_UNIFIED_SHELL_HANDOFF_20260627.md
+./workspace/OVERVIEW.md
+./workspace/READ_FIRST.md
+./workspace/SESSION_BRIDGE.md
+./workspace/VCL_MASTER_EFFECT_CATALOG.csv
+./workspace/VCL_OUTPUTS_ONLY_EFFECT_CATALOG.csv
+./workspace/_archive_doc_merge_20260623_020226
+./workspace/_md_review_20260623_080107
+./workspace/_module_backups_20260624_154734
+./workspace/_reference_notes
+./workspace/_restore_safety_backup_20260623_025505
+./workspace/_restore_safety_backup_20260623_030339
+./workspace/_source_archives
+./workspace/_thumbnail_backups_20260623
+./workspace/ae_scripts
+./workspace/ae_scripts.zip
+./workspace/agent_ops_20260627
+./workspace/cosmos_collection_scan_20260627
+./workspace/gen_thumbs.js
+./workspace/knowledge_system
+./workspace/module_escrow_20260627
+./workspace/noixzy Planning Dashboard (standalone).html
+./workspace/noixzy_experiment_engine_27062026
+./workspace/noixzy_metafluid_console_handoff.md
+./workspace/phase_space_scene_001
+./workspace/standalone_20260628
+./workspace/unified_shell_prototypes_20260627
+./woven_lattice_relief
+./woven_lattice_relief/noixzy_woven_lattice_relief.html
+
+=== MODULE FILE COUNT ===
+      57
+
+=== MANIFEST FIRST 30 IDS ===
+01 grid_extrude
+02 sdf_raymarch
+03 displacement
+04 displacement_primitives
+05 mandelbulb
+06 metafluid
+07 moire_field
+08 particle_orbitals
+09 radial_noise
+10 kaleidoscope_field
+11 topographic_rings
+12 ribbon_flow
+13 glyph_field
+14 crystal_growth
+15 vector_scope
+16 wave_lattice
+17 fractal_tiles
+18 plasma_membrane
+19 interference_grid
+20 cellular_bloom
+21 vortex_sheet
+22 prism_moire
+23 terrain_slice
+24 signal_weave
+25 crater_field
+26 spiral_lattice
+27 signal_rain
+28 echo_contours
+29 magnetic_dust
+30 neural_lattice
+
+=== HOME ROUTING CHECK ===
+222:    return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+226:    const response = await fetch("../modules.manifest.json", { cache:"no-store" });
+243:      railA.href = href;
+250:      card.href = `../unified_shell.html?module=${encodeURIComponent(module.id)}`;
+262:    grid.innerHTML = `<div class="error">Unable to load modules.manifest.json<br>${err.message}</div>`;
