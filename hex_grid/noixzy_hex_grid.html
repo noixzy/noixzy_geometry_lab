@@ -44,9 +44,6 @@
   select { width:100%; margin-top:2px; min-height:34px; background:#000; color:var(--ink); border:1px solid #333; padding:5px 8px; font:inherit; border-radius:4px; }
   select:hover { border-color:var(--accent); }
   .hint { margin-top:8px; opacity:.4; font-size:11px; }
-  .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
-  .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
-  .navBar a:hover { color:var(--accent); }
   .navCurrent { color:var(--accent) !important; }
   /* Stage overlay — bottom toolbar */
   .stageTools { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:21; display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:12px; background:rgba(0,0,0,0.52); border:1px solid rgba(72,223,255,0.24); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); box-shadow:0 10px 30px rgba(0,0,0,0.35); }
@@ -257,35 +254,7 @@
   }
 
   /* NOIXZY_HEADER_1500X50 */
-  .navBar {
-    position: fixed !important;
-    top: 12px !important;
-    left: 50% !important;
-    width: min(1500px, calc(100vw - 32px)) !important;
-    height: 50px !important;
-    transform: translateX(-50%) !important;
-    z-index: 50 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    box-sizing: border-box !important;
-    padding: 0 18px !important;
-    background: rgba(0, 0, 0, 0.34) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    border-radius: 16px !important;
-    box-shadow:
-      0 14px 40px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
-    backdrop-filter: blur(14px) saturate(1.15) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.15) !important;
-  }
 
-  .navBar a {
-    color: var(--accent, #e8c86c) !important;
-    text-decoration: none !important;
-    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
-    letter-spacing: .08em !important;
-  }
 
   body {
     padding-top: 74px !important;
@@ -298,32 +267,11 @@
   }
 
   /* NOIXZY_CUSTOM_SVG_HEADER */
-  .navBar {
-    justify-content: center !important;
-  }
 
-  .navBar a {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 100% !important;
-    line-height: 1 !important;
-  }
 
-  .navBar .homeMark {
-    display: block !important;
-    width: auto !important;
-    height: 45px !important;
-    max-width: 460px !important;
-    object-fit: contain !important;
-    opacity: .96 !important;
-    filter: drop-shadow(0 0 7px rgba(255,255,255,.18)) !important;
-  }
 
 
   /* NOIXZY_HIDE_MODULE_NAV_CHROME */
-  .navBar,
-  .homeMark,
   .navCurrent {
     display:none !important;
     visibility:hidden !important;
@@ -345,8 +293,6 @@
     width:100% !important;
     height:100% !important;
   }
-  .navBar,
-  .homeMark,
   .navCurrent,
   .stageThumbs,
   #stageThumbs,
