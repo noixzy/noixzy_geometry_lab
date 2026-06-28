@@ -1,0 +1,1735 @@
+=== REPO ZIP CREATED ===
+/Users/noixzy.macbookpro/Downloads/noixzy_generative_lab_REPO_FOR_CHATGPT_20260628_102704.zip
+
+=== REPO READTHROUGH ===
+Sun Jun 28 10:27:04 EDT 2026
+ROOT: /Users/noixzy.macbookpro/Downloads/noixzy_generative_lab
+
+=== CURRENT GIT ===
+feature-hand-authored-preview-undo-redo
+eb60a3d checkpoint: current unified shell recovery state
+ M agent_swarm_relief/noixzy_agent_swarm_relief.html
+ M catenary_web/noixzy_catenary_web.html
+ M cellular_bloom/noixzy_cellular_bloom.html
+ M cellular_erosion/noixzy_cellular_erosion.html
+ M contour_field/noixzy_contour_field.html
+ M crater_field/noixzy_crater_field.html
+ M crystal_growth/noixzy_crystal_growth.html
+ M displacement/noixzy_displacement.html
+ M displacement_primitives/noixzy_displacement_primitives.html
+ M echo_contours/noixzy_echo_contours.html
+ M flow_field/noixzy_flow_field.html
+ M fractal_tiles/noixzy_fractal_tiles.html
+ M glyph_field/noixzy_glyph_field.html
+ M grid_extrude/noixzy_grid_extrude.html
+ M gyroid/noixzy_gyroid.html
+ M hex_grid/noixzy_hex_grid.html
+ M hyperbolic_tiling/noixzy_hyperbolic_tiling.html
+ M interference_grid/noixzy_interference_grid.html
+ M kaleidoscope_field/noixzy_kaleidoscope_field.html
+ M l_system/noixzy_l_system.html
+ M lissajous_mesh/noixzy_lissajous_mesh.html
+ M magnetic_dust/noixzy_magnetic_dust.html
+ M mandelbulb/noixzy_mandelbulb.html
+ M metafluid/noixzy_metafluid.html
+ M moire_field/noixzy_moire_field.html
+ M neural_lattice/noixzy_neural_lattice.html
+ M origami_fold_field/noixzy_origami_fold_field.html
+ M particle_orbitals/noixzy_particle_orbitals.html
+ M phyllotaxis_stack/noixzy_phyllotaxis_stack.html
+ M plasma_membrane/noixzy_plasma_membrane.html
+ M prism_moire/noixzy_prism_moire.html
+ M quasicrystal_relief/noixzy_quasicrystal_relief.html
+ M radial_noise/noixzy_radial_noise.html
+ M reaction_diffusion/noixzy_reaction_diffusion.html
+ M reaction_terraces/noixzy_reaction_terraces.html
+ M recursive_grid/noixzy_recursive_grid.html
+ M ribbon_flow/noixzy_ribbon_flow.html
+ M rose_curve/noixzy_rose_curve.html
+ M sdf/noixzy_sdf.html
+ M sdf_raymarch/noixzy_sdf_raymarch.html
+ M signal_rain/noixzy_signal_rain.html
+ M signal_weave/noixzy_signal_weave.html
+ M spiral_lattice/noixzy_spiral_lattice.html
+ M stipple/noixzy_stipple.html
+ M tensegrity_nodes/noixzy_tensegrity_nodes.html
+ M terrain_slice/noixzy_terrain_slice.html
+ M topographic_rings/noixzy_topographic_rings.html
+ M torus_knot/noixzy_torus_knot.html
+ M truchet/noixzy_truchet.html
+ M truchet_b/noixzy_truchet_b.html
+ M vector_scope/noixzy_vector_scope.html
+ M voronoi/noixzy_voronoi.html
+ M voronoi_tower_field/noixzy_voronoi_tower_field.html
+ M vortex_sheet/noixzy_vortex_sheet.html
+ M wave_interference/noixzy_wave_interference.html
+ M wave_lattice/noixzy_wave_lattice.html
+ M woven_lattice_relief/noixzy_woven_lattice_relief.html
+?? _backup_HA_header_exact_20260628_101605/
+?? _backup_HA_unified_shell_rail_20260628_102245/
+?? workspace/_live_checkpoints/
+?? workspace/_scan_reports/
+
+=== SERVER PORTS ===
+Python    16270 noixzy.macbookpro    4u  IPv6 0x757b3540006534fb      0t0  TCP *:8765 (LISTEN)
+node      27740 noixzy.macbookpro   12u  IPv4 0xd0406061539aa473      0t0  TCP 127.0.0.1:4173 (LISTEN)
+Python    81209 noixzy.macbookpro    4u  IPv6  0xeb4b11b4502677a      0t0  TCP *:4173 (LISTEN)
+
+=== GALLERY CORE ===
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noixzy // generative lab</title>
+<style>
+  :root { --bg:#0e0e10; --panel:#1a1a1d; --ink:#e8e8ea; --accent:#b7ff2a; --dim:#7a7a7e; }
+  html,body { margin:0; background:var(--bg); color:var(--ink);
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  header { padding:28px 28px 10px; }
+  h1 { margin:0; font-size:15px; letter-spacing:.16em; text-transform:lowercase; color:var(--accent); }
+  .sub { color:var(--dim); margin-top:6px; max-width:620px; }
+  .searchWrap { padding:14px 28px 0; max-width:460px; }
+  #gallerySearch { width:100%; box-sizing:border-box; background:#050506; color:var(--ink);
+    border:1px solid #2a2a2e; border-radius:8px; padding:10px 12px;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; outline:none; }
+  #gallerySearch:focus { border-color:var(--accent); }
+  #gallerySearch::placeholder { color:var(--dim); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:14px; padding:18px 28px 40px; }
+  a.card { display:block; text-decoration:none; color:var(--ink);
+    background:var(--panel); border:1px solid #222; border-radius:8px; overflow:hidden; }
+  a.card:hover { border-color:#ffffff; }
+  .thumb { aspect-ratio:1/1; background:#000; position:relative; overflow:hidden; }
+  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .meta { padding:11px 13px; }
+  .name { color:var(--accent); text-transform:lowercase; letter-spacing:.06em; }
+  .desc { color:var(--dim); margin-top:4px; font-size:12px; }
+  .tag { display:inline-block; margin-top:8px; padding:2px 7px; border:1px solid #333;
+    border-radius:3px; color:var(--dim); font-size:11px; }
+  .badge { position:absolute; top:8px; right:8px; padding:2px 6px;
+    border-radius:3px; font-size:10px; letter-spacing:.07em; line-height:1.4; }
+  .badge-h { background:transparent; border:1px solid rgba(255,255,255,.65);
+    color:#b7ff2a; }
+  .badge-e { background:rgba(183,255,42,.14); border:1px solid #b7ff2a;
+    color:#fff; }
+  /* NOIXZY_CENTER_GALLERY */
+  body {
+    text-align:center;
+  }
+  header {
+    max-width:960px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .sub {
+    margin:6px auto 0;
+  }
+  .searchWrap {
+    margin:0 auto;
+  }
+  .grid {
+    max-width:1480px;
+    margin:0 auto;
+    justify-content:center;
+  }
+  a.card {
+    text-align:left;
+  }
+
+  /* NOIXZY_HEADER_1500X50 */
+  .navBar {
+    position: fixed !important;
+    top: 12px !important;
+    left: 50% !important;
+    width: min(1500px, calc(100vw - 32px)) !important;
+    height: 50px !important;
+    transform: translateX(-50%) !important;
+    z-index: 50 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 0 18px !important;
+    background: rgba(0, 0, 0, 0.34) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 16px !important;
+    box-shadow:
+      0 14px 40px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+    backdrop-filter: blur(14px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.15) !important;
+  }
+
+  .navBar a {
+    color: var(--accent, #e8c86c) !important;
+    text-decoration: none !important;
+    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    letter-spacing: .08em !important;
+  }
+
+  body {
+    padding-top: 74px !important;
+    box-sizing: border-box !important;
+  }
+
+  main,
+  .app {
+    box-sizing: border-box !important;
+  }
+
+  /* NOIXZY_CUSTOM_SVG_HEADER */
+  .navBar {
+    justify-content: center !important;
+  }
+
+  .navBar a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    line-height: 1 !important;
+  }
+
+  .navBar .galleryMark {
+    display: block !important;
+    width: auto !important;
+    height: 45px !important;
+    max-width: 460px !important;
+    object-fit: contain !important;
+    opacity: .96 !important;
+    filter: drop-shadow(0 0 7px rgba(255,255,255,.18)) !important;
+  }
+
+  /* NOIXZY_GALLERY_16X9_THUMBS */
+  .card {
+    overflow: hidden !important;
+  }
+
+  .thumb {
+    aspect-ratio: 16 / 9 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+
+  .thumb img,
+  .card img {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+</style>
+</head>
+<body>
+<div class="navBar">
+  <a href="index.html" aria-label="gallery"><img class="galleryMark" src="gallery.svg" alt="gallery"></a>
+</div>
+
+<header>
+  <h1>noixzy // generative lab</h1>
+  <div class="sub">small algorithmic experiments. each is one self-contained file —
+    seed on canvas, four sliders, png export. feed them into blender, music visuals,
+    stills, or textures.</div>
+</header>
+<div class="searchWrap">
+  <input id="gallerySearch" type="search" placeholder="search modules…">
+</div>
+<div class="grid" id="grid"></div>
+<script>
+const pieces=[
+  ["grid_extrude","grid extrude","2.5D extruded blocks · stacked param layers","loop / still / scene","h"],
+  ["sdf_raymarch","sdf raymarch","metaball field, smooth booleans, orbit loop","loop / still","h"],
+  ["gyroid","gyroid","TPMS shell SDF · animated phase orbit","loop / still","h"],
+  ["displacement","displacement sphere","noise-displaced sphere · fbm breathing surface","loop / still","h"],
+  ["displacement_primitives","displacement primitives","branched displacement module · primitive type tests","loop / shape / displacement","h"],
+  ["mandelbulb","mandelbulb","power-8 fractal DE · orbit trap coloring · morph","loop / still","h"],
+  ["fold","fold","kaleidoscopic IFS · menger-style space folding","loop / still","h"],
+  ["metafluid","metafluid","smooth-min SDF metaballs · animated blob merging · viscous fluid","loop / still","h"],
+  ["moire_field","moire field","interference bands · animated warped line field","loop / texture / graphic","e"],
+  ["particle_orbitals","particle orbitals","orbiting points and trails around attractor wells","loop / motion / particles","e"],
+  ["radial_noise","radial noise","radial rings and spoke-noise field · circular interference","loop / texture / radial","e"],
+  ["kaleidoscope_field","kaleidoscope field","mirrored wedge field · folded circular pattern system","loop / texture / symmetry","e"],
+  ["topographic_rings","topographic rings","contour-ring elevation fields · topographic relief","loop / texture / relief","e"],
+  ["ribbon_flow","ribbon flow","spline ribbon trails · layered motion-graphic curves","loop / motion / ribbon","e"],
+  ["glyph_field","glyph field","procedural symbols and noisy typography-like marks","still / texture / glyphs","e"],
+  ["crystal_growth","crystal growth","branching crystalline structures · faceted growth marks","loop / structure / relief","e"],
+  ["vector_scope","vector scope","oscilloscope-style lissajous traces and glowing vector paths","loop / motion / signal","e"],
+  ["wave_lattice","wave lattice","crossed wave grids · animated interference lattice","loop / texture / grid","e"],
+  ["fractal_tiles","fractal tiles","recursive tile fields · folded geometric mosaic texture","loop / texture / pattern","e"],
+  ["plasma_membrane","plasma membrane","soft cellular plasma field · organic membrane relief","loop / organic / relief","e"],
+  ["interference_grid","interference grid","cross-wave grid field · phase-bent interference mesh","loop / texture / grid","e"],
+  ["cellular_bloom","cellular bloom","glowing organic cells · blooming soft particle field","loop / organic / glow","e"],
+  ["vortex_sheet","vortex sheet","curling sheet streams · layered vortex flow ribbons","loop / motion / flow","e"],
+  ["prism_moire","prism moire","angled prism-line interference · split moire refraction","loop / texture / prism","e"],
+  ["terrain_slice","terrain slice","stacked elevation slices · animated strata contour sheet","loop / relief / terrain","e"],
+  ["signal_weave","signal weave","interlaced signal paths · woven phase ribbons","loop / field / weave","e"],
+  ["crater_field","crater field","eroded crater basins · rimmed relief terrain","loop / relief / terrain","e"],
+  ["spiral_lattice","spiral lattice","radial spiral arms · node lattice orbital paths","loop / lattice / spiral","e"],
+  ["signal_rain","signal rain","falling signal streaks · layered scanline weather","loop / signal / overlay","e"],
+  ["echo_contours","echo contours","delayed contour rings · recursive topographic echoes","loop / contour / echo","e"],
+  ["magnetic_dust","magnetic dust","charged grain field · invisible magnetic flow lines","loop / particles / field","e"],
+  ["neural_lattice","neural lattice","pulsing node links · reconnecting network mesh","loop / lattice / neural","e"],
+  ["flow_field","flow field","noise-advected particles leaving trails","still / loop","e"],
+  ["reaction_diffusion","reaction diffusion","gray-scott organic spots & tendrils","texture / displacement","e"],
+  ["voronoi","voronoi","relaxed cell field, edge↔fill","scaffold / texture","e"],
+  ["contour_field","contour field","marching-squares isolines over noise","still / loop","e"],
+  ["truchet","truchet","flipped arc tiles → flowing curves","tileable texture","e"],
+  ["truchet_b","truchet // color","arc tiles · noise-gradated color field · round cap","still / loop","e"],
+  ["l_system","l-system","stochastic turtle branching","asset / overlay","e"],
+  ["cellular_erosion","cellular erosion","CA-smoothed worn surface depth","displacement + roughness","e"],
+  ["recursive_grid","recursive grid","noise-thresholded quad subdivision","layout / structure","e"],
+  ["wave_interference","wave interference","multi-source ripple field · moiré zones · interference rings","still / loop / texture","e"],
+  ["stipple","stipple","rejection-sampled dot field · luminance-driven density · breathing dots","still / texture","e"],
+  ["hex_grid","hex grid","noise-pulsed hexagonal tiling · wave ripple glow","loop / texture","h"],
+  ["rose_curve","rose curve","animated polar rose r=cos(n/d·θ) · layered phase mesh","loop / still","h"],
+  ["lissajous_mesh","lissajous mesh","frequency-ratio Lissajous curves · woven phase drift","loop / still","h"],
+  ["torus_knot","torus knot","p:q parametric torus knot SDF · raymarched tube · orbit drag","loop / still","h"],
+];
+const g=document.getElementById("grid");
+for(const [dir,name,desc,tag,type] of pieces){
+  const a=document.createElement("a");
+  a.className="card";
+  a.href = dir === "grid_extrude"
+    ? `../unified_shell.html?module=${dir}`
+    : `../${dir}/noixzy_${dir}.html`;
+  const badgeCls=type==="h"?"badge badge-h":"badge badge-e";
+  const badgeTxt=type==="h"?"✦ authored":"◎ generated";
+  a.innerHTML=`<div class="thumb"><img src="thumbs/${dir}.png" alt="${name}">
+      <span class="${badgeCls}">${badgeTxt}</span></div>
+    <div class="meta"><div class="name">${name}</div>
+    <div class="desc">${desc}</div><span class="tag">${tag}</span></div>`;
+  g.appendChild(a);
+}
+
+function initGallerySearch(){
+  const input=document.getElementById("gallerySearch");
+  const grid=document.getElementById("grid");
+  if(!input || !grid) return;
+
+  const filter=()=>{
+    const q=input.value.trim().toLowerCase();
+    const cards=Array.from(grid.querySelectorAll("a.card"));
+    cards.forEach(card=>{
+      const text=(card.textContent || "").toLowerCase();
+      card.style.display = !q || text.includes(q) ? "" : "none";
+    });
+  };
+
+  input.addEventListener("input",filter);
+  filter();
+}
+setTimeout(initGallerySearch,0);
+
+</script>
+
+<script src="noixzy_ruler_overlay.js"></script>
+</body>
+</html>
+
+=== UNIFIED SHELL CORE ===
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noixzy // unified shell</title>
+<style>
+  :root {
+    --rail-h: 78px;
+    --bg: #000;
+    --rail: #000;
+    --rail-2: #000;
+    --line: rgba(255, 255, 255, .14);
+    --line-soft: rgba(255, 255, 255, .08);
+    --ink: #f1f0ec;
+    --dim: #888a91;
+    --accent: #d8d8d8;
+    --thumb-w: 76px;
+    --thumb-h: 48px;
+    --logo-w: 82px;
+    --logo-h: 57px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #000;
+  }
+
+  body {
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .shell {
+    min-height: 100vh;
+    background: var(--bg);
+  }
+
+  .rail {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 10;
+    height: var(--rail-h);
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    overflow: hidden;
+    background: #000;
+    border-bottom: none;
+    box-shadow:
+      0 0 18px rgba(255,255,255,.10),
+      0 10px 28px rgba(255,255,255,.055),
+      inset 0 -1px 0 rgba(255,255,255,.08);
+    isolation: isolate;
+  }
+  .rail::before {
+    content: none !important;
+    display: none !important;
+    animation: none;
+    background: none !important;
+  }
+
+  .logoOverlay {
+    position: absolute;
+    left: 50%;
+    top: 14px;
+    z-index: 10;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 8px;
+    background: radial-gradient(ellipse at center, #000 0%, #000 85%, rgba(0,0,0,0) 100%);
+    cursor: pointer;
+    text-decoration: none;
+    pointer-events: auto;
+  }
+
+  .thumbRail {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: var(--thumb-h);
+    min-width: 0;
+    transform: translateY(2px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(18, 18, 20, .96) transparent;
+  }
+
+  .thumbRail::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .thumbRail::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .thumbRail::-webkit-scrollbar-thumb {
+    background: rgba(18, 18, 20, .96);
+    border-radius: 999px;
+  }
+
+  .moduleButton {
+    width: var(--thumb-w);
+    height: var(--thumb-h);
+    flex: 0 0 var(--thumb-w);
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    overflow: visible;
+    background: rgba(0, 0, 0, .18);
+    cursor: pointer;
+    opacity: .50;
+    box-shadow: none;
+    transition: opacity .14s ease, transform .14s ease;
+  }
+
+  .moduleButton:hover {
+    opacity: .58;
+  }
+
+  .moduleButton[aria-selected="true"] {
+    opacity: .64;
+  }
+
+  .moduleButton:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .moduleButton img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1) contrast(1.08) brightness(.82) drop-shadow(0 0 8px rgba(255,255,255,.12));
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .logoOverlay img {
+    display: block;
+    width: var(--logo-w);
+    height: var(--logo-h);
+    max-width: 88px;
+    max-height: 88px;
+    object-fit: contain;
+    opacity: .96;
+    pointer-events: none;
+    transform: translateY(-16px) scale(1.42);
+    transform-origin: center;
+  }
+
+  .logoOverlay .fallback {
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: translateY(-18px) scale(1.42);
+  }
+
+  body.logoBadgeHidden .logoOverlay {
+    display: none !important;
+  }
+
+  .settingsShell {
+    position: relative;
+    top: -2px;
+    right: 0;
+    z-index: 2147483647;
+  }
+
+  .settingsButton {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: rgba(0, 0, 0, .88);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .settingsButton:hover,
+  .settingsButton[aria-expanded="true"] {
+    border-color: rgba(255, 255, 255, .52);
+  }
+
+  .settingsButton:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .settingsButtonIcon,
+  .settingsButtonIcon::before,
+  .settingsButtonIcon::after {
+    width: 7px;
+    height: 1px;
+    display: block;
+    background: currentColor;
+    opacity: .5;
+  }
+
+  .settingsButtonIcon {
+    position: relative;
+  }
+
+  .settingsButtonIcon::before,
+  .settingsButtonIcon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .settingsButtonIcon::before {
+    top: -3px;
+  }
+
+  .settingsButtonIcon::after {
+    top: 3px;
+  }
+
+  .settingsMenu {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    min-width: 98px;
+    padding: 7px;
+    border: 0;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, .94);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .46);
+  }
+
+  .settingsMenu[hidden] {
+    display: none;
+  }
+
+  .settingsToggle {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 5px 6px;
+    color: var(--ink);
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: .04em;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .settingsToggle input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    display: grid;
+    place-content: center;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: 1px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .settingsToggle span {
+    opacity: .62;
+  }
+
+  .settingsToggle input:checked::after {
+    content: "";
+    width: 3px;
+    height: 5px;
+    margin-top: -1px;
+    border: solid rgba(255, 255, 255, .88);
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+  }
+
+  .settingsToggle input:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .stage {
+    position: fixed;
+    inset: var(--rail-h) 0 0;
+    background: #000;
+  }
+
+  #moduleFrame {
+    display: block;
+    width: 100%;
+    height: calc(100vh - var(--rail-h));
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #000;
+    background-color: #000;
+  }
+
+  #moduleFrame:focus,
+  #moduleFrame:focus-visible {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .status {
+    position: fixed;
+    left: 50%;
+    top: calc(var(--rail-h) + 16px);
+    z-index: 13;
+    transform: translateX(-50%);
+    max-width: min(620px, calc(100vw - 32px));
+    padding: 9px 12px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, .72);
+    color: var(--dim);
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: .04em;
+  }
+
+  .status[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    :root {
+      --rail-h: 96px;
+      --thumb-w: 82px;
+      --thumb-h: 52px;
+      --logo-w: calc(var(--thumb-w) * 1.36);
+      --logo-h: calc(var(--thumb-h) * .88);
+    }
+
+    .logoOverlay {
+      width: 88px;
+      height: 88px;
+      top: 15px;
+    }
+
+    .rail {
+      padding: 10px;
+    }
+
+    .settingsShell {
+      top: -2px;
+      right: 0;
+    }
+  }
+
+  /* NOIXZY_DEBUG_GRID_100X4 */
+  body.debugGrid::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2147483646;
+    pointer-events: none;
+    opacity: .54;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.12) 1px, transparent 1px),
+      linear-gradient(to right, rgba(255,255,255,.32) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.32) 1px, transparent 1px);
+    background-size:
+      25px 25px,
+      25px 25px,
+      100px 100px,
+      100px 100px;
+    background-position:
+      calc(50vw - 50px) calc(50vh - 50px),
+      calc(50vw - 50px) calc(50vh - 50px),
+      calc(50vw - 50px) calc(50vh - 50px),
+      calc(50vw - 50px) calc(50vh - 50px);
+  }
+
+  /* NOIXZY_RAIL_CRT_VHS_OVERLAY */
+
+
+
+
+  /* NOIXZY_RAIL_CRT_VHS_OVERLAY */
+  .rail::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 24px;
+    height: 49px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: .54;
+    mix-blend-mode: screen;
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.07) 0px,
+        rgba(255,255,255,.07) 1px,
+        transparent 1px,
+        transparent 1.6px
+      );
+  }
+
+
+  /* NOIXZY_BADGE_EDGE_FADE */
+  .logoOverlay::before,
+  .logoOverlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .logoOverlay::before {
+    right: 100%;
+    background: linear-gradient(to left, #000 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .logoOverlay::after {
+    left: 100%;
+    background: linear-gradient(to right, #000 0%, rgba(0,0,0,0) 100%);
+  }
+
+</style>
+</head>
+<body class="debugGrid">
+<div class="shell">
+  <header class="rail" aria-label="module rail">
+    <nav class="thumbRail" id="moduleRail" aria-label="modules"></nav>
+    <a class="logoOverlay" href="gallery/index.html" aria-label="Back to gallery">
+      <img src="gallery/gallery.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
+    </a>
+    <div class="settingsShell">
+      <button class="settingsButton" id="settingsButton" type="button" aria-label="Settings" aria-haspopup="true" aria-expanded="false" aria-controls="settingsMenu" title="Settings">
+        <span class="settingsButtonIcon" aria-hidden="true"></span>
+      </button>
+      <div class="settingsMenu" id="settingsMenu" role="group" aria-label="Shell settings" hidden>
+        <label class="settingsToggle">
+          <span>Grid</span>
+          <input id="gridToggle" type="checkbox" aria-label="Grid">
+        </label>
+        <label class="settingsToggle">
+          <span>Logo Badge</span>
+          <input id="logoBadgeToggle" type="checkbox" aria-label="Logo Badge">
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <div class="status" id="status">loading modules.manifest.json</div>
+    <iframe id="moduleFrame" title="noixzy module"></iframe>
+  </main>
+</div>
+
+<script>
+(() => {
+  const manifestPath = "modules.manifest.json";
+  const frame = document.getElementById("moduleFrame");
+  const moduleRail = document.getElementById("moduleRail");
+  const status = document.getElementById("status");
+  const settingsButton = document.getElementById("settingsButton");
+  const settingsMenu = document.getElementById("settingsMenu");
+  const gridToggle = document.getElementById("gridToggle");
+  const logoBadgeToggle = document.getElementById("logoBadgeToggle");
+  const settingsStorageKeys = {
+    grid: "noixzyShell.grid",
+    logoBadge: "noixzyShell.logoBadge"
+  };
+  let enabledModules = [];
+  let activeId = "";
+  const galleryOrder = [
+    "grid_extrude",
+    "sdf_raymarch",
+    "gyroid",
+    "displacement",
+    "displacement_primitives",
+    "mandelbulb",
+    "fold",
+    "metafluid",
+    "moire_field",
+    "particle_orbitals",
+    "radial_noise",
+    "kaleidoscope_field",
+    "topographic_rings",
+    "ribbon_flow",
+    "glyph_field",
+    "crystal_growth",
+    "vector_scope",
+    "wave_lattice",
+    "fractal_tiles",
+    "plasma_membrane",
+    "interference_grid",
+    "cellular_bloom",
+    "vortex_sheet",
+    "prism_moire",
+    "terrain_slice",
+    "signal_weave",
+    "crater_field",
+    "spiral_lattice",
+    "signal_rain",
+    "echo_contours",
+    "magnetic_dust",
+    "neural_lattice",
+    "flow_field",
+    "reaction_diffusion",
+    "voronoi",
+    "contour_field",
+    "truchet",
+    "truchet_b",
+    "l_system",
+    "cellular_erosion",
+    "recursive_grid",
+    "wave_interference",
+    "stipple",
+    "hex_grid",
+    "rose_curve",
+    "lissajous_mesh",
+    "torus_knot"
+  ];
+  const galleryOrderIndex = new Map(galleryOrder.map((id, index) => [id, index]));
+
+  const setStatus = (message) => {
+    status.textContent = message;
+    status.hidden = !message;
+  };
+
+  const readStoredBool = (key, fallback) => {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : value === "true";
+    } catch (error) {
+      return fallback;
+    }
+  };
+
+  const writeStoredBool = (key, value) => {
+    try {
+      localStorage.setItem(key, String(value));
+    } catch (error) {
+      // Storage can be unavailable in private or restricted contexts.
+    }
+  };
+
+  const applyGridState = (enabled) => {
+    document.body.classList.toggle("debugGrid", enabled);
+    gridToggle.checked = enabled;
+    writeStoredBool(settingsStorageKeys.grid, enabled);
+  };
+
+  const applyLogoBadgeState = (enabled) => {
+    document.body.classList.toggle("logoBadgeHidden", !enabled);
+    logoBadgeToggle.checked = enabled;
+    writeStoredBool(settingsStorageKeys.logoBadge, enabled);
+  };
+
+  const closeSettingsMenu = () => {
+    settingsMenu.hidden = true;
+    settingsButton.setAttribute("aria-expanded", "false");
+  };
+
+  const toggleSettingsMenu = () => {
+    const shouldOpen = settingsMenu.hidden;
+    settingsMenu.hidden = !shouldOpen;
+    settingsButton.setAttribute("aria-expanded", String(shouldOpen));
+  };
+
+  const initSettings = () => {
+    applyGridState(readStoredBool(settingsStorageKeys.grid, true));
+    applyLogoBadgeState(readStoredBool(settingsStorageKeys.logoBadge, true));
+
+    settingsButton.addEventListener("click", () => {
+      toggleSettingsMenu();
+    });
+
+    gridToggle.addEventListener("change", () => {
+      applyGridState(gridToggle.checked);
+    });
+
+    logoBadgeToggle.addEventListener("change", () => {
+      applyLogoBadgeState(logoBadgeToggle.checked);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeSettingsMenu();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!settingsMenu.hidden && !event.target.closest(".settingsShell")) {
+        closeSettingsMenu();
+      }
+    });
+  };
+
+  const moduleFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("module") || "";
+  };
+
+  const setModuleParam = (id, mode = "push") => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("module", id);
+    const method = mode === "replace" ? "replaceState" : "pushState";
+    history[method]({ module: id }, "", url);
+  };
+
+  const findEnabledModule = (id) => enabledModules.find((module) => module.id === id);
+
+  const selectModule = (id, options = {}) => {
+    const fallback = enabledModules[0];
+    const module = findEnabledModule(id) || fallback;
+    if (!module) {
+      setStatus("No modules are enabled for the shell.");
+      return;
+    }
+
+    const changed = activeId !== module.id;
+    activeId = module.id;
+    frame.src = module.file;
+    frame.title = module.title || module.id;
+    document.title = `${module.title || module.id} // noixzy shell`;
+
+    document.querySelectorAll(".moduleButton").forEach((button) => {
+      const selected = button.dataset.moduleId === module.id;
+      button.setAttribute("aria-selected", String(selected));
+      button.tabIndex = selected ? 0 : -1;
+    });
+
+    if (options.updateUrl) {
+      setModuleParam(module.id, options.replaceUrl ? "replace" : "push");
+    }
+
+    setStatus("");
+
+    if (changed) {
+      const selectedButton = document.querySelector(`.moduleButton[data-module-id="${CSS.escape(module.id)}"]`);
+      selectedButton?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+  };
+
+  const createThumb = (module) => {
+    const button = document.createElement("button");
+    button.className = "moduleButton";
+    button.type = "button";
+    button.dataset.moduleId = module.id;
+    button.setAttribute("aria-selected", "false");
+    button.title = module.title || module.id;
+
+=== MODULE MANIFEST ===
+{
+  "schemaVersion": "1.0.0",
+  "summary": {
+    "listedCount": 47,
+    "liveCount": 48,
+    "unlistedLiveCount": 1,
+    "listedMissingCount": 0
+  },
+  "discrepancies": {
+    "unlistedLive": [
+      "sdf"
+    ],
+    "listedMissingFiles": []
+  },
+  "modules": [
+    {
+      "id": "cellular_bloom",
+      "title": "cellular bloom",
+      "file": "cellular_bloom/noixzy_cellular_bloom.html",
+      "thumb": "gallery/thumbs/cellular_bloom.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "cellular_erosion",
+      "title": "cellular erosion",
+      "file": "cellular_erosion/noixzy_cellular_erosion.html",
+      "thumb": "gallery/thumbs/cellular_erosion.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "contour_field",
+      "title": "contour field",
+      "file": "contour_field/noixzy_contour_field.html",
+      "thumb": "gallery/thumbs/contour_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "crater_field",
+      "title": "crater field",
+      "file": "crater_field/noixzy_crater_field.html",
+      "thumb": "gallery/thumbs/crater_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "crystal_growth",
+      "title": "crystal growth",
+      "file": "crystal_growth/noixzy_crystal_growth.html",
+      "thumb": "gallery/thumbs/crystal_growth.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "displacement",
+      "title": "displacement sphere",
+      "file": "displacement/noixzy_displacement.html",
+      "thumb": "gallery/thumbs/displacement.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "displacement_primitives",
+      "title": "displacement primitives",
+      "file": "displacement_primitives/noixzy_displacement_primitives.html",
+      "thumb": "gallery/thumbs/displacement_primitives.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "echo_contours",
+      "title": "echo contours",
+      "file": "echo_contours/noixzy_echo_contours.html",
+      "thumb": "gallery/thumbs/echo_contours.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "flow_field",
+      "title": "flow field",
+      "file": "flow_field/noixzy_flow_field.html",
+      "thumb": "gallery/thumbs/flow_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "fold",
+      "title": "fold",
+      "file": "fold/noixzy_fold.html",
+      "thumb": "gallery/thumbs/fold.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "fractal_tiles",
+      "title": "fractal tiles",
+      "file": "fractal_tiles/noixzy_fractal_tiles.html",
+      "thumb": "gallery/thumbs/fractal_tiles.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "glyph_field",
+      "title": "glyph field",
+      "file": "glyph_field/noixzy_glyph_field.html",
+      "thumb": "gallery/thumbs/glyph_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "grid_extrude",
+      "title": "grid extrude",
+      "file": "grid_extrude/noixzy_grid_extrude.html",
+      "thumb": "gallery/thumbs/grid_extrude.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "gyroid",
+      "title": "gyroid",
+      "file": "gyroid/noixzy_gyroid.html",
+      "thumb": "gallery/thumbs/gyroid.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "hex_grid",
+      "title": "hex grid",
+      "file": "hex_grid/noixzy_hex_grid.html",
+      "thumb": "gallery/thumbs/hex_grid.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "interference_grid",
+      "title": "interference grid",
+      "file": "interference_grid/noixzy_interference_grid.html",
+      "thumb": "gallery/thumbs/interference_grid.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "kaleidoscope_field",
+      "title": "kaleidoscope field",
+      "file": "kaleidoscope_field/noixzy_kaleidoscope_field.html",
+      "thumb": "gallery/thumbs/kaleidoscope_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "l_system",
+      "title": "l-system",
+      "file": "l_system/noixzy_l_system.html",
+      "thumb": "gallery/thumbs/l_system.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "lissajous_mesh",
+      "title": "lissajous mesh",
+      "file": "lissajous_mesh/noixzy_lissajous_mesh.html",
+      "thumb": "gallery/thumbs/lissajous_mesh.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "magnetic_dust",
+      "title": "magnetic dust",
+      "file": "magnetic_dust/noixzy_magnetic_dust.html",
+      "thumb": "gallery/thumbs/magnetic_dust.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "mandelbulb",
+      "title": "mandelbulb",
+      "file": "mandelbulb/noixzy_mandelbulb.html",
+      "thumb": "gallery/thumbs/mandelbulb.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "metafluid",
+      "title": "metafluid",
+      "file": "metafluid/noixzy_metafluid.html",
+      "thumb": "gallery/thumbs/metafluid.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "moire_field",
+      "title": "moire field",
+      "file": "moire_field/noixzy_moire_field.html",
+      "thumb": "gallery/thumbs/moire_field.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "neural_lattice",
+      "title": "neural lattice",
+      "file": "neural_lattice/noixzy_neural_lattice.html",
+      "thumb": "gallery/thumbs/neural_lattice.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "particle_orbitals",
+      "title": "particle orbitals",
+      "file": "particle_orbitals/noixzy_particle_orbitals.html",
+      "thumb": "gallery/thumbs/particle_orbitals.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "plasma_membrane",
+      "title": "plasma membrane",
+      "file": "plasma_membrane/noixzy_plasma_membrane.html",
+      "thumb": "gallery/thumbs/plasma_membrane.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "prism_moire",
+      "title": "prism moire",
+      "file": "prism_moire/noixzy_prism_moire.html",
+      "thumb": "gallery/thumbs/prism_moire.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "radial_noise",
+      "title": "radial noise",
+      "file": "radial_noise/noixzy_radial_noise.html",
+      "thumb": "gallery/thumbs/radial_noise.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "reaction_diffusion",
+      "title": "reaction diffusion",
+      "file": "reaction_diffusion/noixzy_reaction_diffusion.html",
+      "thumb": "gallery/thumbs/reaction_diffusion.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "recursive_grid",
+      "title": "recursive grid",
+      "file": "recursive_grid/noixzy_recursive_grid.html",
+      "thumb": "gallery/thumbs/recursive_grid.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "ribbon_flow",
+      "title": "ribbon flow",
+      "file": "ribbon_flow/noixzy_ribbon_flow.html",
+      "thumb": "gallery/thumbs/ribbon_flow.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "rose_curve",
+      "title": "rose curve",
+      "file": "rose_curve/noixzy_rose_curve.html",
+      "thumb": "gallery/thumbs/rose_curve.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "sdf",
+      "title": "sdf",
+      "file": "sdf/noixzy_sdf.html",
+      "thumb": "gallery/thumbs/sdf.png",
+      "authorship": "generated",
+      "listedInGallery": false,
+      "enabledInShell": false,
+      "status": "unlisted",
+      "reason": "live generated module exists but is not listed in gallery/index.html"
+    },
+    {
+      "id": "sdf_raymarch",
+      "title": "sdf raymarch",
+      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
+      "thumb": "gallery/thumbs/sdf_raymarch.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "signal_rain",
+      "title": "signal rain",
+      "file": "signal_rain/noixzy_signal_rain.html",
+      "thumb": "gallery/thumbs/signal_rain.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "signal_weave",
+      "title": "signal weave",
+      "file": "signal_weave/noixzy_signal_weave.html",
+      "thumb": "gallery/thumbs/signal_weave.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "spiral_lattice",
+      "title": "spiral lattice",
+      "file": "spiral_lattice/noixzy_spiral_lattice.html",
+      "thumb": "gallery/thumbs/spiral_lattice.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "stipple",
+      "title": "stipple",
+      "file": "stipple/noixzy_stipple.html",
+      "thumb": "gallery/thumbs/stipple.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "terrain_slice",
+      "title": "terrain slice",
+      "file": "terrain_slice/noixzy_terrain_slice.html",
+      "thumb": "gallery/thumbs/terrain_slice.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "topographic_rings",
+      "title": "topographic rings",
+      "file": "topographic_rings/noixzy_topographic_rings.html",
+      "thumb": "gallery/thumbs/topographic_rings.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "torus_knot",
+      "title": "torus knot",
+      "file": "torus_knot/noixzy_torus_knot.html",
+      "thumb": "gallery/thumbs/torus_knot.png",
+      "authorship": "hand-authored",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "truchet",
+      "title": "truchet",
+      "file": "truchet/noixzy_truchet.html",
+      "thumb": "gallery/thumbs/truchet.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "truchet_b",
+      "title": "truchet // color",
+      "file": "truchet_b/noixzy_truchet_b.html",
+      "thumb": "gallery/thumbs/truchet_b.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "vector_scope",
+      "title": "vector scope",
+      "file": "vector_scope/noixzy_vector_scope.html",
+      "thumb": "gallery/thumbs/vector_scope.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "voronoi",
+      "title": "voronoi",
+      "file": "voronoi/noixzy_voronoi.html",
+      "thumb": "gallery/thumbs/voronoi.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "vortex_sheet",
+      "title": "vortex sheet",
+      "file": "vortex_sheet/noixzy_vortex_sheet.html",
+      "thumb": "gallery/thumbs/vortex_sheet.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "wave_interference",
+      "title": "wave interference",
+      "file": "wave_interference/noixzy_wave_interference.html",
+      "thumb": "gallery/thumbs/wave_interference.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "wave_lattice",
+      "title": "wave lattice",
+      "file": "wave_lattice/noixzy_wave_lattice.html",
+      "thumb": "gallery/thumbs/wave_lattice.png",
+      "authorship": "generated",
+      "listedInGallery": true,
+      "enabledInShell": true,
+      "status": "listed"
+    }
+  ]
+}
+
+=== MODULE COUNT ===
+      57
+
+=== MODULE FILES ===
+./agent_swarm_relief/noixzy_agent_swarm_relief.html
+./catenary_web/noixzy_catenary_web.html
+./cellular_bloom/noixzy_cellular_bloom.html
+./cellular_erosion/noixzy_cellular_erosion.html
+./contour_field/noixzy_contour_field.html
+./crater_field/noixzy_crater_field.html
+./crystal_growth/noixzy_crystal_growth.html
+./displacement/noixzy_displacement.html
+./displacement_primitives/noixzy_displacement_primitives.html
+./echo_contours/noixzy_echo_contours.html
+./flow_field/noixzy_flow_field.html
+./fractal_tiles/noixzy_fractal_tiles.html
+./glyph_field/noixzy_glyph_field.html
+./grid_extrude/noixzy_grid_extrude.html
+./gyroid/noixzy_gyroid.html
+./hex_grid/noixzy_hex_grid.html
+./hyperbolic_tiling/noixzy_hyperbolic_tiling.html
+./interference_grid/noixzy_interference_grid.html
+./kaleidoscope_field/noixzy_kaleidoscope_field.html
+./l_system/noixzy_l_system.html
+./lissajous_mesh/noixzy_lissajous_mesh.html
+./magnetic_dust/noixzy_magnetic_dust.html
+./mandelbulb/noixzy_mandelbulb.html
+./metafluid/noixzy_metafluid.html
+./moire_field/noixzy_moire_field.html
+./neural_lattice/noixzy_neural_lattice.html
+./origami_fold_field/noixzy_origami_fold_field.html
+./particle_orbitals/noixzy_particle_orbitals.html
+./phyllotaxis_stack/noixzy_phyllotaxis_stack.html
+./plasma_membrane/noixzy_plasma_membrane.html
+./prism_moire/noixzy_prism_moire.html
+./quasicrystal_relief/noixzy_quasicrystal_relief.html
+./radial_noise/noixzy_radial_noise.html
+./reaction_diffusion/noixzy_reaction_diffusion.html
+./reaction_terraces/noixzy_reaction_terraces.html
+./recursive_grid/noixzy_recursive_grid.html
+./ribbon_flow/noixzy_ribbon_flow.html
+./rose_curve/noixzy_rose_curve.html
+./sdf/noixzy_sdf.html
+./sdf_raymarch/noixzy_sdf_raymarch.html
+./signal_rain/noixzy_signal_rain.html
+./signal_weave/noixzy_signal_weave.html
+./spiral_lattice/noixzy_spiral_lattice.html
+./stipple/noixzy_stipple.html
+./tensegrity_nodes/noixzy_tensegrity_nodes.html
+./terrain_slice/noixzy_terrain_slice.html
+./topographic_rings/noixzy_topographic_rings.html
+./torus_knot/noixzy_torus_knot.html
+./truchet/noixzy_truchet.html
+./truchet_b/noixzy_truchet_b.html
+./vector_scope/noixzy_vector_scope.html
+./voronoi/noixzy_voronoi.html
+./voronoi_tower_field/noixzy_voronoi_tower_field.html
+./vortex_sheet/noixzy_vortex_sheet.html
+./wave_interference/noixzy_wave_interference.html
+./wave_lattice/noixzy_wave_lattice.html
+./woven_lattice_relief/noixzy_woven_lattice_relief.html
+
+=== MODULES WITH RAIL ===
+./agent_swarm_relief/noixzy_agent_swarm_relief.html
+./catenary_web/noixzy_catenary_web.html
+./cellular_bloom/noixzy_cellular_bloom.html
+./cellular_erosion/noixzy_cellular_erosion.html
+./contour_field/noixzy_contour_field.html
+./crater_field/noixzy_crater_field.html
+./crystal_growth/noixzy_crystal_growth.html
+./displacement/noixzy_displacement.html
+./displacement_primitives/noixzy_displacement_primitives.html
+./echo_contours/noixzy_echo_contours.html
+./flow_field/noixzy_flow_field.html
+./fractal_tiles/noixzy_fractal_tiles.html
+./glyph_field/noixzy_glyph_field.html
+./grid_extrude/noixzy_grid_extrude.html
+./gyroid/noixzy_gyroid.html
+./hex_grid/noixzy_hex_grid.html
+./hyperbolic_tiling/noixzy_hyperbolic_tiling.html
+./interference_grid/noixzy_interference_grid.html
+./kaleidoscope_field/noixzy_kaleidoscope_field.html
+./l_system/noixzy_l_system.html
+./lissajous_mesh/noixzy_lissajous_mesh.html
+./magnetic_dust/noixzy_magnetic_dust.html
+./mandelbulb/noixzy_mandelbulb.html
+./metafluid/noixzy_metafluid.html
+./moire_field/noixzy_moire_field.html
+./neural_lattice/noixzy_neural_lattice.html
+./origami_fold_field/noixzy_origami_fold_field.html
+./particle_orbitals/noixzy_particle_orbitals.html
+./phyllotaxis_stack/noixzy_phyllotaxis_stack.html
+./plasma_membrane/noixzy_plasma_membrane.html
+./prism_moire/noixzy_prism_moire.html
+./quasicrystal_relief/noixzy_quasicrystal_relief.html
+./radial_noise/noixzy_radial_noise.html
+./reaction_diffusion/noixzy_reaction_diffusion.html
+./reaction_terraces/noixzy_reaction_terraces.html
+./recursive_grid/noixzy_recursive_grid.html
+./ribbon_flow/noixzy_ribbon_flow.html
+./rose_curve/noixzy_rose_curve.html
+./sdf/noixzy_sdf.html
+./sdf_raymarch/noixzy_sdf_raymarch.html
+./signal_rain/noixzy_signal_rain.html
+./signal_weave/noixzy_signal_weave.html
+./spiral_lattice/noixzy_spiral_lattice.html
+./stipple/noixzy_stipple.html
+./tensegrity_nodes/noixzy_tensegrity_nodes.html
+./terrain_slice/noixzy_terrain_slice.html
+./topographic_rings/noixzy_topographic_rings.html
+./torus_knot/noixzy_torus_knot.html
+./truchet/noixzy_truchet.html
+./truchet_b/noixzy_truchet_b.html
+./vector_scope/noixzy_vector_scope.html
+./voronoi/noixzy_voronoi.html
+./voronoi_tower_field/noixzy_voronoi_tower_field.html
+./vortex_sheet/noixzy_vortex_sheet.html
+./wave_interference/noixzy_wave_interference.html
+./wave_lattice/noixzy_wave_lattice.html
+./woven_lattice_relief/noixzy_woven_lattice_relief.html
+
+=== MODULES WITHOUT RAIL ===
+
+=== RAIL/LINK LINES IN SAMPLE MODULES ===
+
+--- agent_swarm_relief/noixzy_agent_swarm_relief.html ---
+7:<link rel="icon" href="data:,">
+143:<header class="rail" aria-label="module rail">
+145:    <a class="logoOverlay" href="../unified_shell.html" aria-label="Back to gallery">
+146:      <img src="gallery/gallery.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
+174:  body.geoOnly .galleryMark,
+232:/* NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+249:.logoOverlay {
+261:.logoOverlay img {
+268:.logoOverlay .fallback {
+282:.logoOverlay::before,
+283:.logoOverlay::after {
+292:.logoOverlay::before {
+297:.logoOverlay::after {
+302:body.logoBadgeHidden .logoOverlay {
+305:/* END NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+811:      c.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=PIECE+".png";a.click();},"image/png");
+865:  const np=document.getElementById("navPrev"); if(np){ np.href="../"+prev.id+"/noixzy_"+prev.id+".html"; np.title=prev.title; }
+866:  const nn=document.getElementById("navNext"); if(nn){ nn.href="../"+next.id+"/noixzy_"+next.id+".html"; nn.title=next.title; }
+895:    const a=document.createElement("a"); a.href="../"+m.id+"/noixzy_"+m.id+".html"; a.title=m.title;
+897:    a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); window.location.href=a.href; };
+898:    const img=document.createElement("img"); img.src="../gallery/thumbs/"+m.id+".png"; img.alt=m.title;
+1334:    const a=document.createElement('a'); a.href=u; a.download=name; a.click(); URL.revokeObjectURL(u); }); }
+1402:  const a=document.createElement('a'); a.href=url; a.download='noixzy_'+PIECE+'_'+seed+'.svg'; a.click();
+1419:    const a=document.createElement('a'); a.href=url; a.download='noixzy_'+PIECE+'_'+seed+'.webm'; a.click();
+
+--- grid_extrude/noixzy_grid_extrude.html ---
+7:<link rel="icon" href="data:,">
+228:  .navBar .galleryMark {
+241:  .galleryMark,
+264:  .galleryMark,
+313:/* NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+330:.logoOverlay {
+342:.logoOverlay img {
+349:.logoOverlay .fallback {
+363:.logoOverlay::before,
+364:.logoOverlay::after {
+373:.logoOverlay::before {
+378:.logoOverlay::after {
+383:body.logoBadgeHidden .logoOverlay {
+386:/* END NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+391:<header class="rail" aria-label="module rail">
+393:    <a class="logoOverlay" href="../unified_shell.html" aria-label="Back to gallery">
+394:      <img src="gallery/gallery.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
+414:  <a href="../gallery/index.html" class="navCurrent"><img class="galleryMark" src="../gallery/gallery.svg" alt="gallery"></a>
+874:      c.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=PIECE+".png";a.click();},"image/png");
+1098:    const a=document.createElement('a'); a.href=u; a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000); });
+1431:    const a=document.createElement('a'); a.href=url; a.download='noixzy_'+PIECE+'_'+seed+'.webm'; a.click();
+1465:  const np=document.getElementById("navPrev"); if(np){ np.href="../"+prev.id+"/noixzy_"+prev.id+".html"; np.title=prev.title; }
+1466:  const nn=document.getElementById("navNext"); if(nn){ nn.href="../"+next.id+"/noixzy_"+next.id+".html"; nn.title=next.title; }
+1489:    const a=document.createElement("a"); a.href="../"+m.id+"/noixzy_"+m.id+".html"; a.title=m.title;
+1491:    a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); window.location.href=a.href; };
+1492:    const img=document.createElement("img"); img.src="../gallery/thumbs/"+m.id+".png"; img.alt=m.title;
+1508:<script src="../gallery/noixzy_ruler_overlay.js"></script>
+
+--- sdf_raymarch/noixzy_sdf_raymarch.html ---
+7:<link rel="icon" href="data:,">
+306:  .navBar .galleryMark {
+319:  .galleryMark,
+342:  .galleryMark,
+391:/* NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+408:.logoOverlay {
+420:.logoOverlay img {
+427:.logoOverlay .fallback {
+441:.logoOverlay::before,
+442:.logoOverlay::after {
+451:.logoOverlay::before {
+456:.logoOverlay::after {
+461:body.logoBadgeHidden .logoOverlay {
+464:/* END NOIXZY_UNIFIED_SHELL_RAIL_IMPORTED */
+469:<header class="rail" aria-label="module rail">
+471:    <a class="logoOverlay" href="../unified_shell.html" aria-label="Back to gallery">
+472:      <img src="gallery/gallery.svg" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'), { className: 'fallback', textContent: 'noixzy' }))">
+492:  <a href="../gallery/index.html" class="navCurrent"><img class="galleryMark" src="../gallery/gallery.svg" alt="gallery"></a>
+932:          const a=document.createElement("a"); a.href=URL.createObjectURL(b);
+1551:  a.href=out.toDataURL("image/png");
+1592:    a.href=url;
+1944:      a.href=url;
+2181:  const np=document.getElementById("navPrev"); if(np){ np.href="../"+prev.id+"/noixzy_"+prev.id+".html"; np.title=prev.title; }
+2182:  const nn=document.getElementById("navNext"); if(nn){ nn.href="../"+next.id+"/noixzy_"+next.id+".html"; nn.title=next.title; }
+2214:    const a=document.createElement("a"); a.href="../"+m.id+"/noixzy_"+m.id+".html"; a.title=m.title;
+2216:    a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); window.location.href=a.href; };
+2217:    const img=document.createElement("img"); img.src="../gallery/thumbs/"+m.id+".png"; img.alt=m.title;
+2233:<script src="../gallery/noixzy_ruler_overlay.js"></script>
+
+=== BROKEN/ODD GALLERY LINK LOGIC ===
+152:  <a href="index.html" aria-label="gallery"><img class="galleryMark" src="gallery.svg" alt="gallery"></a>
+167:  ["grid_extrude","grid extrude","2.5D extruded blocks · stacked param layers","loop / still / scene","h"],
+219:  a.href = dir === "grid_extrude"
+220:    ? `../unified_shell.html?module=${dir}`
+221:    : `../${dir}/noixzy_${dir}.html`;
+224:  a.innerHTML=`<div class="thumb"><img src="thumbs/${dir}.png" alt="${name}">
+
+=== REPORT SAVED ===
+/Users/noixzy.macbookpro/Downloads/noixzy_generative_lab/workspace/_scan_reports/repo_readthrough_20260628_102704.txt

@@ -1,0 +1,492 @@
+=== HA UI LAYOUT AUDIT ===
+Sun Jun 28 10:33:07 EDT 2026
+
+=== HAND-AUTHORED FROM MANIFEST ===
+displacement|displacement/noixzy_displacement.html
+displacement_primitives|displacement_primitives/noixzy_displacement_primitives.html
+fold|fold/noixzy_fold.html
+grid_extrude|grid_extrude/noixzy_grid_extrude.html
+gyroid|gyroid/noixzy_gyroid.html
+hex_grid|hex_grid/noixzy_hex_grid.html
+lissajous_mesh|lissajous_mesh/noixzy_lissajous_mesh.html
+mandelbulb|mandelbulb/noixzy_mandelbulb.html
+metafluid|metafluid/noixzy_metafluid.html
+rose_curve|rose_curve/noixzy_rose_curve.html
+sdf_raymarch|sdf_raymarch/noixzy_sdf_raymarch.html
+torus_knot|torus_knot/noixzy_torus_knot.html
+
+=== STRUCTURE CHECK ===
+
+=== displacement ===
+file: displacement/noixzy_displacement.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 20
+42:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+43:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+44:   .navBar a:hover { color:var(--accent); }
+255:   .navBar {
+278:   .navBar a {
+296:   .navBar {
+300:   .navBar a {
+308:   .navBar .galleryMark {
+320:   .navBar,
+343:   .navBar,
+394: <body>
+395: <div class="navBar">
+432:   <div class="panel" data-zone="right-panel" id="panel">
+435:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+438:     <div class="consoleBtns" data-zone="right-panel-controls">
+1246:   const rail=document.getElementById("stageThumbs");
+1247:   if(rail && !rail.dataset.noixzyWheelBound){
+1248:     rail.dataset.noixzyWheelBound="1";
+1250:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1252:     rail.addEventListener("wheel",e=>{
+1717:   const rail=document.getElementById("stageThumbs");
+1718:   if(rail){
+1720:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1726:   let railSelected=safeIdx;
+1731:     railSelected=(i+links.length)%links.length;
+1733:     links[railSelected].classList.add("selected");
+1734:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1747:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1748:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== displacement_primitives ===
+file: displacement_primitives/noixzy_displacement_primitives.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 21
+41:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+42:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+43:   .navBar a:hover { color:var(--accent); }
+254:   .navBar {
+277:   .navBar a {
+295:   .navBar {
+299:   .navBar a {
+307:   .navBar .galleryMark {
+319:   .navBar,
+342:   .navBar,
+393: <body>
+394: <div class="navBar">
+431:   <div class="panel" data-zone="right-panel" id="panel">
+434:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+437:     <div class="consoleBtns" data-zone="right-panel-controls">
+1307:   const rail=document.getElementById("stageThumbs");
+1308:   if(rail && !rail.dataset.noixzyWheelBound){
+1309:     rail.dataset.noixzyWheelBound="1";
+1311:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1313:     rail.addEventListener("wheel",e=>{
+1778:   const rail=document.getElementById("stageThumbs");
+1779:   if(rail){
+1781:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1787:   let railSelected=safeIdx;
+1792:     railSelected=(i+links.length)%links.length;
+1794:     links[railSelected].classList.add("selected");
+1795:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1808:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1809:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== fold ===
+file: fold/noixzy_fold.html
+exists: False
+header/navBar: False
+right panel: False
+canvas: False
+main/app/layout: False
+buttons: 0
+inputs: 0
+
+=== grid_extrude ===
+file: grid_extrude/noixzy_grid_extrude.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 15
+inputs: 7
+59:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+60:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+61:   .navBar a:hover { color:var(--accent); }
+175:   .navBar {
+198:   .navBar a {
+216:   .navBar {
+220:   .navBar a {
+228:   .navBar .galleryMark {
+240:   .navBar,
+263:   .navBar,
+314: <body>
+315: <div class="navBar">
+320:     <div class="previewHistory" id="previewHistory" aria-label="preview history controls" data-zone="preview-overlay">
+356:   <div class="panel" data-zone="right-panel">
+360:       <div class="cycleLine" data-zone="theme-controls">
+364:       <div class="consoleBtns" data-zone="right-panel-controls">
+367:       <div class="presetLine" data-zone="right-panel-presets">
+370:       <div class="presetLine triple" data-zone="right-panel-presets">
+396: <div id="kbHelp" aria-hidden="true"><div class="kbCard"><h2>keyboard shortcuts</h2><div class="kbGrid"><b>h</b><span>hide / show panel</span><b>?</b><span>this help</span><b>space</b><span>pause / play</span><b>[ / ]</b>
+851:     // trailing side faces (left + bottom), shaded
+1370:   const rail=document.getElementById("stageThumbs");
+1371:   if(rail){
+1373:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1379:   let railSelected=safeIdx;
+1384:     railSelected=(i+links.length)%links.length;
+1386:     links[railSelected].classList.add("selected");
+1387:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1400:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1401:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== gyroid ===
+file: gyroid/noixzy_gyroid.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 19
+42:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+43:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+44:   .navBar a:hover { color:var(--accent); }
+284:   .navBar {
+307:   .navBar a {
+325:   .navBar {
+329:   .navBar a {
+337:   .navBar .galleryMark {
+349:   .navBar,
+372:   .navBar,
+423: <body>
+424: <div class="navBar">
+461:   <div class="panel" data-zone="right-panel" id="panel">
+464:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+467:     <div class="consoleBtns" data-zone="right-panel-controls">
+1243:   const rail=document.getElementById("stageThumbs");
+1244:   if(rail && !rail.dataset.noixzyWheelBound){
+1245:     rail.dataset.noixzyWheelBound="1";
+1247:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1249:     rail.addEventListener("wheel",e=>{
+1851:   const rail=document.getElementById("stageThumbs");
+1852:   if(rail){
+1854:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1860:   let railSelected=safeIdx;
+1865:     railSelected=(i+links.length)%links.length;
+1867:     links[railSelected].classList.add("selected");
+1868:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1881:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1882:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== hex_grid ===
+file: hex_grid/noixzy_hex_grid.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 17
+47:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+48:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+49:   .navBar a:hover { color:var(--accent); }
+260:   .navBar {
+283:   .navBar a {
+301:   .navBar {
+305:   .navBar a {
+313:   .navBar .galleryMark {
+325:   .navBar,
+348:   .navBar,
+399: <body>
+400: <div class="navBar">
+437:   <div class="panel" data-zone="right-panel" id="panel">
+440:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+443:     <div class="consoleBtns" data-zone="right-panel-controls">
+1037:   const rail=document.getElementById("stageThumbs");
+1038:   if(rail && !rail.dataset.noixzyWheelBound){
+1039:     rail.dataset.noixzyWheelBound="1";
+1041:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1043:     rail.addEventListener("wheel",e=>{
+1510:   const rail=document.getElementById("stageThumbs");
+1511:   if(rail){
+1513:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1519:   let railSelected=safeIdx;
+1524:     railSelected=(i+links.length)%links.length;
+1526:     links[railSelected].classList.add("selected");
+1527:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1540:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1541:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== lissajous_mesh ===
+file: lissajous_mesh/noixzy_lissajous_mesh.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 17
+47:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+48:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+49:   .navBar a:hover { color:var(--accent); }
+260:   .navBar {
+283:   .navBar a {
+301:   .navBar {
+305:   .navBar a {
+313:   .navBar .galleryMark {
+325:   .navBar,
+348:   .navBar,
+399: <body>
+400: <div class="navBar">
+437:   <div class="panel" data-zone="right-panel" id="panel">
+440:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+443:     <div class="consoleBtns" data-zone="right-panel-controls">
+455:     <div class="row"><label><span id="vTrail"></span></label>
+456:       <input id="sTrail" type="range" min="0" max="1" step="0.01" value="0.62"></div>
+554:   {name:"teal weave 3:2",   pal:1, P:{a:3,b:2,curves:20,speed:0.25,trail:0.62,thick:0.3,drift:0.45}},
+555:   {name:"violet knot 5:4",  pal:2, P:{a:5,b:4,curves:24,speed:0.18,trail:0.7, thick:0.25,drift:0.55}},
+556:   {name:"ember braid 7:3",  pal:0, P:{a:7,b:3,curves:16,speed:0.32,trail:0.5, thick:0.4, drift:0.35}},
+557:   {name:"acid grid 4:3",    pal:6, P:{a:4,b:3,curves:28,speed:0.22,trail:0.6, thick:0.2, drift:0.6}},
+558:   {name:"cyan dense 5:3",   pal:5, P:{a:5,b:3,curves:36,speed:0.15,trail:0.75,thick:0.18,drift:0.7}},
+559:   {name:"gold simple 2:1",  pal:8, P:{a:2,b:1,curves:12,speed:0.4, trail:0.45,thick:0.5, drift:0.3}},
+569: let P={a:3,b:2,curves:20,speed:0.25,trail:0.62,thick:0.3,drift:0.45,depth:0.0};
+579:   {id:"sTrail", vid:"vTrail", key:"trail",  fmt:v=>v.toFixed(2)},
+916:   const trailAlpha=floor(lerp(200,12,P.trail));
+925:   // trail fade
+929:     pg.fill(bgR,bgG,bgB,trailAlpha);
+1020:   const rail=document.getElementById("stageThumbs");
+1021:   if(rail && !rail.dataset.noixzyWheelBound){
+1022:     rail.dataset.noixzyWheelBound="1";
+1024:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1026:     rail.addEventListener("wheel",e=>{
+1493:   const rail=document.getElementById("stageThumbs");
+1494:   if(rail){
+1496:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1502:   let railSelected=safeIdx;
+1507:     railSelected=(i+links.length)%links.length;
+1509:     links[railSelected].classList.add("selected");
+1510:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1523:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1524:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== mandelbulb ===
+file: mandelbulb/noixzy_mandelbulb.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 20
+42:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+43:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+44:   .navBar a:hover { color:var(--accent); }
+255:   .navBar {
+278:   .navBar a {
+296:   .navBar {
+300:   .navBar a {
+308:   .navBar .galleryMark {
+320:   .navBar,
+343:   .navBar,
+394: <body>
+395: <div class="navBar">
+432:   <div class="panel" data-zone="right-panel" id="panel">
+435:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+438:     <div class="consoleBtns" data-zone="right-panel-controls">
+1206:   const rail=document.getElementById("stageThumbs");
+1207:   if(rail && !rail.dataset.noixzyWheelBound){
+1208:     rail.dataset.noixzyWheelBound="1";
+1210:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1212:     rail.addEventListener("wheel",e=>{
+1677:   const rail=document.getElementById("stageThumbs");
+1678:   if(rail){
+1680:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1686:   let railSelected=safeIdx;
+1691:     railSelected=(i+links.length)%links.length;
+1693:     links[railSelected].classList.add("selected");
+1694:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1707:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1708:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== metafluid ===
+file: metafluid/noixzy_metafluid.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 13
+inputs: 23
+86:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+87:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+88:   .navBar a:hover { color:var(--accent); }
+289:   .navBar {
+312:   .navBar a {
+330:   .navBar {
+334:   .navBar a {
+342:   .navBar .galleryMark {
+354:   .navBar,
+377:   .navBar,
+428: <body>
+429: <div class="navBar">
+469:   <div class="panel" data-zone="right-panel" id="panel">
+474:       <div class="cycleLine" data-zone="theme-controls">
+480:       <div class="consoleBtns" data-zone="right-panel-controls">
+486:       <div class="presetLine" data-zone="right-panel-presets">
+489:       <div class="presetLine triple" data-zone="right-panel-presets">
+1563:   const rail=document.getElementById("stageThumbs");
+1564:   if(rail && !rail.dataset.noixzyWheelBound){
+1565:     rail.dataset.noixzyWheelBound="1";
+1567:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1569:     rail.addEventListener("wheel",e=>{
+2035:   const rail=document.getElementById("stageThumbs");
+2036:   if(rail){
+2038:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+2044:   let railSelected=safeIdx;
+2049:     railSelected=(i+links.length)%links.length;
+2051:     links[railSelected].classList.add("selected");
+2052:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+2067:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+2068:   if(down){ down.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== rose_curve ===
+file: rose_curve/noixzy_rose_curve.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 17
+47:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+48:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+49:   .navBar a:hover { color:var(--accent); }
+260:   .navBar {
+283:   .navBar a {
+301:   .navBar {
+305:   .navBar a {
+313:   .navBar .galleryMark {
+325:   .navBar,
+348:   .navBar,
+399: <body>
+400: <div class="navBar">
+437:   <div class="panel" data-zone="right-panel" id="panel">
+440:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+443:     <div class="consoleBtns" data-zone="right-panel-controls">
+457:     <div class="row"><label><span id="vTrail"></span></label>
+458:       <input id="sTrail" type="range" min="0" max="1" step="0.01" value="0.55"></div>
+555:   {name:"rose 5/3",    pal:7, P:{n:5,d:3,layers:12,speed:0.28,thick:0.35,trail:0.55,scale:0.7}},
+556:   {name:"star 7/2",    pal:6, P:{n:7,d:2,layers:16,speed:0.2,thick:0.25,trail:0.45,scale:0.72}},
+557:   {name:"spiral 3/1",  pal:5, P:{n:3,d:1,layers:8, speed:0.35,thick:0.5, trail:0.65,scale:0.68}},
+558:   {name:"fine 11/4",   pal:2, P:{n:11,d:4,layers:20,speed:0.15,thick:0.2,trail:0.7,scale:0.75}},
+559:   {name:"bold 4/1",    pal:0, P:{n:4,d:1,layers:6, speed:0.4, thick:0.65,trail:0.5, scale:0.65}},
+560:   {name:"graphite 6/1",pal:4, P:{n:6,d:1,layers:10,speed:0.25,thick:0.3, trail:0.6, scale:0.7}},
+570: let P={n:5,d:3,layers:12,speed:0.28,thick:0.35,trail:0.55,scale:0.7,depth:0.0};
+572: let pg; // persistent graphics layer for trail
+581:   {id:"sTrail", vid:"vTrail", key:"trail",  fmt:v=>v.toFixed(2)},
+918:   const trailAlpha=floor(mix(180,16,P.trail));
+926:   // trail fade
+930:     pg.fill(bgR,bgG,bgB,trailAlpha);
+1023:   const rail=document.getElementById("stageThumbs");
+1024:   if(rail && !rail.dataset.noixzyWheelBound){
+1025:     rail.dataset.noixzyWheelBound="1";
+1027:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1029:     rail.addEventListener("wheel",e=>{
+1496:   const rail=document.getElementById("stageThumbs");
+1497:   if(rail){
+1499:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1505:   let railSelected=safeIdx;
+1510:     railSelected=(i+links.length)%links.length;
+1512:     links[railSelected].classList.add("selected");
+1513:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1526:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+1527:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== sdf_raymarch ===
+file: sdf_raymarch/noixzy_sdf_raymarch.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 12
+inputs: 29
+52:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+53:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+54:   .navBar a:hover { color:var(--accent); }
+253:   .navBar {
+276:   .navBar a {
+294:   .navBar {
+298:   .navBar a {
+306:   .navBar .galleryMark {
+318:   .navBar,
+341:   .navBar,
+392: <body>
+393: <div class="navBar">
+430:   <div class="panel" data-zone="right-panel">
+432:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+435:     <div class="consoleBtns" data-zone="right-panel-controls">
+447:       <div class="presetLine" data-zone="right-panel-presets">
+450:       <div class="presetLine triple" data-zone="right-panel-presets">
+2086:   const rail=document.getElementById("stageThumbs");
+2087:   if(rail){
+2089:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+2091:     if(!rail.dataset.wheelBound){
+2092:       rail.dataset.wheelBound="1";
+2093:       rail.addEventListener("wheel",e=>{
+2104:   let railSelected=safeIdx;
+2109:     railSelected=(i+links.length)%links.length;
+2111:     links[railSelected].classList.add("selected");
+2112:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+2125:   if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
+2126:   if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
+
+=== torus_knot ===
+file: torus_knot/noixzy_torus_knot.html
+exists: True
+header/navBar: True
+right panel: True
+canvas: True
+main/app/layout: True
+buttons: 11
+inputs: 18
+47:   .navBar { flex:0 0 28px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; background:#0a0a0c; border-bottom:1px solid #1c1c1f; z-index:10; }
+48:   .navBar a { color:var(--dim); text-decoration:none; font-size:11px; letter-spacing:.07em; padding:4px 6px; border-radius:3px; }
+49:   .navBar a:hover { color:var(--accent); }
+259:   .navBar {
+282:   .navBar a {
+300:   .navBar {
+304:   .navBar a {
+312:   .navBar .galleryMark {
+324:   .navBar,
+347:   .navBar,
+398: <body>
+399: <div class="navBar">
+430:   <div class="panel" data-zone="right-panel" id="panel">
+432:     <div class="cycleLine" style="margin-bottom:10px" data-zone="theme-controls">
+435:     <div class="consoleBtns" data-zone="right-panel-controls">
+1083:   const rail=document.getElementById("stageThumbs");
+1084:   if(rail && !rail.dataset.noixzyWheelBound){
+1085:     rail.dataset.noixzyWheelBound="1";
+1087:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1089:     rail.addEventListener("wheel",e=>{
+1556:   const rail=document.getElementById("stageThumbs");
+1557:   if(rail){
+1559:       rail.addEventListener(type,e=>e.stopPropagation(),true);
+1565:   let railSelected=safeIdx;
+1570:     railSelected=(i+links.length)%links.length;
+1572:     links[railSelected].classList.add("selected");
+1573:     links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
+1586:   if(up){up.onclick=e=>{e.preventDefault();e.stopPropagation();selectThumb(railSelected-1);};}
+1587:   if(dn){dn.onclick=e=>{e.preventDefault();e.stopPropagation();selectThumb(railSelected+1);};}
+
+=== CLEAN GIT STATUS ===
+?? _backup_HA_header_exact_20260628_101605/
+?? _backup_HA_unified_shell_rail_20260628_102245/
+?? workspace/_live_checkpoints/
+?? workspace/_scan_reports/
