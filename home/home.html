@@ -366,8 +366,7 @@ body::after {
   }
 
   function shellHref(module) {
-    const id = module.id || (module.file || "").split("/")[0];
-    return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+    return "../" + module.file;
   }
 
   try {
