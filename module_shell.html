@@ -222,6 +222,25 @@ body {
     return `module_shell.html?module=${encodeURIComponent(id)}`;
   }
 
+  const proxyAliases = {
+    newSeed: ["newSeed", "btnNewSeed"],
+    save: ["save", "btnSave", "btnSave2"],
+    save2x: ["save2x", "btnSave2x", "btnSave2x2"],
+    thumb: ["thumb", "btnThumb", "btnThumb2"],
+    rec: ["rec", "btnRec", "btnRec2"],
+    themePrev: ["themePrev"],
+    themeNext: ["themeNext"],
+  };
+
+  function findProxyTarget(doc, id) {
+    const ids = proxyAliases[id] || [id];
+    for (const candidate of ids) {
+      const target = doc.getElementById(candidate);
+      if (target) return target;
+    }
+    return null;
+  }
+
   function bindShellControls() {
     const controls = document.getElementById("shellControls");
     if (!controls) return;
@@ -232,7 +251,7 @@ body {
 
       const id = btn.dataset.proxy;
       const doc = frame.contentDocument;
-      const target = doc && doc.getElementById(id);
+      const target = doc && findProxyTarget(doc, id);
 
       if (target && typeof target.click === "function") {
         target.click();
