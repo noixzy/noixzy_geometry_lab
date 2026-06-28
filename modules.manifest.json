@@ -14,6 +14,26 @@
   },
   "modules": [
     {
+      "id": "grid_extrude",
+      "title": "grid extrude",
+      "file": "grid_extrude/noixzy_grid_extrude.html",
+      "thumb": "home/thumbs/grid_extrude.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "sdf_raymarch",
+      "title": "sdf raymarch",
+      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
+      "thumb": "home/thumbs/sdf_raymarch.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
       "id": "displacement",
       "title": "displacement sphere",
       "file": "displacement/noixzy_displacement.html",
@@ -460,16 +480,6 @@
       "enabledInShell": true
     },
     {
-      "id": "grid_extrude",
-      "title": "grid extrude",
-      "file": "grid_extrude/noixzy_grid_extrude.html",
-      "thumb": "home/thumbs/grid_extrude.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
       "id": "gyroid",
       "title": "gyroid",
       "file": "gyroid/noixzy_gyroid.html",
@@ -528,16 +538,6 @@
       "listedInHome": false,
       "enabledInShell": true,
       "status": "unlisted"
-    },
-    {
-      "id": "sdf_raymarch",
-      "title": "sdf raymarch",
-      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
-      "thumb": "home/thumbs/sdf_raymarch.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
     },
     {
       "id": "tensegrity_nodes",
