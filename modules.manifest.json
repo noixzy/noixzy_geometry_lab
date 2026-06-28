@@ -14,16 +14,6 @@
   },
   "modules": [
     {
-      "id": "grid_extrude",
-      "title": "grid extrude",
-      "file": "grid_extrude/noixzy_grid_extrude.html",
-      "thumb": "home/thumbs/grid_extrude.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
       "id": "agent_swarm_relief",
       "title": "agent swarm relief",
       "file": "agent_swarm_relief/noixzy_agent_swarm_relief.html",
@@ -90,20 +80,20 @@
       "status": "listed"
     },
     {
-      "id": "displacement",
-      "title": "displacement sphere",
-      "file": "displacement/noixzy_displacement.html",
-      "thumb": "home/thumbs/displacement.png",
+      "id": "displacement_primitives",
+      "title": "displacement primitives",
+      "file": "displacement_primitives/noixzy_displacement_primitives.html",
+      "thumb": "home/thumbs/displacement_primitives.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
     },
     {
-      "id": "displacement_primitives",
-      "title": "displacement primitives",
-      "file": "displacement_primitives/noixzy_displacement_primitives.html",
-      "thumb": "home/thumbs/displacement_primitives.png",
+      "id": "displacement",
+      "title": "displacement sphere",
+      "file": "displacement/noixzy_displacement.html",
+      "thumb": "home/thumbs/displacement.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -144,6 +134,16 @@
       "title": "glyph field",
       "file": "glyph_field/noixzy_glyph_field.html",
       "thumb": "home/thumbs/glyph_field.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "grid_extrude",
+      "title": "grid extrude",
+      "file": "grid_extrude/noixzy_grid_extrude.html",
+      "thumb": "home/thumbs/grid_extrude.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
