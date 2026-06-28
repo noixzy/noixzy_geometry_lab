@@ -259,7 +259,7 @@
 
       const card = document.createElement("a");
       card.className = "card";
-      card.href = href;
+      card.href = `../unified_shell.html?module=${encodeURIComponent(module.id)}`;
       card.innerHTML = `
         <img src="${thumb}" alt="${title}" loading="lazy">
         <div class="meta">
