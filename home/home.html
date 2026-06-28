@@ -216,6 +216,40 @@ main {
   margin-right: auto !important;
 }
 
+
+/* FINAL: rail at very top of page canvas, centered, not sticky */
+html,
+body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body {
+  display: block !important;
+}
+
+.thumbRailWrap {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: auto !important;
+  width: min(1350px, calc(100vw - 96px)) !important;
+  margin: 0 auto 14px auto !important;
+  padding-top: 0 !important;
+  transform: none !important;
+}
+
+.thumbRail {
+  position: static !important;
+  margin: 0 auto !important;
+}
+
+main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
 </style>
 </head>
 <body>
