@@ -188,12 +188,20 @@
     background:rgba(255,118,118,.08);
   }
 
-/* move thumbnail rail to top */
-.railTop {
-  margin-top: 0 !important;
+
+/* rail is top-of-page only, not sticky/fixed, no overlap */
+.thumbRailWrap {
+  position: static !important;
+  top: auto !important;
+  z-index: auto !important;
+  transform: none !important;
+  margin: 0 0 10px 0 !important;
 }
-body {
-  padding-top: 0 !important;
+.thumbRail {
+  position: static !important;
+}
+main {
+  margin-top: 0 !important;
 }
 
 </style>
