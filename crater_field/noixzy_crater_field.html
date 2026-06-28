@@ -141,6 +141,14 @@ select:hover { border-color:var(--accent); }
   /* NOIXZY_GEOMETRY_ONLY_MODE */
   /* Add class="geoOnly" to <body>
 
+<div class="noixzyHomeRailWrap">
+  <a class="noixzyLogoBox" href="../home/home.html" aria-label="home">
+    <img src="../home/assets/waveform_logo.svg" alt="noixzy">
+  </a>
+  <nav class="noixzyHomeRail" data-noixzy-home-rail aria-label="module thumbnails"></nav>
+</div>
+
+
  to activate canvas-only mode (thumbnail capture, export). */
   body.geoOnly {
     position:fixed !important;
@@ -361,6 +369,90 @@ body {
 /* END NOIXZY_HIDE_BOTTOM_BUTTON_PANEL */
 
 </style>
+
+<!-- NOIXZY_GLOBAL_HOME_RAIL_START -->
+<style>
+/* module rail/logo matched to home */
+.noixzyHomeRailWrap {
+  position: fixed !important;
+  top: 30px !important;
+  left: 50% !important;
+  width: min(1350px, calc(100vw - 96px)) !important;
+  transform: translateX(-50%) !important;
+  z-index: 999999 !important;
+  margin: 0 auto !important;
+  padding: 8px !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 14px !important;
+  background: rgba(0,0,0,.28) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.noixzyHomeRail {
+  display: flex !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  margin: 0 auto !important;
+}
+
+.noixzyHomeRail::-webkit-scrollbar {
+  display: none !important;
+}
+
+.noixzyRailThumb {
+  flex: 0 0 auto !important;
+  width: 82px !important;
+  height: 48px !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  opacity: .72 !important;
+}
+
+.noixzyRailThumb:hover {
+  opacity: 1 !important;
+  border-color: rgba(216,192,106,.65) !important;
+}
+
+.noixzyRailThumb img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+}
+
+.noixzyLogoBox {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, calc(-50% - 5px)) !important;
+  z-index: 30 !important;
+  margin: 0 !important;
+  width: 96px !important;
+  height: 64px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  text-decoration: none !important;
+}
+
+.noixzyLogoBox img {
+  width: 44px !important;
+  height: 44px !important;
+  display: block !important;
+  object-fit: contain !important;
+  pointer-events: none !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1579,5 +1671,42 @@ function recordClip(dur=4){
   },1000);
 }
 </script>
+
+<script>
+(function(){
+  const rail = document.querySelector("[data-noixzy-home-rail]");
+  if (!rail) return;
+
+  function thumbPath(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    const raw = module.thumb || `home/thumbs/${id}.png`;
+    return "../" + raw.replace(/^\.\//, "").replace(/^home\//, "home/");
+  }
+
+  function shellHref(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+  }
+
+  fetch("../modules.manifest.json", { cache:"no-store" })
+    .then(r => r.json())
+    .then(manifest => {
+      const modules = (manifest.modules || []).filter(module => module.enabledInShell !== false);
+      for (const module of modules) {
+        const id = module.id || (module.file || "").split("/")[0];
+        const title = module.title || id.replaceAll("_", " ");
+        const a = document.createElement("a");
+        a.className = "noixzyRailThumb";
+        a.href = shellHref(module);
+        a.title = title;
+        a.innerHTML = `<img src="${thumbPath(module)}" alt="${title}" loading="lazy">`;
+        rail.appendChild(a);
+      }
+    })
+    .catch(() => {});
+})();
+</script>
+<!-- NOIXZY_GLOBAL_HOME_RAIL_END -->
+
 </body>
 </html>

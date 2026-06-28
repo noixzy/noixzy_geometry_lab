@@ -270,7 +270,7 @@ body {
 /* force home background all black */
 html,
 body {
-  background: #000 !important;
+  background: rgba(0,0,0,.72) !important;
   background-color: #000 !important;
 }
 body::before,
@@ -284,10 +284,64 @@ body::after {
   display: none !important;
 }
 
+
+/* centered clear logo box */
+.logoBox {
+  width: 96px;
+  height: 64px;
+  margin: 0 auto 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0 !important;
+  border-radius: 14px;
+}
+.logoBox img {
+  width: 44px;
+  height: 44px;
+  display: block;
+  object-fit: contain;
+}
+
+
+/* logo hovers over center of thumbnail rail */
+.thumbRailWrap {
+  position: relative !important;
+}
+
+.logoBox {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, calc(-50% - 5px)) !important;
+  z-index: 30 !important;
+  margin: 0 !important;
+  width: 144px !important;
+  height: 104px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  pointer-events: auto !important;
+}
+
+.logoBox img {
+  width: 68px !important;
+  height: 68px !important;
+  display: block !important;
+  object-fit: contain !important;\n  pointer-events: none !important;
+}
+
 </style>
 </head>
 <body>
 <div class="thumbRailWrap">
+    <a class="logoBox" href="home.html" aria-label="home">
+      <img src="assets/waveform_logo.svg" alt="waveform logo">
+    </a>
     <nav class="thumbRail" id="thumbRail" aria-label="module thumbnails"></nav>
   </div>
 
