@@ -14,82 +14,6 @@
   },
   "modules": [
     {
-      "id": "agent_swarm_relief",
-      "title": "agent swarm relief",
-      "file": "agent_swarm_relief/noixzy_agent_swarm_relief.html",
-      "thumb": "home/thumbs/agent_swarm_relief.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "catenary_web",
-      "title": "catenary web",
-      "file": "catenary_web/noixzy_catenary_web.html",
-      "thumb": "home/thumbs/catenary_web.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "cellular_bloom",
-      "title": "cellular bloom",
-      "file": "cellular_bloom/noixzy_cellular_bloom.html",
-      "thumb": "home/thumbs/cellular_bloom.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "cellular_erosion",
-      "title": "cellular erosion",
-      "file": "cellular_erosion/noixzy_cellular_erosion.html",
-      "thumb": "home/thumbs/cellular_erosion.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "contour_field",
-      "title": "contour field",
-      "file": "contour_field/noixzy_contour_field.html",
-      "thumb": "home/thumbs/contour_field.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "crater_field",
-      "title": "crater field",
-      "file": "crater_field/noixzy_crater_field.html",
-      "thumb": "home/thumbs/crater_field.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "crystal_growth",
-      "title": "crystal growth",
-      "file": "crystal_growth/noixzy_crystal_growth.html",
-      "thumb": "home/thumbs/crystal_growth.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "displacement_primitives",
-      "title": "displacement primitives",
-      "file": "displacement_primitives/noixzy_displacement_primitives.html",
-      "thumb": "home/thumbs/displacement_primitives.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
       "id": "displacement",
       "title": "displacement sphere",
       "file": "displacement/noixzy_displacement.html",
@@ -100,128 +24,10 @@
       "status": "listed"
     },
     {
-      "id": "echo_contours",
-      "title": "echo contours",
-      "file": "echo_contours/noixzy_echo_contours.html",
-      "thumb": "home/thumbs/echo_contours.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "flow_field",
-      "title": "flow field",
-      "file": "flow_field/noixzy_flow_field.html",
-      "thumb": "home/thumbs/flow_field.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "fractal_tiles",
-      "title": "fractal tiles",
-      "file": "fractal_tiles/noixzy_fractal_tiles.html",
-      "thumb": "home/thumbs/fractal_tiles.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "glyph_field",
-      "title": "glyph field",
-      "file": "glyph_field/noixzy_glyph_field.html",
-      "thumb": "home/thumbs/glyph_field.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "grid_extrude",
-      "title": "grid extrude",
-      "file": "grid_extrude/noixzy_grid_extrude.html",
-      "thumb": "home/thumbs/grid_extrude.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "gyroid",
-      "title": "gyroid",
-      "file": "gyroid/noixzy_gyroid.html",
-      "thumb": "home/thumbs/gyroid.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "hex_grid",
-      "title": "hex grid",
-      "file": "hex_grid/noixzy_hex_grid.html",
-      "thumb": "home/thumbs/hex_grid.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "hyperbolic_tiling",
-      "title": "hyperbolic tiling",
-      "file": "hyperbolic_tiling/noixzy_hyperbolic_tiling.html",
-      "thumb": "home/thumbs/hyperbolic_tiling.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "interference_grid",
-      "title": "interference grid",
-      "file": "interference_grid/noixzy_interference_grid.html",
-      "thumb": "home/thumbs/interference_grid.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "kaleidoscope_field",
-      "title": "kaleidoscope field",
-      "file": "kaleidoscope_field/noixzy_kaleidoscope_field.html",
-      "thumb": "home/thumbs/kaleidoscope_field.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "l_system",
-      "title": "l-system",
-      "file": "l_system/noixzy_l_system.html",
-      "thumb": "home/thumbs/l_system.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "lissajous_mesh",
-      "title": "lissajous mesh",
-      "file": "lissajous_mesh/noixzy_lissajous_mesh.html",
-      "thumb": "home/thumbs/lissajous_mesh.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "magnetic_dust",
-      "title": "magnetic dust",
-      "file": "magnetic_dust/noixzy_magnetic_dust.html",
-      "thumb": "home/thumbs/magnetic_dust.png",
+      "id": "displacement_primitives",
+      "title": "displacement primitives",
+      "file": "displacement_primitives/noixzy_displacement_primitives.html",
+      "thumb": "home/thumbs/displacement_primitives.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -258,24 +64,6 @@
       "status": "listed"
     },
     {
-      "id": "neural_lattice",
-      "title": "neural lattice",
-      "file": "neural_lattice/noixzy_neural_lattice.html",
-      "thumb": "home/thumbs/neural_lattice.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "origami_fold_field",
-      "title": "origami fold field",
-      "file": "origami_fold_field/noixzy_origami_fold_field.html",
-      "thumb": "home/thumbs/origami_fold_field.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
       "id": "particle_orbitals",
       "title": "particle orbitals",
       "file": "particle_orbitals/noixzy_particle_orbitals.html",
@@ -284,42 +72,6 @@
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
-    },
-    {
-      "id": "phyllotaxis_stack",
-      "title": "phyllotaxis stack",
-      "file": "phyllotaxis_stack/noixzy_phyllotaxis_stack.html",
-      "thumb": "home/thumbs/phyllotaxis_stack.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "plasma_membrane",
-      "title": "plasma membrane",
-      "file": "plasma_membrane/noixzy_plasma_membrane.html",
-      "thumb": "home/thumbs/plasma_membrane.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "prism_moire",
-      "title": "prism moire",
-      "file": "prism_moire/noixzy_prism_moire.html",
-      "thumb": "home/thumbs/prism_moire.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "quasicrystal_relief",
-      "title": "quasicrystal relief",
-      "file": "quasicrystal_relief/noixzy_quasicrystal_relief.html",
-      "thumb": "home/thumbs/quasicrystal_relief.png",
-      "authorship": "generated",
-      "enabledInShell": true
     },
     {
       "id": "radial_noise",
@@ -332,126 +84,10 @@
       "status": "listed"
     },
     {
-      "id": "reaction_diffusion",
-      "title": "reaction diffusion",
-      "file": "reaction_diffusion/noixzy_reaction_diffusion.html",
-      "thumb": "home/thumbs/reaction_diffusion.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "reaction_terraces",
-      "title": "reaction terraces",
-      "file": "reaction_terraces/noixzy_reaction_terraces.html",
-      "thumb": "home/thumbs/reaction_terraces.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "recursive_grid",
-      "title": "recursive grid",
-      "file": "recursive_grid/noixzy_recursive_grid.html",
-      "thumb": "home/thumbs/recursive_grid.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "ribbon_flow",
-      "title": "ribbon flow",
-      "file": "ribbon_flow/noixzy_ribbon_flow.html",
-      "thumb": "home/thumbs/ribbon_flow.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "rose_curve",
-      "title": "rose curve",
-      "file": "rose_curve/noixzy_rose_curve.html",
-      "thumb": "home/thumbs/rose_curve.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "sdf",
-      "title": "sdf",
-      "file": "sdf/noixzy_sdf.html",
-      "thumb": "home/thumbs/sdf.png",
-      "authorship": "generated",
-      "listedInHome": false,
-      "enabledInShell": true,
-      "status": "unlisted"
-    },
-    {
-      "id": "sdf_raymarch",
-      "title": "sdf raymarch",
-      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
-      "thumb": "home/thumbs/sdf_raymarch.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "signal_rain",
-      "title": "signal rain",
-      "file": "signal_rain/noixzy_signal_rain.html",
-      "thumb": "home/thumbs/signal_rain.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "signal_weave",
-      "title": "signal weave",
-      "file": "signal_weave/noixzy_signal_weave.html",
-      "thumb": "home/thumbs/signal_weave.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "spiral_lattice",
-      "title": "spiral lattice",
-      "file": "spiral_lattice/noixzy_spiral_lattice.html",
-      "thumb": "home/thumbs/spiral_lattice.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "stipple",
-      "title": "stipple",
-      "file": "stipple/noixzy_stipple.html",
-      "thumb": "home/thumbs/stipple.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "tensegrity_nodes",
-      "title": "tensegrity nodes",
-      "file": "tensegrity_nodes/noixzy_tensegrity_nodes.html",
-      "thumb": "home/thumbs/tensegrity_nodes.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "terrain_slice",
-      "title": "terrain slice",
-      "file": "terrain_slice/noixzy_terrain_slice.html",
-      "thumb": "home/thumbs/terrain_slice.png",
+      "id": "kaleidoscope_field",
+      "title": "kaleidoscope field",
+      "file": "kaleidoscope_field/noixzy_kaleidoscope_field.html",
+      "thumb": "home/thumbs/kaleidoscope_field.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -468,10 +104,230 @@
       "status": "listed"
     },
     {
-      "id": "torus_knot",
-      "title": "torus knot",
-      "file": "torus_knot/noixzy_torus_knot.html",
-      "thumb": "home/thumbs/torus_knot.png",
+      "id": "ribbon_flow",
+      "title": "ribbon flow",
+      "file": "ribbon_flow/noixzy_ribbon_flow.html",
+      "thumb": "home/thumbs/ribbon_flow.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "glyph_field",
+      "title": "glyph field",
+      "file": "glyph_field/noixzy_glyph_field.html",
+      "thumb": "home/thumbs/glyph_field.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "crystal_growth",
+      "title": "crystal growth",
+      "file": "crystal_growth/noixzy_crystal_growth.html",
+      "thumb": "home/thumbs/crystal_growth.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "vector_scope",
+      "title": "vector scope",
+      "file": "vector_scope/noixzy_vector_scope.html",
+      "thumb": "home/thumbs/vector_scope.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "wave_lattice",
+      "title": "wave lattice",
+      "file": "wave_lattice/noixzy_wave_lattice.html",
+      "thumb": "home/thumbs/wave_lattice.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "fractal_tiles",
+      "title": "fractal tiles",
+      "file": "fractal_tiles/noixzy_fractal_tiles.html",
+      "thumb": "home/thumbs/fractal_tiles.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "plasma_membrane",
+      "title": "plasma membrane",
+      "file": "plasma_membrane/noixzy_plasma_membrane.html",
+      "thumb": "home/thumbs/plasma_membrane.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "interference_grid",
+      "title": "interference grid",
+      "file": "interference_grid/noixzy_interference_grid.html",
+      "thumb": "home/thumbs/interference_grid.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "cellular_bloom",
+      "title": "cellular bloom",
+      "file": "cellular_bloom/noixzy_cellular_bloom.html",
+      "thumb": "home/thumbs/cellular_bloom.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "vortex_sheet",
+      "title": "vortex sheet",
+      "file": "vortex_sheet/noixzy_vortex_sheet.html",
+      "thumb": "home/thumbs/vortex_sheet.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "prism_moire",
+      "title": "prism moire",
+      "file": "prism_moire/noixzy_prism_moire.html",
+      "thumb": "home/thumbs/prism_moire.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "terrain_slice",
+      "title": "terrain slice",
+      "file": "terrain_slice/noixzy_terrain_slice.html",
+      "thumb": "home/thumbs/terrain_slice.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "signal_weave",
+      "title": "signal weave",
+      "file": "signal_weave/noixzy_signal_weave.html",
+      "thumb": "home/thumbs/signal_weave.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "crater_field",
+      "title": "crater field",
+      "file": "crater_field/noixzy_crater_field.html",
+      "thumb": "home/thumbs/crater_field.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "spiral_lattice",
+      "title": "spiral lattice",
+      "file": "spiral_lattice/noixzy_spiral_lattice.html",
+      "thumb": "home/thumbs/spiral_lattice.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "signal_rain",
+      "title": "signal rain",
+      "file": "signal_rain/noixzy_signal_rain.html",
+      "thumb": "home/thumbs/signal_rain.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "echo_contours",
+      "title": "echo contours",
+      "file": "echo_contours/noixzy_echo_contours.html",
+      "thumb": "home/thumbs/echo_contours.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "magnetic_dust",
+      "title": "magnetic dust",
+      "file": "magnetic_dust/noixzy_magnetic_dust.html",
+      "thumb": "home/thumbs/magnetic_dust.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "neural_lattice",
+      "title": "neural lattice",
+      "file": "neural_lattice/noixzy_neural_lattice.html",
+      "thumb": "home/thumbs/neural_lattice.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "flow_field",
+      "title": "flow field",
+      "file": "flow_field/noixzy_flow_field.html",
+      "thumb": "home/thumbs/flow_field.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "reaction_diffusion",
+      "title": "reaction diffusion",
+      "file": "reaction_diffusion/noixzy_reaction_diffusion.html",
+      "thumb": "home/thumbs/reaction_diffusion.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "voronoi",
+      "title": "voronoi",
+      "file": "voronoi/noixzy_voronoi.html",
+      "thumb": "home/thumbs/voronoi.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "contour_field",
+      "title": "contour field",
+      "file": "contour_field/noixzy_contour_field.html",
+      "thumb": "home/thumbs/contour_field.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -498,38 +354,30 @@
       "status": "listed"
     },
     {
-      "id": "vector_scope",
-      "title": "vector scope",
-      "file": "vector_scope/noixzy_vector_scope.html",
-      "thumb": "home/thumbs/vector_scope.png",
+      "id": "l_system",
+      "title": "l-system",
+      "file": "l_system/noixzy_l_system.html",
+      "thumb": "home/thumbs/l_system.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
     },
     {
-      "id": "voronoi",
-      "title": "voronoi",
-      "file": "voronoi/noixzy_voronoi.html",
-      "thumb": "home/thumbs/voronoi.png",
+      "id": "cellular_erosion",
+      "title": "cellular erosion",
+      "file": "cellular_erosion/noixzy_cellular_erosion.html",
+      "thumb": "home/thumbs/cellular_erosion.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
     },
     {
-      "id": "voronoi_tower_field",
-      "title": "voronoi tower field",
-      "file": "voronoi_tower_field/noixzy_voronoi_tower_field.html",
-      "thumb": "home/thumbs/voronoi_tower_field.png",
-      "authorship": "generated",
-      "enabledInShell": true
-    },
-    {
-      "id": "vortex_sheet",
-      "title": "vortex sheet",
-      "file": "vortex_sheet/noixzy_vortex_sheet.html",
-      "thumb": "home/thumbs/vortex_sheet.png",
+      "id": "recursive_grid",
+      "title": "recursive grid",
+      "file": "recursive_grid/noixzy_recursive_grid.html",
+      "thumb": "home/thumbs/recursive_grid.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -546,14 +394,166 @@
       "status": "listed"
     },
     {
-      "id": "wave_lattice",
-      "title": "wave lattice",
-      "file": "wave_lattice/noixzy_wave_lattice.html",
-      "thumb": "home/thumbs/wave_lattice.png",
+      "id": "stipple",
+      "title": "stipple",
+      "file": "stipple/noixzy_stipple.html",
+      "thumb": "home/thumbs/stipple.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
+    },
+    {
+      "id": "hex_grid",
+      "title": "hex grid",
+      "file": "hex_grid/noixzy_hex_grid.html",
+      "thumb": "home/thumbs/hex_grid.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "rose_curve",
+      "title": "rose curve",
+      "file": "rose_curve/noixzy_rose_curve.html",
+      "thumb": "home/thumbs/rose_curve.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "lissajous_mesh",
+      "title": "lissajous mesh",
+      "file": "lissajous_mesh/noixzy_lissajous_mesh.html",
+      "thumb": "home/thumbs/lissajous_mesh.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "torus_knot",
+      "title": "torus knot",
+      "file": "torus_knot/noixzy_torus_knot.html",
+      "thumb": "home/thumbs/torus_knot.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "agent_swarm_relief",
+      "title": "agent swarm relief",
+      "file": "agent_swarm_relief/noixzy_agent_swarm_relief.html",
+      "thumb": "home/thumbs/agent_swarm_relief.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "catenary_web",
+      "title": "catenary web",
+      "file": "catenary_web/noixzy_catenary_web.html",
+      "thumb": "home/thumbs/catenary_web.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "grid_extrude",
+      "title": "grid extrude",
+      "file": "grid_extrude/noixzy_grid_extrude.html",
+      "thumb": "home/thumbs/grid_extrude.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "gyroid",
+      "title": "gyroid",
+      "file": "gyroid/noixzy_gyroid.html",
+      "thumb": "home/thumbs/gyroid.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "hyperbolic_tiling",
+      "title": "hyperbolic tiling",
+      "file": "hyperbolic_tiling/noixzy_hyperbolic_tiling.html",
+      "thumb": "home/thumbs/hyperbolic_tiling.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "origami_fold_field",
+      "title": "origami fold field",
+      "file": "origami_fold_field/noixzy_origami_fold_field.html",
+      "thumb": "home/thumbs/origami_fold_field.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "phyllotaxis_stack",
+      "title": "phyllotaxis stack",
+      "file": "phyllotaxis_stack/noixzy_phyllotaxis_stack.html",
+      "thumb": "home/thumbs/phyllotaxis_stack.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "quasicrystal_relief",
+      "title": "quasicrystal relief",
+      "file": "quasicrystal_relief/noixzy_quasicrystal_relief.html",
+      "thumb": "home/thumbs/quasicrystal_relief.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "reaction_terraces",
+      "title": "reaction terraces",
+      "file": "reaction_terraces/noixzy_reaction_terraces.html",
+      "thumb": "home/thumbs/reaction_terraces.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "sdf",
+      "title": "sdf",
+      "file": "sdf/noixzy_sdf.html",
+      "thumb": "home/thumbs/sdf.png",
+      "authorship": "generated",
+      "listedInHome": false,
+      "enabledInShell": true,
+      "status": "unlisted"
+    },
+    {
+      "id": "sdf_raymarch",
+      "title": "sdf raymarch",
+      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
+      "thumb": "home/thumbs/sdf_raymarch.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "tensegrity_nodes",
+      "title": "tensegrity nodes",
+      "file": "tensegrity_nodes/noixzy_tensegrity_nodes.html",
+      "thumb": "home/thumbs/tensegrity_nodes.png",
+      "authorship": "generated",
+      "enabledInShell": true
+    },
+    {
+      "id": "voronoi_tower_field",
+      "title": "voronoi tower field",
+      "file": "voronoi_tower_field/noixzy_voronoi_tower_field.html",
+      "thumb": "home/thumbs/voronoi_tower_field.png",
+      "authorship": "generated",
+      "enabledInShell": true
     },
     {
       "id": "woven_lattice_relief",
