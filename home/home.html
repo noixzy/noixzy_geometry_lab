@@ -240,7 +240,8 @@
     const manifest = await response.json();
 
     const modules = (manifest.modules || [])
-      .filter(module => module.enabledInShell !== false);
+      .filter(module => module.enabledInShell !== false)
+      .sort((a,b) => String(a.title || a.id).localeCompare(String(b.title || b.id)));
 
     count.textContent = `${modules.length} modules`;
 
