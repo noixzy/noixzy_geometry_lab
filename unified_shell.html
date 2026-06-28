@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>noixzy // unified</title>
+<style>
+:root {
+  --bg:#000;
+  --dim:rgba(255,255,255,.55);
+}
+
+* { box-sizing:border-box; }
+
+html,
+body {
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  color:#fff;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  padding-top:30px;
+}
+
+.thumbRailWrap {
+  position:relative;
+  width:min(1350px, calc(100vw - 96px));
+  margin:0 auto 14px auto;
+  padding:8px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  z-index:45;
+}
+
+.thumbRail {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+
+.thumbRail::-webkit-scrollbar {
+  display:none;
+}
+
+.railThumb {
+  flex:0 0 auto;
+  width:82px;
+  height:48px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:9px;
+  overflow:hidden;
+  background:#000;
+  opacity:.72;
+  transition:opacity .16s ease, transform .16s ease, border-color .16s ease;
+}
+
+.railThumb:hover,
+.railThumb[aria-current="true"] {
+  opacity:1;
+  transform:translateY(-1px);
+  border-color:rgba(216,192,106,.65);
+}
+
+.railThumb img {
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  pointer-events:none;
+}
+
+.logoBox {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, calc(-50% - 5px));
+  z-index:30;
+  width:96px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:0;
+  border-radius:14px;
+  text-decoration:none;
+}
+
+.logoBox img {
+  width:70.4px;
+  height:70.4px;
+  display:block;
+  object-fit:contain;
+  pointer-events:none;
+}
+
+.stage {
+  width:100vw;
+  height:calc(100vh - 126px);
+  background:#000;
+}
+
+#moduleFrame {
+  width:100%;
+  height:100%;
+  display:block;
+  border:0;
+  background:#000;
+}
+
+.status {
+  position:absolute;
+  left:50%;
+  top:154px;
+  transform:translateX(-50%);
+  color:var(--dim);
+  font-size:11px;
+  letter-spacing:.06em;
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:8px;
+  background:rgba(0,0,0,.6);
+}
+</style>
+</head>
+<body>
+  <div class="thumbRailWrap">
+    <a class="logoBox" href="home/home.html" aria-label="home">
+      <img src="home/assets/waveform_logo.svg" alt="noixzy">
+    </a>
+    <nav class="thumbRail" id="moduleRail" aria-label="module thumbnails"></nav>
+  </div>
+
+  <main class="stage">
+    <div class="status" id="status">loading modules.manifest.json</div>
+    <iframe id="moduleFrame" title="noixzy module"></iframe>
+  </main>
+
+<script>
+(() => {
+  const manifestPath = "modules.manifest.json";
+  const frame = document.getElementById("moduleFrame");
+  const rail = document.getElementById("moduleRail");
+  const status = document.getElementById("status");
+
+  const params = new URLSearchParams(location.search);
+  const requested = params.get("module");
+
+  function thumbPath(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    const raw = module.thumb || `home/thumbs/${id}.png`;
+    return raw.replace(/^\.?\//, "");
+  }
+
+  function moduleHref(module) {
+    return module.file || `${module.id}/noixzy_${module.id}.html`;
+  }
+
+  function shellHref(module) {
+    const id = module.id || (module.file || "").split("/")[0];
+    return `unified_shell.html?module=${encodeURIComponent(id)}`;
+  }
+
+  fetch(manifestPath, { cache:"no-store" })
+    .then(r => {
+      if (!r.ok) throw new Error(`manifest ${r.status}`);
+      return r.json();
+    })
+    .then(manifest => {
+      const modules = (manifest.modules || []).filter(module => module.enabledInShell !== false);
+      if (!modules.length) throw new Error("no modules");
+
+      const active = modules.find(m => m.id === requested) || modules[0];
+
+      for (const module of modules) {
+        const id = module.id || (module.file || "").split("/")[0];
+        const title = module.title || id.replaceAll("_", " ");
+        const a = document.createElement("a");
+        a.className = "railThumb";
+        a.href = shellHref(module);
+        a.title = title;
+        if (id === active.id) a.setAttribute("aria-current", "true");
+        a.innerHTML = `<img src="${thumbPath(module)}" alt="${title}" loading="lazy">`;
+        rail.appendChild(a);
+      }
+
+      frame.src = moduleHref(active);
+      status.remove();
+    })
+    .catch(err => {
+      status.textContent = `error: ${err.message}`;
+    });
+})();
+</script>
+</body>
+</html>
