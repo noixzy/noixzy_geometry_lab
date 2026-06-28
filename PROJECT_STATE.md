@@ -15,3 +15,14 @@ Current baseline:
 
 Next priority:
 Rebuild gallery/shell as the only visible product layer.
+
+## Repo declutter pass
+
+Moved baseline-import clutter into `_legacy_import/`:
+- manifest backups
+- scan reports
+- contact sheet files
+- old build assets
+- stray imported folders
+
+Root should now stay focused on the geometry lab product layer and module engines.
