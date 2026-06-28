@@ -36,9 +36,9 @@ full paths are under `workspace/` unless noted otherwise.
 | Module anatomy: `build()`, `render()`, `heightField()` | `CHATGPT_BRIEF.md`, `CODEX_TASK_volumetric_extrude.md` | `EXPANSION_V2.md` |
 | SHARED params (zoom, rot, mirror, cx, cy …) | `CHATGPT_BRIEF.md`, `CAMERA_CONTROLS_PLAN.md` | `NGL_TOTAL_AUDIT_20260627.md` |
 | ALL_MODULES array (navigation) | `GPT_HANDOFF_2026_06_25.md`, `SESSION_BRIDGE.md` | — |
-| Template generations A / B / C (control IDs) | `unified_shell_functionality_restoration_20260627.md` | — |
-| Unified shell + iframe bridge architecture | `NGL_PLAN_06062026.md`, `CODEX_TASK_engine_shell.md` | `unified_shell_functionality_restoration_20260627.md` |
-| postMessage bridge protocol | `CODEX_TASK_engine_shell.md`, `NGL_PLAN_06062026.md` | `unified_shell_functionality_restoration_20260627.md` |
+| Template generations A / B / C (control IDs) | `module_shell_functionality_restoration_20260627.md` | — |
+| Unified shell + iframe bridge architecture | `NGL_PLAN_06062026.md`, `CODEX_TASK_engine_shell.md` | `module_shell_functionality_restoration_20260627.md` |
+| postMessage bridge protocol | `CODEX_TASK_engine_shell.md`, `NGL_PLAN_06062026.md` | `module_shell_functionality_restoration_20260627.md` |
 | Module manifest (`modules.manifest.json`) | `NGL_PLAN_06062026.md`, `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` | — |
 | Home (`home/home.html`) | `HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md` | — |
 | Escrow shell (candidate staging area) | `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md`, `NGL_TOTAL_AUDIT_20260627.md` | `noixzy_randomization_geometry_audit_20260627.md` |
@@ -65,7 +65,7 @@ full paths are under `workspace/` unless noted otherwise.
 | Browser verify rule | `READ_FIRST.md`, `CODEX_QUEUE.md` | `CAMERA_CONTROLS_PLAN.md` |
 | Git: explicit adds only, never `git add .` | `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` | — |
 | Commit per-file scope | `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` | — |
-| No `.bak` files committed | `unified_shell_functionality_restoration_20260627.md` | — |
+| No `.bak` files committed | `module_shell_functionality_restoration_20260627.md` | — |
 
 ---
 
@@ -107,10 +107,10 @@ full paths are under `workspace/` unless noted otherwise.
 | Unified shell visual spec (CRT rail, badge, glow) | `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` | `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` |
 | CSS targets (`.rail`, `.logoOverlay`, `.thumbRail` …) | `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` | — |
 | Module button opacity tiers (.50/.58/.64) | `NGL_TOTAL_AUDIT_20260627.md` | — |
-| Control strip (unified shell) | `unified_shell_functionality_restoration_20260627.md` | — |
-| Bridge action ID lookup order | `unified_shell_functionality_restoration_20260627.md` | — |
+| Control strip (module shell) | `module_shell_functionality_restoration_20260627.md` | — |
+| Bridge action ID lookup order | `module_shell_functionality_restoration_20260627.md` | — |
 | Settings menu: safe vs risky changes | `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` | — |
-| Keyboard shortcuts | `CODEX_TASK_engine_shell.md`, `CHATGPT_BRIEF.md` | `unified_shell_functionality_restoration_20260627.md` |
+| Keyboard shortcuts | `CODEX_TASK_engine_shell.md`, `CHATGPT_BRIEF.md` | `module_shell_functionality_restoration_20260627.md` |
 
 ---
 
@@ -171,4 +171,4 @@ full paths are under `workspace/` unless noted otherwise.
 | Experimental Physics checkbox | canvas CSS drift (not geometry) | `NGL_TOTAL_AUDIT_20260627.md`, `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` |
 | CRT rail CSS | `.logoOverlay` badge | `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` |
 | `noixzy_lab_theme` key | theme persistence across modules | `CODEX_TASK_theme_system.md` |
-| Escrow tier 1 candidates | promotion to unified shell | `NGL_TOTAL_AUDIT_20260627.md` §14 |
+| Escrow tier 1 candidates | promotion to module shell | `NGL_TOTAL_AUDIT_20260627.md` §14 |

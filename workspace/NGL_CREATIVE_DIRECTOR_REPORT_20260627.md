@@ -6,8 +6,8 @@
 ## PROJECT CONTEXT SUMMARY
 
 **Branch:** `feature-hand-authored-preview-undo-redo`
-**Last clean pushed commit:** `6937d65 Fade unified shell badge edges`
-**Active polish target:** `unified_shell.html`
+**Last clean pushed commit:** `6937d65 Fade module shell badge edges`
+**Active polish target:** `module_shell.html`
 **Escrow shell path:** `workspace/module_escrow_20260627/escrow_shell.html`
 **Candidate count:** 100 HTML modules in `workspace/module_escrow_20260627/candidates/`
 
@@ -61,7 +61,7 @@ Current scrollbar is a thin dark strip. On desktop, `scrollbar-width:none` on `.
 `[aria-selected="true"]` currently only boosts opacity to `.64`. Add a 1px white bottom border on `.moduleButton[aria-selected="true"]` to indicate active module more clearly.
 
 **4. Keyboard navigation arrows (‹ ›) in shell**
-No visible prev/next buttons in `unified_shell.html` (unlike escrow shell which has them). Adding simple left/right arrow buttons flanking the thumb rail would mirror the escrow shell's UX pattern and allow keyboard-less browsing. Low-risk HTML addition.
+No visible prev/next buttons in `module_shell.html` (unlike escrow shell which has them). Adding simple left/right arrow buttons flanking the thumb rail would mirror the escrow shell's UX pattern and allow keyboard-less browsing. Low-risk HTML addition.
 
 **5. Rail height breathing room**
 `--rail-h: 78px` with `padding: 12px 14px`. The thumb height `--thumb-h: 48px` plus 12px padding = 72px, leaving 6px gap. If thumbnail labels are added (above), bump `--rail-h` to `92px` to give 14px head room.
@@ -90,16 +90,16 @@ The escrow shell (`workspace/module_escrow_20260627/escrow_shell.html`) is a pla
 - Header font is system sans, not monospace
 - Teal (`#6aa`) link color — legacy, not consistent with noixzy monochrome
 
-### What the escrow shell needs to approach unified shell quality
+### What the escrow shell needs to approach module shell quality
 
 **1. Typography alignment**
-Change `font-family` in body to match unified shell: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`. Costs nothing.
+Change `font-family` in body to match module shell: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`. Costs nothing.
 
 **2. Remove teal accent**
 Replace `#6aa` (link color) with `rgba(255,255,255,.62)` for borders and `#e0e0e0` or `var(--ink)` for link text. Align with noir monochrome direction.
 
 **3. Sidebar thumbnail strip**
-Add a small `<img>` preview inside each `.candidate` card (if candidate has an associated PNG in a thumbs folder). Fall back gracefully to no image. This gives the escrow shell visual scanning parity with unified shell.
+Add a small `<img>` preview inside each `.candidate` card (if candidate has an associated PNG in a thumbs folder). Fall back gracefully to no image. This gives the escrow shell visual scanning parity with module shell.
 
 **4. Active module highlight**
 Current active state: `background: #252525; border-color: #555`. Upgrade to left `border-left: 2px solid rgba(255,255,255,.44)` with a soft glow: `box-shadow: -2px 0 12px rgba(255,255,255,.06)`.
@@ -299,7 +299,7 @@ Replace `<h1>noixzy module escrow</h1>` with a styled badge matching the escrow 
 
 ### General performance recommendations
 
-1. **Throttle idle modules** — when `unified_shell.html` has a module in the iframe, all other module canvases continue ticking in the background. Add `document.visibilitychange` + `requestAnimationFrame` cancellation when the page is hidden.
+1. **Throttle idle modules** — when `module_shell.html` has a module in the iframe, all other module canvases continue ticking in the background. Add `document.visibilitychange` + `requestAnimationFrame` cancellation when the page is hidden.
 2. **Lazy init for escrow candidates** — the escrow shell loads all 100 module descriptions in the sidebar. Only the active iframe is alive, but DOM weight is high. Virtualize the sidebar list (only render visible items) if scroll performance suffers.
 3. **OffscreenCanvas for compute-heavy modules** — `reaction_diffusion`, `cellular_erosion`, and `lenia` are best candidates. Move the simulation buffer to an OffscreenCanvas worker thread.
 
@@ -356,7 +356,7 @@ This is 3 lines, bounded, reversible, and visually dramatic on thread lattices.
 
 ## NEW UNIFIED SHELL MODULE CONCEPTS (30)
 
-These are concepts for new production modules to be added to `unified_shell.html` via `build_lab.js` (or as new hand-authored HTML for WebGL-intensive modules). All preserve the lowercase noixzy naming pattern.
+These are concepts for new production modules to be added to `module_shell.html` via `build_lab.js` (or as new hand-authored HTML for WebGL-intensive modules). All preserve the lowercase noixzy naming pattern.
 
 ### Field / Terrain Systems
 1. **noixzy_curl_noise_fluid** — Curl-noise vector field driving particle streamlines as flowing fluid ribbons. System: `turbulence`, `viscosity`, `ribbon count`, `fade length`. noixzy angle: liquid metal, magma currents.
@@ -454,8 +454,8 @@ These are candidates for `workspace/module_escrow_20260627/candidates/`. They fo
 
 New prototype HTML files were created in two separate folders:
 
-### Unified Shell prototypes
-`workspace/unified_shell_prototypes_20260627/`
+### Module Shell prototypes
+`workspace/module_shell_prototypes_20260627/`
 - `noixzy_proto_curl_noise_fluid.html` — curl noise fluid ribbons
 - `noixzy_proto_dla_frost.html` — diffusion-limited aggregation
 - `noixzy_proto_lenia_life.html` — Lenia continuous cellular life
@@ -479,11 +479,11 @@ None. This session does not modify existing production files.
 ## FILES CREATED
 
 - `workspace/NGL_CREATIVE_DIRECTOR_REPORT_20260627.md` (this file)
-- `workspace/unified_shell_prototypes_20260627/noixzy_proto_curl_noise_fluid.html`
-- `workspace/unified_shell_prototypes_20260627/noixzy_proto_dla_frost.html`
-- `workspace/unified_shell_prototypes_20260627/noixzy_proto_lenia_life.html`
-- `workspace/unified_shell_prototypes_20260627/noixzy_proto_voronoi_shatter.html`
-- `workspace/unified_shell_prototypes_20260627/noixzy_proto_domain_marble.html`
+- `workspace/module_shell_prototypes_20260627/noixzy_proto_curl_noise_fluid.html`
+- `workspace/module_shell_prototypes_20260627/noixzy_proto_dla_frost.html`
+- `workspace/module_shell_prototypes_20260627/noixzy_proto_lenia_life.html`
+- `workspace/module_shell_prototypes_20260627/noixzy_proto_voronoi_shatter.html`
+- `workspace/module_shell_prototypes_20260627/noixzy_proto_domain_marble.html`
 - `workspace/module_escrow_20260627/candidates/noixzy_proto_delaunay_mesh_field.html`
 - `workspace/module_escrow_20260627/candidates/noixzy_proto_standing_wave_pattern.html`
 - `workspace/module_escrow_20260627/candidates/noixzy_proto_hyperbolic_tiling.html`
@@ -512,7 +512,7 @@ None. This session does not modify existing production files.
 
 1. **Camera Phase 1: cx/cy in build_lab.js** — 3-line change, all 9 generated modules get pan. Follow `CAMERA_CONTROLS_PLAN.md` exactly. Run `node build_lab.js` after. Verify in browser: flow_field first.
 
-2. **Unified shell improvements (low-risk):** Module name labels below thumbnails, active module bottom border indicator, keyboard shortcut ‹ › nav buttons. Scope: `unified_shell.html` only. Explicit adds only in git.
+2. **Unified shell improvements (low-risk):** Module name labels below thumbnails, active module bottom border indicator, keyboard shortcut ‹ › nav buttons. Scope: `module_shell.html` only. Explicit adds only in git.
 
 3. **Escrow shell visual upgrades:** Typography fix (monospace), teal accent removal, batch section headers, search/filter input, keyboard shortcut footer. Scope: `workspace/module_escrow_20260627/escrow_shell.html` only.
 

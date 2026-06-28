@@ -23,7 +23,7 @@ Severity ratings:
 - `SESSION_BRIDGE.md` (2026-06-25): "22 modules total"
 - `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md`: "48 modules registered in modules.manifest.json"
 - `NGL_PLAN_06062026.md`: "47 home-listed live modules: 12 hand-authored and 35 generated"
-- `unified_shell_functionality_restoration_20260627.md`: "58 in manifest, 57 enabled"
+- `module_shell_functionality_restoration_20260627.md`: "58 in manifest, 57 enabled"
 
 **Severity:** 🟡 Confusing — counts differ because they were written at different points
 in time, and because "modules" means different things (home-listed, manifest-registered,
@@ -69,7 +69,7 @@ The count has grown since — always read the live file.
 - Early docs (`READ_FIRST.md`, `HANDOFF.md`, `CHATGPT_BRIEF.md`): "9 engine modules"
 - `GPT_HANDOFF_2026_06_25.md`: "12 generated modules"
 - `NGL_PLAN_06062026.md` (audit): "35 generated" (47 total − 12 hand-authored)
-- `unified_shell_functionality_restoration_20260627.md`: "`node build_lab.js`: `done: 46 pieces`"
+- `module_shell_functionality_restoration_20260627.md`: "`node build_lab.js`: `done: 46 pieces`"
 
 **Severity:** 🟡 Confusing — the generator has been expanded from the original 9 pieces.
 
@@ -189,11 +189,11 @@ should be removed.
 
 ### O-03 — `noixzy_lab_shell_v1.html` as the shell reference
 **Content:** Multiple early documents reference `noixzy_lab_shell_v1.html` as "the shell
-prototype" or "the design reference." As of 2026-06-27, `unified_shell.html` is the
+prototype" or "the design reference." As of 2026-06-27, `module_shell.html` is the
 production shell.
 
 **Severity:** ⚪ Stale — `noixzy_lab_shell_v1.html` still exists but is a static prototype.
-Do not edit it; use `unified_shell.html`.
+Do not edit it; use `module_shell.html`.
 
 ---
 
@@ -210,7 +210,7 @@ not be used.
 **Content:** `SESSION_BRIDGE.md` states: "Resume order for any LLM: `CHATGPT_PROMPT.md`
 → this file → `NEXT_MODULES.md`"
 
-This was the correct order as of 2026-06-25. Since then, the unified shell session and
+This was the correct order as of 2026-06-25. Since then, the module shell session and
 the creative director / total audit reports have substantially updated the project state.
 The new resume order should be `READ_FIRST.md` → the relevant `workspace/` context.
 
@@ -241,7 +241,7 @@ No decision has been documented.
 ---
 
 ### U-02 — `fold` stale manifest entry
-**Conflict:** `unified_shell_functionality_restoration_20260627.md` notes a stale reference
+**Conflict:** `module_shell_functionality_restoration_20260627.md` notes a stale reference
 to `fold/noixzy_fold.html` in `modules.manifest.json`. This was pre-existing before the
 2026-06-27 session and was not resolved.
 **Action needed:** Fix or retire the stale `fold` manifest entry.
@@ -267,7 +267,7 @@ has been made on which model to pursue first.
 ### U-05 — Hand-authored module migration to Template A IDs
 **Conflict:** Template C modules (gyroid, mandelbulb, displacement, etc.) lack support for
 pause, reset, newSeed, randomForm, randomColor, randomAll, and transparentBg in the shell.
-`unified_shell_functionality_restoration_20260627.md` recommends upgrading them to the new
+`module_shell_functionality_restoration_20260627.md` recommends upgrading them to the new
 template IDs but defers this to a future pass.
 **Action needed:** Decide which Template C modules to upgrade, in which order.
 
@@ -282,7 +282,7 @@ PIECES array, and `modules.manifest.json`. They are already drifting (`sdf` mism
 ---
 
 ### U-07 — `bgAlpha` control ID
-**Conflict:** `unified_shell_functionality_restoration_20260627.md` notes that `bgAlpha`
+**Conflict:** `module_shell_functionality_restoration_20260627.md` notes that `bgAlpha`
 is listed as a target bridge ID in the spec but was not found in any module. It was
 deferred.
 **Action needed:** Verify whether `bgAlpha` should exist as a module control ID, and if
@@ -291,10 +291,10 @@ so, add it to the standard template.
 ---
 
 ### U-08 — Whether the escrow shell font should always be `ui-monospace`
-**Conflict:** The unified shell uses `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+**Conflict:** The module shell uses `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 monospace` as a hard standard. The escrow shell was upgraded to match in the 2026-06-27
 session. However, no formal document establishes this as the lab-wide font standard for
 ALL shells (including future shells).
 **Action needed:** Formally establish the monospace font stack as a project-wide standard
 in the engineering standards (done in `03_ENGINEERING_STANDARDS.md` implicitly via the
-unified shell spec, but not stated as a lab-wide rule).
+module shell spec, but not stated as a lab-wide rule).

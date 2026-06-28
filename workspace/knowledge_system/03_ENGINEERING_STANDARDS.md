@@ -73,16 +73,16 @@ canvas, no render). (*`SESSION_BRIDGE.md`*)
 
 ---
 
-## 3. Unified Shell (`unified_shell.html`)
+## 3. Module Shell (`module_shell.html`)
 
-**S-US-01** The shell file is `unified_shell.html` at the project root. It is the
+**S-US-01** The shell file is `module_shell.html` at the project root. It is the
 **production shell** — treat as committed, stable, and protected unless a change is
 explicitly scoped to it. (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`*)
 
 **S-US-02** The shell hosts modules in an **iframe** (`#moduleFrame`). It does not merge
 module render engines. It communicates with modules via iframe DOM access (same-origin
 `file://`) with `tryIframeClick()` as the bridge mechanism.
-(*`unified_shell_functionality_restoration_20260627.md`, `NGL_PLAN_06062026.md`*)
+(*`module_shell_functionality_restoration_20260627.md`, `NGL_PLAN_06062026.md`*)
 
 **S-US-03** The control strip bridge tries **multiple fallback IDs** per action (Template A
 → B → C compatibility). The lookup order for each action is fixed:
@@ -93,7 +93,7 @@ module render engines. It communicates with modules via iframe DOM access (same-
 - newSeed: `newSeed` → `btnNewSeed`
 - copy: `copyP` → `btnCopy`
 - paste: `pasteP` → `btnPaste`
-(*`unified_shell_functionality_restoration_20260627.md`*)
+(*`module_shell_functionality_restoration_20260627.md`*)
 
 **S-US-04** The shell's visual system uses these CSS variables and selectors. Do not
 rename or restructure them without an explicit scope change:
@@ -139,7 +139,7 @@ fallback elements for: `save`, `save2x`, `rec`, `thumb`, `pause`, `reset`, `copy
 
 **S-HA-04** `grid_extrude` is Template B — it uses `btnSave2`, `btnSave2x2`, `btnThumb2`,
 `btnRec2`, `btnNewSeed`, `btnUndo`, `btnRedo`. Do not change its control IDs.
-(*`unified_shell_functionality_restoration_20260627.md`*)
+(*`module_shell_functionality_restoration_20260627.md`*)
 
 ---
 
@@ -209,9 +209,9 @@ absent from the home. Resolve before adding new modules. (*`NGL_PLAN_06062026.md
 
 ## 7. Manifest
 
-**S-M-01** `modules.manifest.json` is the canonical module registry for the unified shell.
+**S-M-01** `modules.manifest.json` is the canonical module registry for the module shell.
 As of the 2026-06-27 audit, it contains 58 entries (57 enabled). The `fold` entry has a
-stale reference — pre-existing, not yet resolved. (*`unified_shell_functionality_restoration_20260627.md`*)
+stale reference — pre-existing, not yet resolved. (*`module_shell_functionality_restoration_20260627.md`*)
 
 **S-M-02** The manifest must include capability flags per module: supported actions,
 export types, audio-reactive status, transparent background, schema availability.
@@ -285,12 +285,12 @@ next. Never edit two SDF modules in the same session without a browser check bet
 **S-GIT-01** **Never use `git add .` or `git add -A`** — always use explicit file names.
 (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`*)
 
-**S-GIT-02** For unified shell changes only: `git add unified_shell.html`.
+**S-GIT-02** For module shell changes only: `git add module_shell.html`.
 For engine changes: `git add build_lab.js` + all regenerated module HTML.
 (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`*)
 
 **S-GIT-03** No `.bak` files committed. No temporary rollback snapshots in the working
-tree. (*`unified_shell_functionality_restoration_20260627.md`*)
+tree. (*`module_shell_functionality_restoration_20260627.md`*)
 
 **S-GIT-04** Protected files — never modify without explicit scope change:
 `build_lab.js`, `home/home.html`, `home/thumbs/`, `modules.manifest.json`,
@@ -298,7 +298,7 @@ all generated module HTML, `noixzy_lab_shell_v1.html`, parked Blender/workspace 
 (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`, `NGL_TOTAL_AUDIT_20260627.md`*)
 
 **S-GIT-05** Two files are parked in `.git/info/exclude` (not committed, but present on disk):
-- `blender_builds/unified_shell_pilot_scene.blend`
+- `blender_builds/module_shell_pilot_scene.blend`
 - `workspace/ARCHITECTURAL_ALGORITHMIC_MODULE_IDEAS_20260627.md`
 Do not delete or commit them unless explicitly asked. (*`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`*)
 

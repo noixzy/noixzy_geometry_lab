@@ -57,7 +57,7 @@ The intended conceptual model:
 - Modules are geometry engines.
 - `home/home.html` is the central browsing surface.
 - The home/gallery page reads `modules.manifest.json`.
-- Module cards should route through the unified shell wrapper where possible.
+- Module cards should route through the module shell wrapper where possible.
 - Do not keep treating modules as separate hand-authored/generated UI systems unless explicitly requested.
 - Do not edit individual module files unless explicitly requested.
 
@@ -88,12 +88,12 @@ The old `fold` module was not restored because it is not present in the current 
 
 ## Routing
 
-Cards now route through unified shell:
+Cards now route through module shell:
 
 ```js
 function shellHref(module) {
   const id = module.id || (module.file || "").split("/")[0];
-  return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+  return `../module_shell.html?module=${encodeURIComponent(id)}`;
 }
 ```
 
@@ -180,7 +180,7 @@ The cleanup pass should preserve only the final intended layout:
 - Thumbnail rail top, centered, non-sticky.
 - No HOME/count text.
 - Manifest-driven grid.
-- Cards route through unified shell.
+- Cards route through module shell.
 - Keep horizontal rail scrolling but hide the visible scrollbar.
 - Preserve module order with `grid_extrude` and `sdf_raymarch` first.
 
@@ -239,5 +239,5 @@ Only when explicitly requested:
 2. Consolidate the CSS into a clean single layout block.
 3. Remove stale `.navBar` styles if no `.navBar` markup remains.
 4. Remove obsolete stacked override comments.
-5. Preserve visual state exactly: rail top/centered/non-sticky, black background, no HOME/count text, unified shell card routing.
+5. Preserve visual state exactly: rail top/centered/non-sticky, black background, no HOME/count text, module shell card routing.
 6. Commit and push only `home/home.html`.

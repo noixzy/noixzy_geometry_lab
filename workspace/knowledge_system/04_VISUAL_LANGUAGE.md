@@ -301,7 +301,7 @@ Avoid mid-grey soup. Enforce this value structure in every default.
 
 *Source: `IDEAS_module_expansion.md` Part 3*
 
-### CRT / noir palette (unified shell)
+### CRT / noir palette (module shell)
 - Black rail, white/gray CRT scanline texture
 - No color wash, no teal/blue/green/neon
 - Monochrome grayscale thumbnails: `filter: grayscale(1) contrast(1.08) brightness(.82)`
@@ -319,7 +319,7 @@ The lab's visual language sits at the intersection of:
   cellular automata as primary visual vocabulary
 - **Blender / 3D production** — modules feed into real 3D pipelines; the "render"
   feel of the output should be legible as a Blender material reference
-- **CRT / analog electronics** — the unified shell adopts a noir CRT monitor aesthetic:
+- **CRT / analog electronics** — the module shell adopts a noir CRT monitor aesthetic:
   scanlines, phosphor glow, monochrome, the implied weight of old hardware
 - **Music visualization** — the audio-reactive direction ties module output directly
   to frequency information; Chladni figures are explicitly called out as "the sound IS

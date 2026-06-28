@@ -21,8 +21,8 @@ Priority ratings:
 ## MS-01 — Formal font stack standard for all shells 🔴
 
 **What is referenced but not defined:**
-Every shell UI (unified shell, escrow shell, any future shell) should share a consistent
-typographic baseline. The unified shell uses `ui-monospace, SFMono-Regular, Menlo, Monaco,
+Every shell UI (module shell, escrow shell, any future shell) should share a consistent
+typographic baseline. The module shell uses `ui-monospace, SFMono-Regular, Menlo, Monaco,
 Consolas, monospace`. The escrow shell was explicitly upgraded to match in 2026-06-27.
 However, no document formally establishes this as a project-wide rule.
 
@@ -36,12 +36,12 @@ However, no document formally establishes this as a project-wide rule.
 
 ---
 
-## MS-02 — Module promotion criteria (escrow → unified shell) 🔴
+## MS-02 — Module promotion criteria (escrow → module shell) 🔴
 
 **What is referenced but not defined:**
 The three-tier escrow system (Tier 1 = ready, Tier 2 = needs defaults, Tier 3 = needs polish)
 is described. Tier 1 candidates are named. But the formal criteria for promotion — what a
-module must demonstrate to be added to `unified_shell.html`, `modules.manifest.json`, and
+module must demonstrate to be added to `module_shell.html`, `modules.manifest.json`, and
 `home/home.html` — has never been written as a standard.
 
 **What needs to be defined:**
@@ -115,7 +115,7 @@ written.
 - `IN {type:"action", name}`
 - `OUT {type:"state", seed, fps, dims}`
 
-The current `unified_shell.html` uses iframe DOM access (`tryIframeClick`) instead of
+The current `module_shell.html` uses iframe DOM access (`tryIframeClick`) instead of
 postMessage — a pragmatic same-origin shortcut. The formal postMessage contract from
 the Codex task spec was never implemented. No document has resolved this discrepancy.
 
@@ -127,7 +127,7 @@ the Codex task spec was never implemented. No document has resolved this discrep
 
 **Where it is partially addressed:**
 `CODEX_TASK_engine_shell.md`, `NGL_PLAN_06062026.md` §Module Bridge Contract,
-`unified_shell_functionality_restoration_20260627.md`
+`module_shell_functionality_restoration_20260627.md`
 
 ---
 
@@ -278,7 +278,7 @@ been formally defined.
   `home/thumbs/*.png` but via different mechanisms)
 
 **Where it is partially addressed:**
-`HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md`, `unified_shell_functionality_restoration_20260627.md`
+`HANDOFF.md`, `GPT_HANDOFF_2026_06_25.md`, `module_shell_functionality_restoration_20260627.md`
 
 ---
 

@@ -9,7 +9,7 @@ _Last updated: 2026-06-23._
 
 A lab of **self-contained algorithmic-art modules** (p5.js, single HTML files that open by
 double-click) feeding noixzy production — Blender scenes, music visuals, stills, textures. 11
-modules today, an expansion roadmap, and a unified-shell UI in progress.
+modules today, an expansion roadmap, and a module-shell UI in progress.
 
 ## 🔴 Non-negotiables (breaking these breaks the lab)
 

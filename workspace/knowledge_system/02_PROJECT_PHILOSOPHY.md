@@ -41,7 +41,7 @@ every production format directly.
   (*`FUTURE_INSTALLMENTS.md`, `IDEAS_module_expansion.md`*)
 
 - **A living module library** — the escrow system stages candidates; tier 1 candidates
-  graduate to the unified shell. The library grows by proven installments, not by
+  graduate to the module shell. The library grows by proven installments, not by
   bulk addition. (*`NGL_TOTAL_AUDIT_20260627.md`*)
 
 ---
@@ -84,7 +84,7 @@ neutral beats five hues. A third hue should be rare and intentional. (*`IDEAS_mo
 - Restrained, moody — "never tech guy in a cinematic room."
 - Finishing: high-ish contrast, subtle vignette (~0.2–0.3), light grain (~0.04–0.08,
   never 0 for the "shot on something" feel), gentle bloom on brightest 10% only.
-- The CRT / noir rail of the unified shell extends this aesthetic into the UI.
+- The CRT / noir rail of the module shell extends this aesthetic into the UI.
 
 (*`CHATGPT_BRIEF.md`, `IDEAS_module_expansion.md` Part 3, `NGL_UNIFIED_SHELL_HANDOFF_20260627.md`*)
 

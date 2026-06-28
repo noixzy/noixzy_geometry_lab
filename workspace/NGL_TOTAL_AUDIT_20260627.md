@@ -11,8 +11,8 @@
 The session mandate covered 10 primary directives:
 
 1. Read all workspace resources before making changes
-2. Improve unified shell and current modules where safe
-3. Improve escrow shell to approach unified shell quality
+2. Improve module shell and current modules where safe
+3. Improve escrow shell to approach module shell quality
 4. Scan all 100 escrow module candidates and report
 5. Add 3D camera thinking to both shells
 6. Verify extrusion/displacement/geometry is genuine (not CSS illusion)
@@ -50,9 +50,9 @@ P.cy=+(P.cy - movedY/H * 2).toFixed(3);
 
 **status:** ALREADY DONE. No action taken. Zero risk of regression.
 
-### 2b. unified shell — current state
+### 2b. module shell — current state
 
-- File: `unified_shell.html` (746 lines)
+- File: `module_shell.html` (746 lines)
 - Aesthetic: noir/CRT/monochrome — production quality
 - Font: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`
 - Rail: `--rail-h: 78px` with CRT noise animation (`@keyframes noixzyRailCrtNoise`)
@@ -72,7 +72,7 @@ P.cy=+(P.cy - movedY/H * 2).toFixed(3);
 - No search/filter input
 - No batch section dividers
 - No keyboard shortcut footer
-- **Assessment:** functional but visually inconsistent with unified shell
+- **Assessment:** functional but visually inconsistent with module shell
 
 ### 2d. escrow candidate scan — 100+ modules across 7 runtime families
 
@@ -89,7 +89,7 @@ P.cy=+(P.cy - movedY/H * 2).toFixed(3);
 **tier system:**
 
 - **tier 1 (ready for promotion):** brutalist massing family, modernist facade, differential growth, DLA frost, curl noise fluid — polished defaults, correct randomization geometry
-- **tier 2 (needs default tuning):** most batch 11–14 modules — correct architecture, parameters need visual refinement before unified shell promotion
+- **tier 2 (needs default tuning):** most batch 11–14 modules — correct architecture, parameters need visual refinement before module shell promotion
 - **tier 3 (needs renderer polish):** falling sand, cyclic CA — high CPU risk; hyperbolic tiling — correct math but tessellation visual needs refinement
 
 ---
@@ -159,7 +159,7 @@ File for reference: `workspace/module_escrow_20260627/workspace/CAMERA_CONTROLS_
 
 ## 6. Experimental Physics checkbox audit
 
-**current implementation (all escrow batch modules + unified shell):**
+**current implementation (all escrow batch modules + module shell):**
 
 ```js
 // CSS transform only — no geometry change
@@ -179,7 +179,7 @@ canvas.style.filter = 'contrast(1.06) saturate(1.08)';
 
 ## 7. new module concepts brainstormed
 
-### unified shell candidates (30)
+### module shell candidates (30)
 
 | # | name | concept |
 |---|---|---|
@@ -253,7 +253,7 @@ canvas.style.filter = 'contrast(1.06) saturate(1.08)';
 
 ## 8. prototypes created this session
 
-### unified shell prototypes — `workspace/unified_shell_prototypes_20260627/`
+### module shell prototypes — `workspace/module_shell_prototypes_20260627/`
 
 | file | algorithm | status |
 |---|---|---|
@@ -297,7 +297,7 @@ canvas.style.filter = 'contrast(1.06) saturate(1.08)';
 
 ## 10. lenia life production upgrade — diff summary
 
-**file:** `workspace/unified_shell_prototypes_20260627/noixzy_proto_lenia_life.html`  
+**file:** `workspace/module_shell_prototypes_20260627/noixzy_proto_lenia_life.html`  
 **before:** basic uniform-kernel CA prototype  
 **after:** 304-line production module
 
@@ -318,7 +318,7 @@ canvas.style.filter = 'contrast(1.06) saturate(1.08)';
 ## 11. what was NOT touched (protected)
 
 - `build_lab.js` — no changes made (camera phase 1 already complete)
-- `unified_shell.html` — no changes made (already production quality)
+- `module_shell.html` — no changes made (already production quality)
 - `home/home.html` — untouched
 - `home/thumbs/` — untouched
 - `modules.manifest.json` — untouched
@@ -350,10 +350,10 @@ SDF orbit controls (u_dist = orbit radius, u_elev = elevation angle):
 ```
 workspace/NGL_CREATIVE_DIRECTOR_REPORT_20260627.md         (39KB — master report)
 workspace/NGL_TOTAL_AUDIT_20260627.md                      (this file)
-workspace/unified_shell_prototypes_20260627/noixzy_proto_curl_noise_fluid.html
-workspace/unified_shell_prototypes_20260627/noixzy_proto_dla_frost.html
-workspace/unified_shell_prototypes_20260627/noixzy_proto_voronoi_shatter.html
-workspace/unified_shell_prototypes_20260627/noixzy_proto_domain_marble.html
+workspace/module_shell_prototypes_20260627/noixzy_proto_curl_noise_fluid.html
+workspace/module_shell_prototypes_20260627/noixzy_proto_dla_frost.html
+workspace/module_shell_prototypes_20260627/noixzy_proto_voronoi_shatter.html
+workspace/module_shell_prototypes_20260627/noixzy_proto_domain_marble.html
 workspace/module_escrow_20260627/candidates/noixzy_proto_cymatics_nodal.html
 workspace/module_escrow_20260627/candidates/noixzy_proto_standing_wave_pattern.html
 workspace/module_escrow_20260627/candidates/noixzy_proto_hyperbolic_tiling.html
@@ -363,14 +363,14 @@ workspace/module_escrow_20260627/candidates/noixzy_proto_delaunay_mesh_field.htm
 
 ### modified (upgraded)
 ```
-workspace/unified_shell_prototypes_20260627/noixzy_proto_lenia_life.html   (full production upgrade)
+workspace/module_shell_prototypes_20260627/noixzy_proto_lenia_life.html   (full production upgrade)
 workspace/module_escrow_20260627/escrow_shell.html                         (full visual upgrade)
 ```
 
 ### untouched (as required)
 ```
 build_lab.js
-unified_shell.html
+module_shell.html
 home/home.html
 home/thumbs/*
 modules.manifest.json
@@ -386,7 +386,7 @@ workspace/module_escrow_20260627/candidates/*.html  (all existing candidates)
 **high value, low risk:**
 1. Camera Phase 2 — u_dist orbit radius on gyroid.html (SDF uniform, 2–3 lines)
 2. Experimental Physics simulation layer — add physicsForce vector to flow_field particle velocity
-3. Promote tier 1 escrow candidates to unified shell home (brutalist_massing, modernist_facade, DLA frost)
+3. Promote tier 1 escrow candidates to module shell home (brutalist_massing, modernist_facade, DLA frost)
 
 **medium value, defined effort:**
 4. Unified shell: add `noixzy_proto_curl_noise_fluid` and `noixzy_proto_domain_marble` to home

@@ -179,7 +179,7 @@ This scale jump revealed structural drift. The NGL_PLAN_06062026 architectural a
 - Hand-authored modules with "visual feature parity" but "inconsistent internal APIs" — some
   used `PARAMS`, some used bespoke arrays, some used direct DOM IDs
 
-The architectural audit's conclusion was clear: *"A unified shell is feasible without reducing
+The architectural audit's conclusion was clear: *"A module shell is feasible without reducing
 functionality if it uses an iframe-hosted architecture and a thin module adapter/message bridge.
 The shell should not merge render engines."*
 
@@ -187,17 +187,17 @@ This was the recommendation that set the direction for the next stage.
 
 ---
 
-### Stage 4 — The Unified Shell (production-quality hosting)
+### Stage 4 — The Module Shell (production-quality hosting)
 
-The concept of a unified shell predates Stage 4. `FUTURE_INSTALLMENTS.md` mentions it as a
+The concept of a module shell predates Stage 4. `FUTURE_INSTALLMENTS.md` mentions it as a
 future direction: "a single app that hosts all modules with a left rail switcher — the start of
 a proper noixzy visual app." A static prototype (`noixzy_lab_shell_v1.html`) existed early.
 
 But Stage 4 is when the shell became real.
 
 The work documented in `NGL_UNIFIED_SHELL_HANDOFF_20260627.md` and the associated commit stack
-(`470458b Add unified shell rail glow`, `f3d4258 Tune unified shell CRT rail overlay`,
-`7a8bb90 Tune unified shell badge and grid`, `6937d65 Fade unified shell badge edges`) shows
+(`470458b Add module shell rail glow`, `f3d4258 Tune module shell CRT rail overlay`,
+`7a8bb90 Tune module shell badge and grid`, `6937d65 Fade module shell badge edges`) shows
 a production-quality shell being polished to a definite aesthetic:
 
 - Monochrome noir/CRT rail — no color wash, no teal, no neon
@@ -212,7 +212,7 @@ protocol (which had been specified in `CODEX_TASK_engine_shell.md`), the impleme
 tries multiple control IDs per action to accommodate all three template generations without
 requiring module migration.
 
-The `unified_shell_functionality_restoration_20260627.md` documents 756 lines of shell growing
+The `module_shell_functionality_restoration_20260627.md` documents 756 lines of shell growing
 to 1,013 after the controls pass — adding search/filter, keyboard navigation, 15 bridged control
 actions, and module URL state management, all without touching a single module file.
 
@@ -328,7 +328,7 @@ template generations:
   `btnNewSeed`, `btnUndo`, `btnRedo`
 - **Template C** (8–9 modules): `btnSave`, `btnSave2x`, `btnThumb`, `btnRec`, `btnCopy`, `btnPaste`
 
-This was a direct consequence of growth outpacing standardization. The unified shell's bridge
+This was a direct consequence of growth outpacing standardization. The module shell's bridge
 layer handles it gracefully by trying IDs in priority order, but the underlying divergence
 remains. The project recognized that migration toward Template A should happen module by module,
 not as a big-bang refactor.
@@ -495,7 +495,7 @@ The discovery required a careful reading of the code, not a visible failure mode
 A clean parse is not proof. A module that does not render is not a rendering error — it may be
 a syntax error producing no visible exception.
 
-### The Unified Shell Decision (Stage 3–4 boundary)
+### The Module Shell Decision (Stage 3–4 boundary)
 
 The NGL_PLAN_06062026 architectural audit represented a choice. The module family had grown to
 47 pieces. There were three options:
@@ -564,10 +564,10 @@ failure mode recurring.
 
 ### The Static Shell Prototype (`noixzy_lab_shell_v1.html`)
 
-The first attempt at a unified shell was a static mockup. It demonstrated what the shell could
+The first attempt at a module shell was a static mockup. It demonstrated what the shell could
 look like but was never wired to actually host modules. Multiple early documents refer to it
 as "the shell prototype" or "the design reference." It still exists in the project directory
-but was bypassed by the real production shell (`unified_shell.html`), which was built with
+but was bypassed by the real production shell (`module_shell.html`), which was built with
 different architecture (iframe hosting instead of a static layout).
 
 The lesson is not that prototypes are bad — the prototype clarified the aesthetic direction.
@@ -794,7 +794,7 @@ own rules, and its own history. That history is what this document records.
 *Sources: `READ_FIRST.md`, `OVERVIEW.md`, `HANDOFF.md`, `SESSION_BRIDGE.md`,
 `CHATGPT_BRIEF.md`, `GPT_HANDOFF_2026_06_25.md`, `NGL_PLAN_06062026.md`,
 `NGL_TOTAL_AUDIT_20260627.md`, `NGL_CREATIVE_DIRECTOR_REPORT_20260627.md`,
-`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`, `unified_shell_functionality_restoration_20260627.md`,
+`NGL_UNIFIED_SHELL_HANDOFF_20260627.md`, `module_shell_functionality_restoration_20260627.md`,
 `IDEAS_module_expansion.md`, `EXPANSION_V2.md`, `ALGORITHMIC_ARCHITECTURAL_ART.md`,
 `ARCHITECTURAL_ALGORITHMIC_MODULE_IDEAS_20260627.md`, `FUTURE_INSTALLMENTS.md`,
 `CODEX_QUEUE.md`, `noixzy_randomization_geometry_audit_20260627.md`,

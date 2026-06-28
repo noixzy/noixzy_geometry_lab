@@ -11,7 +11,7 @@ Fresh escrow directions to continue developing as full modules: Lenia kernel gar
 
 ## Escrow batch note - generated Batch 16
 
-Generated exactly 10 additional escrow/unified-shell modules: hyperbolic horocycle garden, circle inversion shrine, Clifford attractor loom, Perlin dune ridgelines, Voronoi foam relief, braid group knotfield, CSG relic assembler, reaction vein atlas, radial barcode topography, and cellular masonry automata. This batch extends the visual language into hyperbolic geometry, inversion recursion, chaotic point fields, terrain/noise ridges, computational topology, boolean kit assembly, and polar data architecture.
+Generated exactly 10 additional escrow/module-shell modules: hyperbolic horocycle garden, circle inversion shrine, Clifford attractor loom, Perlin dune ridgelines, Voronoi foam relief, braid group knotfield, CSG relic assembler, reaction vein atlas, radial barcode topography, and cellular masonry automata. This batch extends the visual language into hyperbolic geometry, inversion recursion, chaotic point fields, terrain/noise ridges, computational topology, boolean kit assembly, and polar data architecture.
 
 ## Escrow batch note - generated Batch 15
 
