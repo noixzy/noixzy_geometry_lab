@@ -367,7 +367,7 @@ body::after {
 
   function shellHref(module) {
     const id = module.id || (module.file || "").split("/")[0];
-    return `../unified_shell.html?module=${encodeURIComponent(id)}`;
+    return `../module_shell.html?module=${encodeURIComponent(id)}`;
   }
 
   try {
@@ -395,7 +395,7 @@ body::after {
 
       const card = document.createElement("a");
       card.className = "card";
-      card.href = `../unified_shell.html?module=${encodeURIComponent(module.id)}`;
+      card.href = `../module_shell.html?module=${encodeURIComponent(module.id)}`;
       card.innerHTML = `
         <img src="${thumb}" alt="${title}" loading="lazy">
         <div class="meta">

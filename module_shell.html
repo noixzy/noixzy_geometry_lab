@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>noixzy // unified</title>
+<title>noixzy // module shell</title>
 <style>
 :root {
   --bg:#000;
@@ -169,7 +169,7 @@ body {
 
   function shellHref(module) {
     const id = module.id || (module.file || "").split("/")[0];
-    return `unified_shell.html?module=${encodeURIComponent(id)}`;
+    return `module_shell.html?module=${encodeURIComponent(id)}`;
   }
 
   fetch(manifestPath, { cache:"no-store" })
