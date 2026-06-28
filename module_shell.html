@@ -119,6 +119,40 @@ body {
   background:#000;
 }
 
+.shellControls {
+  position:fixed;
+  right:18px;
+  top:154px;
+  z-index:80;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  padding:8px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  background:rgba(0,0,0,.50);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.shellControls button {
+  width:92px;
+  min-height:30px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:9px;
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  font:10px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.shellControls button:hover {
+  border-color:rgba(216,192,106,.65);
+  background:rgba(255,255,255,.10);
+}
+
 .status {
   position:absolute;
   left:50%;
@@ -141,6 +175,16 @@ body {
     </a>
     <nav class="thumbRail" id="moduleRail" aria-label="module thumbnails"></nav>
   </div>
+
+
+  <aside class="shellControls" id="shellControls" aria-label="module controls">
+    <button type="button" data-proxy="randomAll">random all</button>
+    <button type="button" data-proxy="randomForm">random form</button>
+    <button type="button" data-proxy="randomColor">random color</button>
+    <button type="button" data-proxy="newSeed">new seed</button>
+    <button type="button" data-proxy="pause">pause</button>
+    <button type="button" data-proxy="reset">reset</button>
+  </aside>
 
   <main class="stage">
     <div class="status" id="status">loading modules.manifest.json</div>
@@ -171,6 +215,27 @@ body {
     const id = module.id || (module.file || "").split("/")[0];
     return `module_shell.html?module=${encodeURIComponent(id)}`;
   }
+
+  function bindShellControls() {
+    const controls = document.getElementById("shellControls");
+    if (!controls) return;
+
+    controls.addEventListener("click", event => {
+      const btn = event.target.closest("[data-proxy]");
+      if (!btn) return;
+
+      const id = btn.dataset.proxy;
+      const doc = frame.contentDocument;
+      const target = doc && doc.getElementById(id);
+
+      if (target && typeof target.click === "function") {
+        target.click();
+      }
+    });
+  }
+
+
+  bindShellControls();
 
   fetch(manifestPath, { cache:"no-store" })
     .then(r => {
