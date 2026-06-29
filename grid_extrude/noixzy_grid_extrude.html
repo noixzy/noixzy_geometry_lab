@@ -484,7 +484,7 @@ const PARAMS=[
   {k:"vig",    g:"look",   label:"vignette",  min:0,max:1,step:.01,v:.45},
   {k:"glow",   g:"look",   label:"glow",      min:0,max:1,step:.01,v:.3},
   // MOTION — loop authoring
-  {k:"speed",  g:"motion", label:"speed",     min:0,max:1,step:.01,v:.2},
+  {k:"speed",  g:"motion", label:"speed",     min:0,max:2,step:.01,v:.2},
   {k:"drift",  g:"motion", label:"drift",     min:0,max:1,step:.01,v:.3},
 ];
 const P={}; PARAMS.forEach(p=>P[p.k]=p.v);
@@ -791,7 +791,7 @@ function drawScene(time){
   scene.clear(); if(!transparentBg) scene.background(pal[0][0],pal[0][1],pal[0][2]);
   scene.translate(W/2 + P.cx*W*0.5, H/2 - P.cy*H*0.5);
   scene.scale(P.zoom);
-  scene.rotate(P.rot*0.5 + (P.speed>0? Math.sin(time*0.15*P.speed)*0.06*P.speed:0));
+  scene.rotate(P.rot*0.5);
   scene.translate(-W/2,-H/2);
   scene.noStroke();
   const lightF = 0.35 + P.light*0.5;

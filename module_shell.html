@@ -483,10 +483,10 @@ body {
     if (!defs || !defs.length) return;
     paramDivider.style.display = "block";
 
-    // __extrudeOff floats to top of param panel
+    // sort: speed first, then rest
     defs = [...defs].sort((a, b) => {
-      if (a.k === "__extrudeOff") return -1;
-      if (b.k === "__extrudeOff") return 1;
+      if (a.k === "speed") return -1;
+      if (b.k === "speed") return 1;
       return 0;
     });
 
