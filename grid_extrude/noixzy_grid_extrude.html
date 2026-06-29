@@ -699,9 +699,9 @@ function setup(){
   document.getElementById("exportFavs2")?.addEventListener("click",()=>{ const b=document.getElementById("exportFavs"); if(b) b.click(); });
   document.getElementById("clearFavs2")?.addEventListener("click",()=>{ const b=document.getElementById("clearFavs"); if(b) b.click(); });
   document.getElementById("btnThumb2")?.addEventListener("click",saveThumb);
-  document.getElementById("btnRec2")?.addEventListener("click",()=>{ const b=document.getElementById("rec"); if(b) b.click(); });
-  document.getElementById("btnSave2")?.addEventListener("click",()=>{ const b=document.getElementById("save"); if(b) b.click(); });
-  document.getElementById("btnSave2x2")?.addEventListener("click",()=>{ const b=document.getElementById("save2x"); if(b) b.click(); });
+  document.getElementById("btnRec2")?.addEventListener("click",()=>{ const b=document.getElementById("rec"); if(b) b.click(); else recordClip(getRecDuration()); });
+  document.getElementById("btnSave2")?.addEventListener("click",()=>{ const b=document.getElementById("save"); if(b) b.click(); else triggerSavePNG(); });
+  document.getElementById("btnSave2x2")?.addEventListener("click",()=>{ const b=document.getElementById("save2x"); if(b) b.click(); else save2xPNG(); });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") toggleKbHelp(false); });
 }
 function windowResized(){
@@ -1005,8 +1005,10 @@ function syncParamControls(){
 }
 
 function randomizeParams(mode="all"){
+  if(mode==="color"){ randomizeColor(); return; }
   const before=_histSnapshot();
   PARAMS.forEach(p=>{
+    if(mode==="form" && p.k==="pal") return;
     if(mode==="form" && p.g==="material") return;
     if(mode==="form" && p.g==="look") return;
     if(mode==="form" && p.g==="motion") return;
@@ -1045,12 +1047,23 @@ function randomizeColor(){
 function newSeedFromConsole(){
   const b=document.getElementById("newSeed");
   if(b) b.click();
+  else {
+    seed=Math.floor(Math.random()*1e6);
+    const field=document.getElementById("seedField");
+    if(field) field.value=seed;
+    buildLeaves();
+  }
   syncSeedUI();
 }
 
 function resetFromConsole(){
   const b=document.getElementById("reset");
   if(b) b.click();
+  else {
+    const d={};
+    PARAMS.forEach(p=>d[p.k]=p.v);
+    applyConfig({seed:1, P:d});
+  }
   syncParamControls();
   syncAccentFromPalette();
   const bp=document.getElementById("btnPause");
@@ -1292,7 +1305,7 @@ function renderFavs(){
   });
 }
 function recordClip(dur=4){
-  const btn=document.getElementById('rec');
+  const btn=document.getElementById('rec')||document.getElementById('btnRec2');
   if(btn._recording) return;
   const canvas=document.querySelector('#stage canvas');
   if(!canvas||!canvas.captureStream){btn.textContent='unsupported';setTimeout(()=>btn.textContent='rec',2000);return;}
