@@ -779,7 +779,7 @@ let SDFB;
 try{ if(typeof P!=="undefined"){ if((P.speed===0||P.speed===undefined) && (P.drift===0||P.drift===undefined)){ P.speed=0.18; P.drift=0.12; }
     // sync UI sliders shortly after buildUI runs so controls reflect these defaults
     setTimeout(()=>{ try{ const s=document.getElementById('p_speed'); if(s) s.value = P.speed; const vs=document.getElementById('v_speed'); if(vs) vs.textContent = (P.speed).toFixed(2); const d=document.getElementById('p_drift'); if(d) d.value = P.drift; const vd=document.getElementById('v_drift'); if(vd) vd.textContent = (P.drift).toFixed(2); }catch(e){} },80);
-  } } }catch(e){}
+  } }catch(e){}
 function build(){ const n=floor(map(P.count,0,1,3,12)); SDFB=[]; for(let i=0;i<n;i++)SDFB.push([random(.18,.82),random(.18,.82),random(.06,.15)]); }
 function render(g,pal){ const N=300, blobs=SDFB, baseK=map(P.blend,0,1,0.03,0.28), warp=P.warp, light=[-0.6,-0.9];
   // compute animated positions (smooth orbital motion) per frame
