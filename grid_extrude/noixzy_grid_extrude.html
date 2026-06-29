@@ -415,51 +415,6 @@ body {
 </div>
 <div id="kbHelp" aria-hidden="true"><div class="kbCard"><h2>keyboard shortcuts</h2><div class="kbGrid"><b>h</b><span>hide / show panel</span><b>?</b><span>this help</span><b>space</b><span>pause / play</span><b>[ / ]</b><span>cycle theme</span><b>s</b><span>save png</span></div></div></div>
 <script>
-(function initNoixzyLegacyControlBridge(){
-  if(window.__noixzyLegacyControlBridge) return;
-  window.__noixzyLegacyControlBridge=true;
-
-  function ensureHost(){
-    let host=document.getElementById('noixzyLegacyControlBridge');
-    if(!host){
-      host=document.createElement('div');
-      host.id='noixzyLegacyControlBridge';
-      host.style.display='none';
-      document.body.appendChild(host);
-    }
-    return host;
-  }
-
-  function ensureButton(id){
-    if(document.getElementById(id)) return;
-    const host=ensureHost();
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.id=id;
-    host.appendChild(btn);
-  }
-
-  function ensureSelect(id,values,selected){
-    if(document.getElementById(id)) return;
-    const host=ensureHost();
-    const sel=document.createElement('select');
-    sel.id=id;
-    values.forEach(v=>{
-      const opt=document.createElement('option');
-      opt.value=String(v);
-      opt.textContent=String(v);
-      if(String(v)===String(selected)) opt.selected=true;
-      sel.appendChild(opt);
-    });
-    host.appendChild(sel);
-  }
-
-  [
-    'newSeed','randomUnlocked','randomForm','randomColor',
-    'reset','copy','paste','pause','save','save2x','rec','thumb'
-  ].forEach(ensureButton);
-  ensureSelect('recDur',[2,4,8,16],4);
-})();
 
 let W=820,H=820; const PIECE="grid_extrude";
 function syncSeedUI(){
