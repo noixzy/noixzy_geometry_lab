@@ -17,8 +17,7 @@
 
     * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       width: 100%;
       height: 100%;
       margin: 0;
@@ -43,33 +42,17 @@
         linear-gradient(180deg, #0b0b0b 0%, #030303 100%);
     }
 
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    canvas { display: block; width: 100%; height: 100%; }
 
     aside {
       border-left: 1px solid var(--line);
-      background: rgba(12, 12, 12, .96);
+      background: rgba(12,12,12,.96);
       padding: 14px;
       overflow: auto;
     }
 
-    h1 {
-      margin: 0 0 4px;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0;
-      text-transform: lowercase;
-    }
-
-    .sub {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.45;
-    }
+    h1 { margin: 0 0 4px; font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: lowercase; }
+    .sub { margin: 0 0 14px; color: var(--muted); font-size: 11px; line-height: 1.45; }
 
     .buttons {
       display: grid;
@@ -99,12 +82,7 @@
       margin-bottom: 14px;
     }
 
-    label,
-    .seed-row span {
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: lowercase;
-    }
+    label, .seed-row span { color: var(--muted); font-size: 11px; text-transform: lowercase; }
 
     input[type="text"] {
       width: 100%;
@@ -116,10 +94,7 @@
       font-size: 11px;
     }
 
-    .control {
-      padding: 10px 0;
-      border-top: 1px solid #222;
-    }
+    .control { padding: 10px 0; border-top: 1px solid #222; }
 
     .control-head {
       display: flex;
@@ -129,55 +104,21 @@
       font-size: 11px;
     }
 
-    .value {
-      color: var(--accent);
-      text-align: right;
-      min-width: 42px;
-    }
+    .value { color: var(--accent); text-align: right; min-width: 42px; }
 
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--accent);
-    }
-
-    .physics-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 10px 0 12px;
-      padding: 9px 0;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: lowercase;
-    }
-
-    .physics-toggle input { accent-color: var(--accent); }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
 
     @media (max-width: 760px) {
-      body {
-        grid-template-columns: 1fr;
-        grid-template-rows: minmax(0, 1fr) 315px;
-      }
-
-      aside {
-        border-left: 0;
-        border-top: 1px solid var(--line);
-      }
+      body { grid-template-columns: 1fr; grid-template-rows: minmax(0,1fr) 315px; }
+      aside { border-left: 0; border-top: 1px solid var(--line); }
     }
   </style>
   <style>
     /* shell embed: hide native UI, full-viewport canvas */
     body { display:block; }
     main { position:fixed; inset:0; }
-    aside { display:none !important; visibility:hidden !important; pointer-events:none !important; }
-    canvas {
-      position:fixed;
-      inset:0;
-      width:100vw;
-      height:100vh;
-    }
+    aside { display:none; visibility:hidden; pointer-events:none; }
+    canvas { position:fixed; inset:0; width:100vw; height:100vh; }
   </style>
 </head>
 <body>
@@ -186,7 +127,7 @@
   </main>
   <aside>
     <h1>noixzy brutalist massing</h1>
-    <p class="sub">stacked slabs, cores, towers, voids, bridges, hard silhouettes</p>
+    <p class="sub">stacked slabs · ziggurat megaform · mat field · folded plates</p>
     <div class="buttons">
       <button id="play">pause</button>
       <button id="randomize">randomize</button>
@@ -198,108 +139,113 @@
       <input id="seed" type="text" value="noixzy-mass-001" spellcheck="false">
     </div>
     <div id="controls"></div>
-    <label class="physics-toggle"><input id="experimental-physics" type="checkbox"> experimental physics</label>
   </aside>
 
   <script>
-    const defaults = {
-      density: 18,
-      slabWidth: 95,
-      slabDepth: 85,
-      heightVariance: 45,
-      voidChance: 18,
-      cantilever: 28,
-      perspective: 60,
-      rotation: 20,
-      shadowStrength: 78
-    };
-
-    const controlDefs = [
-      ["density", "density/count", 4, 128, 1],
-      ["slabWidth", "slab width", 5, 240, 1],
-      ["slabDepth", "slab depth", 5, 220, 1],
-      ["heightVariance", "height variance", 0, 200, 1],
-      ["voidChance", "void chance", 0, 140, 1],
-      ["cantilever", "cantilever", 0, 200, 1],
-      ["perspective", "perspective", 0, 200, 1],
-      ["rotation", "rotation", -90, 90, 1],
-      ["shadowStrength", "shadow strength", 0, 200, 1]
+    // ─── PARAMS ───────────────────────────────────────────────────────────────
+    const PARAMS = [
+      // mode switches
+      { k:"formMode",      label:"form mode",      min:0,   max:2,   step:1,    v:0,  g:"mode" },
+      { k:"showBase",      label:"show base",      min:0,   max:1,   step:1,    v:1,  g:"mode" },
+      // base (standard massing)
+      { k:"density",       label:"density",        min:4,   max:128, step:1,    v:18, g:"base" },
+      { k:"slabWidth",     label:"slab width",     min:5,   max:240, step:1,    v:95, g:"base" },
+      { k:"slabDepth",     label:"slab depth",     min:5,   max:220, step:1,    v:85, g:"base" },
+      { k:"heightVariance",label:"height variance",min:0,   max:200, step:1,    v:45, g:"base" },
+      { k:"voidChance",    label:"void chance",    min:0,   max:140, step:1,    v:18, g:"base" },
+      { k:"cantilever",    label:"cantilever",     min:0,   max:200, step:1,    v:28, g:"base" },
+      { k:"perspective",   label:"perspective",    min:0,   max:200, step:1,    v:60, g:"base" },
+      { k:"rotation",      label:"rotation",       min:-90, max:90,  step:1,    v:20, g:"base" },
+      { k:"shadowStrength",label:"shadow strength",min:0,   max:200, step:1,    v:78, g:"base" },
+      // megaform (formMode 1)
+      { k:"tiers",        label:"tiers",         min:1,  max:48,  step:1, v:14, g:"mega" },
+      { k:"baseWidth",    label:"base width",    min:10, max:300, step:1, v:95, g:"mega" },
+      { k:"baseDepth",    label:"base depth",    min:10, max:280, step:1, v:85, g:"mega" },
+      { k:"taperRate",    label:"taper rate",    min:0,  max:190, step:1, v:78, g:"mega" },
+      { k:"tierHeight",   label:"tier height",   min:1,  max:80,  step:1, v:22, g:"mega" },
+      { k:"asymmetry",    label:"asymmetry",     min:0,  max:100, step:1, v:15, g:"mega" },
+      { k:"incisions",    label:"incisions",     min:0,  max:120, step:1, v:32, g:"mega" },
+      { k:"terraceDepth", label:"terrace depth", min:0,  max:160, step:1, v:45, g:"mega" },
+      // mat (formMode 2) — widened: doubled max, halved min where applicable
+      { k:"gridSize",    label:"grid size",    min:2, max:80,  step:1, v:14, g:"mat" },
+      { k:"fieldExtent", label:"field extent", min:5, max:480, step:1, v:90, g:"mat" },
+      { k:"barHeight",   label:"bar height",   min:0, max:160, step:1, v:22, g:"mat" },
+      { k:"courtSize",   label:"court size",   min:2, max:240, step:1, v:38, g:"mat" },
+      { k:"matDensity",  label:"fill density", min:0, max:380, step:1, v:68, g:"mat" },
+      { k:"offsetJitter",label:"offset jitter",min:0, max:240, step:1, v:28, g:"mat" },
+      { k:"roofLevel",   label:"roof level",   min:0, max:320, step:1, v:42, g:"mat" },
+      { k:"connectivity",label:"connectivity", min:0, max:360, step:1, v:55, g:"mat" },
+      // fold add-on (any mode)
+      { k:"foldEnabled", label:"folding",    min:0, max:1,  step:1, v:0,  g:"fold" },
+      { k:"foldAngle",   label:"fold angle", min:0, max:90, step:1, v:30, g:"fold" },
+      { k:"foldAxis",    label:"fold axis",  min:0, max:2,  step:1, v:0,  g:"fold" },
     ];
 
-    const PARAMS = controlDefs.map(([key, label, min, max, step]) => ({
-      k: key,
-      label,
-      min,
-      max,
-      step,
-      v: defaults[key],
-      type: "range"
-    }));
     const P = {};
     PARAMS.forEach(p => { P[p.k] = p.v; });
 
+    // ─── STATE ────────────────────────────────────────────────────────────────
     const canvas = document.getElementById("view");
-    const ctx = canvas.getContext("2d");
-    const controls = document.getElementById("controls");
-    const seedInput = document.getElementById("seed");
+    const ctx    = canvas.getContext("2d");
+    const seedInput  = document.getElementById("seed");
     const playButton = document.getElementById("play");
-    const values = {};
-    let state = P;
-    let running = true;
-    let frame = 0;
-    let width = 1;
-    let height = 1;
-    let dpr = 1;
+    const controlsEl = document.getElementById("controls");
+    const nativeVals = {};
+
+    let seedStr  = "noixzy-mass-001";
+    let running  = true;
+    let frame    = 0;
+    let width    = 1;
+    let height   = 1;
+    let dpr      = 1;
+
     let experimentalPhysics = false;
-    function randomBiasFor(label) {
-      const k = String(label).toLowerCase();
-      if (/palette|material|color|hue/.test(k)) return Math.random();
-      if (/density|count|grid|cells|points|nodes|modules|bays|divisions|segments|cracks|repeats/.test(k)) return 0.38 + Math.random() * 0.62;
-      if (/extrude|depth|height|stack|layer|relief|bump|displace|amplitude|thickness|width|size|scale|cantilever|perspective|slab|fin|mullion|erosion/.test(k)) return 0.28 + Math.random() * 0.72;
-      if (/offset|jitter|noise|field|force|twist|warp|phase|bias|rotation|entropy|feedback|pressure|void|variation|fracture/.test(k)) return 0.12 + Math.random() * 0.76;
-      if (/line|stroke|shadow/.test(k)) return 0.18 + Math.random() * 0.62;
-      return 0.15 + Math.random() * 0.7;
-    }
-    function snapToStep(value, min, max, step) {
-      const safeStep = Number(step) || 1;
-      const snapped = Math.round(value / safeStep) * safeStep;
-      return Math.max(Number(min), Math.min(Number(max), Number.isInteger(safeStep) ? Math.round(snapped) : Number(snapped.toFixed(3))));
-    }
-    function randomizeModuleControls() {
-      controlDefs.forEach(([key, label, min, max, step]) => {
-        const value = snapToStep(min + (max - min) * randomBiasFor(label || key), min, max, step);
-        state[key] = value;
-        const input = document.getElementById(key);
-        if (input) input.value = value;
-        if (values[key]) values[key].textContent = value;
-      });
-      experimentalPhysics = Math.random() > 0.55;
-      const physics = document.getElementById("experimental-physics");
-      if (physics) physics.checked = experimentalPhysics;
-      applyExperimentalPhysics();
-    }
-    function applyExperimentalPhysics() {
-      const dx = experimentalPhysics ? Math.sin(frame * 0.017) * 4.5 : 0;
-      const dy = experimentalPhysics ? Math.cos(frame * 0.013) * 3.5 : 0;
-      const breathe = experimentalPhysics ? 1 + Math.sin(frame * 0.011) * 0.004 : 1;
-      canvas.style.transformOrigin = "50% 50%";
-      canvas.style.transform = experimentalPhysics ? `translate3d(${dx}px, ${dy}px, 0) scale(${breathe})` : "";
-      canvas.style.filter = experimentalPhysics ? "contrast(1.06) saturate(1.08)" : "";
+
+    // ─── HISTORY ──────────────────────────────────────────────────────────────
+    const _hist = [];
+    let   _histIdx = -1;
+
+    function histSnapshot() {
+      const snap = Object.assign({}, P, { __seed: seedStr });
+      _hist.splice(_histIdx + 1);
+      _hist.push(snap);
+      if (_hist.length > 50) _hist.shift();
+      _histIdx = _hist.length - 1;
     }
 
+    function histApply(snap) {
+      Object.assign(P, snap);
+      if (snap.__seed != null) seedStr = snap.__seed;
+      syncNativeControls();
+      if (seedInput) seedInput.value = seedStr;
+      draw();
+    }
 
+    window._histUndoStep = function() {
+      if (_histIdx <= 0) return;
+      _histIdx--;
+      histApply(_hist[_histIdx]);
+    };
+
+    window._histRedoStep = function() {
+      if (_histIdx >= _hist.length - 1) return;
+      _histIdx++;
+      histApply(_hist[_histIdx]);
+    };
+
+    // ─── UTILITIES ────────────────────────────────────────────────────────────
     function hashString(text) {
-      let hash = 2166136261;
+      let h = 2166136261;
       for (let i = 0; i < text.length; i++) {
-        hash ^= text.charCodeAt(i);
-        hash = Math.imul(hash, 16777619);
+        h ^= text.charCodeAt(i);
+        h = Math.imul(h, 16777619);
       }
-      return hash >>> 0;
+      return h >>> 0;
     }
 
     function randomSource(seed) {
       let t = hashString(seed) || 1;
-      return function random() {
+      return function() {
         t += 0x6D2B79F5;
         let r = Math.imul(t ^ (t >>> 15), 1 | t);
         r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
@@ -307,59 +253,20 @@
       };
     }
 
-    function clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
 
-    function lerp(a, b, t) {
-      return a + (b - a) * t;
-    }
-
-    function shade(hex, amount) {
+    function shade(hex, amt) {
       const n = parseInt(hex.slice(1), 16);
-      const r = clamp((n >> 16) + amount, 0, 255);
-      const g = clamp(((n >> 8) & 255) + amount, 0, 255);
-      const b = clamp((n & 255) + amount, 0, 255);
-      return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    function buildControls() {
-      controls.innerHTML = "";
-      controlDefs.forEach(([key, label, min, max, step]) => {
-        const wrap = document.createElement("div");
-        wrap.className = "control";
-        wrap.innerHTML = `
-          <div class="control-head">
-            <label for="${key}">${label}</label>
-            <span class="value" id="${key}Value">${state[key]}</span>
-          </div>
-          <input id="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${state[key]}">
-        `;
-        controls.appendChild(wrap);
-        values[key] = wrap.querySelector(".value");
-        wrap.querySelector("input").addEventListener("input", event => {
-          state[key] = Number(event.target.value);
-          values[key].textContent = state[key];
-          draw();
-        });
-      });
-    }
-
-    function resizeCanvas() {
-      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      const rect = canvas.getBoundingClientRect();
-      width = Math.max(320, Math.floor(rect.width));
-      height = Math.max(260, Math.floor(rect.height));
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
+      const r = clamp((n >> 16) + amt, 0, 255);
+      const g = clamp(((n >> 8) & 255) + amt, 0, 255);
+      const b = clamp((n & 255) + amt, 0, 255);
+      return `rgb(${r},${g},${b})`;
     }
 
     function isoPoint(x, y, z, cfg) {
-      const angle = (Math.PI / 4) + cfg.rotationRad;
-      const ca = Math.cos(angle);
-      const sa = Math.sin(angle);
+      const angle = Math.PI / 4 + cfg.rotationRad;
+      const ca = Math.cos(angle), sa = Math.sin(angle);
       const rx = x * ca - y * sa;
       const ry = x * sa + y * ca;
       return {
@@ -368,144 +275,46 @@
       };
     }
 
-    function polygon(points, fill, stroke) {
+    function polygon(pts, fill, stroke, lw = 1) {
       ctx.beginPath();
-      ctx.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
       ctx.closePath();
       ctx.fillStyle = fill;
       ctx.fill();
       if (stroke) {
         ctx.strokeStyle = stroke;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = lw;
         ctx.stroke();
       }
     }
 
-    function drawBox(block, cfg) {
-      const x0 = block.x;
-      const x1 = block.x + block.w;
-      const y0 = block.y;
-      const y1 = block.y + block.d;
-      const z0 = block.z;
-      const z1 = block.z + block.h;
-      const base = block.color;
-      const edge = "rgba(0,0,0,.58)";
-      const p000 = isoPoint(x0, y0, z0, cfg);
-      const p100 = isoPoint(x1, y0, z0, cfg);
-      const p110 = isoPoint(x1, y1, z0, cfg);
-      const p010 = isoPoint(x0, y1, z0, cfg);
-      const p001 = isoPoint(x0, y0, z1, cfg);
-      const p101 = isoPoint(x1, y0, z1, cfg);
-      const p111 = isoPoint(x1, y1, z1, cfg);
-      const p011 = isoPoint(x0, y1, z1, cfg);
-
-      const shadowOffset = cfg.shadow * 22;
-      polygon([
-        { x: p000.x + shadowOffset, y: p000.y + shadowOffset * .54 },
-        { x: p100.x + shadowOffset, y: p100.y + shadowOffset * .54 },
-        { x: p110.x + shadowOffset, y: p110.y + shadowOffset * .54 },
-        { x: p010.x + shadowOffset, y: p010.y + shadowOffset * .54 }
-      ], `rgba(0,0,0,${0.12 + cfg.shadow * .32})`);
-
-      polygon([p100, p110, p111, p101], shade(base, -44), edge);
-      polygon([p010, p110, p111, p011], shade(base, -72), edge);
-      polygon([p001, p101, p111, p011], shade(base, 18), edge);
-
-      if (block.voided) {
-        const insetX = block.w * .22;
-        const insetY = block.d * .18;
-        const insetZ = block.h * .18;
-        const q0 = isoPoint(x0 + insetX, y0 + insetY, z1 + .05, cfg);
-        const q1 = isoPoint(x1 - insetX, y0 + insetY, z1 + .05, cfg);
-        const q2 = isoPoint(x1 - insetX, y1 - insetY, z1 + .05, cfg);
-        const q3 = isoPoint(x0 + insetX, y1 - insetY, z1 + .05, cfg);
-        polygon([q0, q1, q2, q3], "rgba(2,2,2,.78)", "rgba(235,226,205,.12)");
-        const slotH = Math.max(.25, block.h * .24);
-        const s0 = isoPoint(x1 + .01, y0 + insetY, z0 + insetZ, cfg);
-        const s1 = isoPoint(x1 + .01, y1 - insetY, z0 + insetZ, cfg);
-        const s2 = isoPoint(x1 + .01, y1 - insetY, z0 + insetZ + slotH, cfg);
-        const s3 = isoPoint(x1 + .01, y0 + insetY, z0 + insetZ + slotH, cfg);
-        polygon([s0, s1, s2, s3], "rgba(3,3,3,.62)", "rgba(255,255,255,.08)");
-      }
+    // ─── FOLD TRANSFORM ───────────────────────────────────────────────────────
+    function foldSignedDist(cx, cy) {
+      if (P.foldAxis === 0) return cx;
+      if (P.foldAxis === 1) return cy;
+      return (cx + cy) * 0.707;
     }
 
-    function generateBlocks() {
-      const random = randomSource(`${seedInput.value}|massing`);
-      const blocks = [];
-      const palette = ["#8c887f", "#aaa394", "#6f726d", "#b9b1a1", "#565957"];
-      const count = state.density;
-      const widthBase = state.slabWidth / 10;
-      const depthBase = state.slabDepth / 10;
-      const heightRange = state.heightVariance / 18;
-      const cantilever = state.cantilever / 100;
-      const voidChance = state.voidChance / 100;
-
-      // Core monolithic towers
-      const towerCount = Math.max(2, Math.floor(count * 0.25));
-      for (let i = 0; i < towerCount; i++) {
-        const w = lerp(2.2, widthBase * 0.6, random());
-        const d = lerp(2.0, depthBase * 0.55, random());
-        const h = lerp(3.5, 6.5 + heightRange * 1.5, random());
-        const offsetX = (random() - 0.5) * cantilever * 3.5;
-        const offsetY = (random() - 0.5) * cantilever * 2.8;
-        blocks.push({
-          x: offsetX - w * 0.5,
-          y: offsetY - d * 0.5,
-          z: random() * 0.15,
-          w, d, h,
-          voided: random() < voidChance * 0.6,
-          color: palette[Math.floor(random() * palette.length)]
-        });
-      }
-
-      // Stacked slabs
-      const slabCount = count - towerCount;
-      for (let i = 0; i < slabCount; i++) {
-        const tier = Math.floor(i / 4);
-        const isHorizontalSlab = random() > 0.35;
-        const w = isHorizontalSlab ? lerp(3.5, widthBase * 1.2, random()) : lerp(1.8, widthBase * 0.5, random());
-        const d = isHorizontalSlab ? lerp(1.5, depthBase * 0.6, random()) : lerp(2.5, depthBase * 0.8, random());
-        const h = lerp(0.6, 1.4 + heightRange, random());
-        const radius = Math.max(1.2, 6.5 - tier * 0.45);
-        const x = (random() - 0.5) * radius * cantilever * 1.8 - w * 0.5;
-        const y = (random() - 0.5) * radius * cantilever * 1.5 - d * 0.5;
-        const z = tier * 0.65 + random() * 0.25;
-        blocks.push({
-          x, y, z, w, d, h,
-          voided: random() < voidChance,
-          color: palette[Math.floor(random() * palette.length)]
-        });
-      }
-
-      // Bridging elements (fewer, more structural)
-      const bridgeCount = Math.max(1, Math.floor(count / 16));
-      for (let i = 0; i < bridgeCount; i++) {
-        const z = lerp(2.5, 5.5, random());
-        blocks.push({
-          x: lerp(-4.5, 1.5, random()),
-          y: lerp(-2.2, 2.0, random()),
-          z,
-          w: lerp(5.5, 10.5, random()),
-          d: lerp(0.45, 0.85, random()),
-          h: lerp(0.35, 0.75, random()),
-          voided: false,
-          color: palette[Math.floor(random() * palette.length)]
-        });
-      }
-
-      return blocks.sort((a, b) => (a.x + a.y + a.z) - (b.x + b.y + b.z));
+    function applyFold(items, getCx, getCy, getZ, setZ) {
+      if (!P.foldEnabled || P.foldAngle < 0.5) return items;
+      const slope = Math.tan(P.foldAngle * Math.PI / 180);
+      return items.map(item => {
+        const lift = slope * foldSignedDist(getCx(item), getCy(item)) * 0.45;
+        return setZ(item, getZ(item) + lift);
+      });
     }
 
+    // ─── GROUND PLANE ─────────────────────────────────────────────────────────
     function drawGround(cfg) {
-      const random = randomSource(`${seedInput.value}|ground`);
+      const random = randomSource(`${seedStr}|ground`);
       ctx.save();
-      ctx.globalAlpha = .34;
+      ctx.globalAlpha = 0.34;
       for (let i = 0; i < 28; i++) {
-        const a = isoPoint(-9 + random() * 18, -7 + random() * 14, -.02, cfg);
-        const b = isoPoint(-9 + random() * 18, -7 + random() * 14, -.02, cfg);
+        const a = isoPoint(-9 + random() * 18, -7 + random() * 14, -0.02, cfg);
+        const b = isoPoint(-9 + random() * 18, -7 + random() * 14, -0.02, cfg);
         ctx.strokeStyle = "rgba(220,214,200,.12)";
-        ctx.lineWidth = random() > .7 ? 2 : 1;
+        ctx.lineWidth = random() > 0.7 ? 2 : 1;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -514,29 +323,370 @@
       ctx.restore();
     }
 
+    // ─── STANDARD MASSING ─────────────────────────────────────────────────────
+    const PALETTE_BASE = ["#8c887f", "#aaa394", "#6f726d", "#b9b1a1", "#565957"];
+
+    function generateBlocks() {
+      const random = randomSource(`${seedStr}|massing`);
+      const blocks = [];
+      const count      = P.density;
+      const widthBase  = P.slabWidth / 10;
+      const depthBase  = P.slabDepth / 10;
+      const heightRange = P.heightVariance / 18;
+      const cantilever = P.cantilever / 100;
+      const voidChance = P.voidChance / 100;
+
+      const towerCount = Math.max(2, Math.floor(count * 0.25));
+      for (let i = 0; i < towerCount; i++) {
+        const w = lerp(2.2, widthBase * 0.6, random());
+        const d = lerp(2.0, depthBase * 0.55, random());
+        const h = lerp(3.5, 6.5 + heightRange * 1.5, random());
+        const ox = (random() - 0.5) * cantilever * 3.5;
+        const oy = (random() - 0.5) * cantilever * 2.8;
+        blocks.push({
+          x: ox - w * 0.5, y: oy - d * 0.5,
+          z: random() * 0.15, w, d, h,
+          voided: random() < voidChance * 0.6,
+          color: PALETTE_BASE[Math.floor(random() * PALETTE_BASE.length)]
+        });
+      }
+
+      const slabCount = count - towerCount;
+      for (let i = 0; i < slabCount; i++) {
+        const tier = Math.floor(i / 4);
+        const isH  = random() > 0.35;
+        const w = isH ? lerp(3.5, widthBase * 1.2, random()) : lerp(1.8, widthBase * 0.5, random());
+        const d = isH ? lerp(1.5, depthBase * 0.6, random()) : lerp(2.5, depthBase * 0.8, random());
+        const h = lerp(0.6, 1.4 + heightRange, random());
+        const radius = Math.max(1.2, 6.5 - tier * 0.45);
+        const x = (random() - 0.5) * radius * cantilever * 1.8 - w * 0.5;
+        const y = (random() - 0.5) * radius * cantilever * 1.5 - d * 0.5;
+        const z = tier * 0.65 + random() * 0.25;
+        blocks.push({ x, y, z, w, d, h, voided: random() < voidChance, color: PALETTE_BASE[Math.floor(random() * PALETTE_BASE.length)] });
+      }
+
+      const bridgeCount = Math.max(1, Math.floor(count / 16));
+      for (let i = 0; i < bridgeCount; i++) {
+        blocks.push({
+          x: lerp(-4.5, 1.5, random()), y: lerp(-2.2, 2.0, random()),
+          z: lerp(2.5, 5.5, random()),
+          w: lerp(5.5, 10.5, random()), d: lerp(0.45, 0.85, random()), h: lerp(0.35, 0.75, random()),
+          voided: false,
+          color: PALETTE_BASE[Math.floor(random() * PALETTE_BASE.length)]
+        });
+      }
+
+      return blocks.sort((a, b) => (a.x + a.y + a.z) - (b.x + b.y + b.z));
+    }
+
+    function drawBox(block, cfg) {
+      const { x: x0, y: y0, z: z0 } = block;
+      const x1 = x0 + block.w, y1 = y0 + block.d, z1 = z0 + block.h;
+      const base = block.color;
+      const edge = "rgba(0,0,0,.58)";
+
+      const p000 = isoPoint(x0, y0, z0, cfg), p100 = isoPoint(x1, y0, z0, cfg);
+      const p110 = isoPoint(x1, y1, z0, cfg), p010 = isoPoint(x0, y1, z0, cfg);
+      const p001 = isoPoint(x0, y0, z1, cfg), p101 = isoPoint(x1, y0, z1, cfg);
+      const p111 = isoPoint(x1, y1, z1, cfg), p011 = isoPoint(x0, y1, z1, cfg);
+
+      const so = cfg.shadow * 22;
+      polygon([
+        { x: p000.x + so, y: p000.y + so * 0.54 }, { x: p100.x + so, y: p100.y + so * 0.54 },
+        { x: p110.x + so, y: p110.y + so * 0.54 }, { x: p010.x + so, y: p010.y + so * 0.54 }
+      ], `rgba(0,0,0,${(0.12 + cfg.shadow * 0.32).toFixed(2)})`);
+
+      polygon([p100, p110, p111, p101], shade(base, -44), edge);
+      polygon([p010, p110, p111, p011], shade(base, -72), edge);
+      polygon([p001, p101, p111, p011], shade(base,  18), edge);
+
+      if (block.voided) {
+        const ix = block.w * 0.22, iy = block.d * 0.18, iz = block.h * 0.18;
+        const q0 = isoPoint(x0 + ix, y0 + iy, z1 + 0.05, cfg);
+        const q1 = isoPoint(x1 - ix, y0 + iy, z1 + 0.05, cfg);
+        const q2 = isoPoint(x1 - ix, y1 - iy, z1 + 0.05, cfg);
+        const q3 = isoPoint(x0 + ix, y1 - iy, z1 + 0.05, cfg);
+        polygon([q0, q1, q2, q3], "rgba(2,2,2,.78)", "rgba(235,226,205,.12)");
+        const slotH = Math.max(0.25, block.h * 0.24);
+        const s0 = isoPoint(x1 + 0.01, y0 + iy, z0 + iz, cfg);
+        const s1 = isoPoint(x1 + 0.01, y1 - iy, z0 + iz, cfg);
+        const s2 = isoPoint(x1 + 0.01, y1 - iy, z0 + iz + slotH, cfg);
+        const s3 = isoPoint(x1 + 0.01, y0 + iy, z0 + iz + slotH, cfg);
+        polygon([s0, s1, s2, s3], "rgba(3,3,3,.62)", "rgba(255,255,255,.08)");
+      }
+    }
+
+    // ─── MEGAFORM ─────────────────────────────────────────────────────────────
+    const PALETTE_MEGA = ["#8a8680", "#9b9690", "#787b76", "#aba49a", "#6d6f6c"];
+
+    function generateMegaform() {
+      const random = randomSource(`${seedStr}|mega`);
+      const tiers = [];
+      const numTiers = P.tiers;
+      const baseW  = P.baseWidth / 10;
+      const baseD  = P.baseDepth / 10;
+      const taper  = P.taperRate / 100;
+      const tierH  = P.tierHeight / 10;
+      const asym   = P.asymmetry / 100;
+      const incChance = P.incisions / 100;
+      const terraceFactor = P.terraceDepth / 100;
+      let currentZ = 0;
+
+      for (let i = 0; i < numTiers; i++) {
+        const progress = i / numTiers;
+        const taperFactor = 1 - progress * taper;
+        const w = baseW * taperFactor;
+        const d = baseD * taperFactor;
+        const h = tierH * (1 + (random() - 0.5) * 0.3);
+        const ax = (random() - 0.5) * asym * w * 0.3;
+        const ay = (random() - 0.5) * asym * d * 0.3;
+
+        const incisions = [];
+        if (random() < incChance && i > 1) {
+          const n = Math.floor(random() * 2) + 1;
+          for (let k = 0; k < n; k++) {
+            incisions.push({
+              x: w * (0.2 + random() * 0.3),
+              y: d * (0.15 + random() * 0.4),
+              w: w * (0.2 + random() * 0.25),
+              d: d * (0.3 + random() * 0.4),
+              z: h * 0.1,
+              h: h * 0.8
+            });
+          }
+        }
+
+        tiers.push({
+          x: -w / 2 + ax, y: -d / 2 + ay,
+          z: currentZ, w, d, h,
+          color: PALETTE_MEGA[Math.floor(random() * PALETTE_MEGA.length)],
+          incisions,
+          terraced: random() < terraceFactor,
+          index: i
+        });
+        currentZ += h;
+      }
+
+      return tiers;
+    }
+
+    function drawMegaformShadow(tiers, cfg) {
+      if (!tiers.length) return;
+      const base = tiers[0];
+      const x0 = base.x, x1 = base.x + base.w;
+      const y0 = base.y, y1 = base.y + base.d;
+      const z0 = base.z;
+      const so = 20;
+      const alpha = 0.18 + cfg.shadow * 0.28;
+      const p000 = isoPoint(x0, y0, z0, cfg), p100 = isoPoint(x1, y0, z0, cfg);
+      const p110 = isoPoint(x1, y1, z0, cfg), p010 = isoPoint(x0, y1, z0, cfg);
+      polygon([
+        { x: p000.x + so, y: p000.y + so * 0.52 }, { x: p100.x + so, y: p100.y + so * 0.52 },
+        { x: p110.x + so, y: p110.y + so * 0.52 }, { x: p010.x + so, y: p010.y + so * 0.52 }
+      ], `rgba(0,0,0,${alpha.toFixed(2)})`);
+    }
+
+    function drawTier(tier, cfg) {
+      const x0 = tier.x, x1 = tier.x + tier.w;
+      const y0 = tier.y, y1 = tier.y + tier.d;
+      const z0 = tier.z, z1 = tier.z + tier.h;
+      const base = tier.color;
+      const edge = "rgba(0,0,0,.65)";
+
+      const p000 = isoPoint(x0, y0, z0, cfg), p100 = isoPoint(x1, y0, z0, cfg);
+      const p110 = isoPoint(x1, y1, z0, cfg), p010 = isoPoint(x0, y1, z0, cfg);
+      const p001 = isoPoint(x0, y0, z1, cfg), p101 = isoPoint(x1, y0, z1, cfg);
+      const p111 = isoPoint(x1, y1, z1, cfg), p011 = isoPoint(x0, y1, z1, cfg);
+
+      polygon([p100, p110, p111, p101], shade(base, -40), edge, 1.3);
+      polygon([p010, p110, p111, p011], shade(base, -62), edge, 1.3);
+      polygon([p001, p101, p111, p011], shade(base,  20), edge, 1.3);
+
+      if (tier.incisions && tier.incisions.length) {
+        tier.incisions.forEach(inc => {
+          const ix = x0 + inc.x, iy = y0 + inc.y;
+          const i0 = isoPoint(ix,          iy,          z0 + inc.z, cfg);
+          const i1 = isoPoint(ix + inc.w,  iy,          z0 + inc.z, cfg);
+          const i2 = isoPoint(ix + inc.w,  iy + inc.d,  z0 + inc.z, cfg);
+          const i3 = isoPoint(ix,          iy + inc.d,  z0 + inc.z, cfg);
+          polygon([i0, i1, i2, i3], "rgba(6,6,6,.9)", "rgba(210,205,190,.12)");
+        });
+      }
+
+      if (tier.terraced) {
+        ctx.strokeStyle = "rgba(70,68,65,.7)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(p001.x, p001.y); ctx.lineTo(p101.x, p101.y);
+        ctx.lineTo(p111.x, p111.y); ctx.lineTo(p011.x, p011.y);
+        ctx.closePath();
+        ctx.stroke();
+      }
+    }
+
+    // ─── MAT BUILDING ─────────────────────────────────────────────────────────
+    const PALETTE_MAT = ["#87847f", "#9b9590", "#78796e", "#a8a29a", "#6e706d"];
+
+    function generateMatBuilding() {
+      const random = randomSource(`${seedStr}|mat`);
+      const cells = [];
+      const gridSize      = P.gridSize;
+      const extentFactor  = P.fieldExtent / 100;
+      const heightFactor  = P.barHeight / 100;
+      const courtFactor   = P.courtSize / 100;
+      const densityChance = P.matDensity / 100;
+      const jitterFactor  = P.offsetJitter / 100;
+      const roofFactor    = P.roofLevel / 100;
+      const connFactor    = P.connectivity / 100;
+
+      const cellSize  = 1.2 + courtFactor * 0.8;
+      const gridExtent = Math.floor(gridSize * extentFactor);
+      const occupied  = new Set();
+
+      for (let gx = -gridExtent; gx < gridExtent; gx++) {
+        for (let gy = -gridExtent; gy < gridExtent; gy++) {
+          if (occupied.has(`${gx},${gy}`)) continue;
+          if (random() > densityChance) continue;
+          const spanW = random() < connFactor ? (random() < 0.6 ? 1 : 2) : 1;
+          const spanD = random() < connFactor ? (random() < 0.6 ? 1 : 2) : 1;
+          for (let sx = 0; sx < spanW; sx++) for (let sy = 0; sy < spanD; sy++) occupied.add(`${gx+sx},${gy+sy}`);
+          const x = gx * cellSize + (random() - 0.5) * jitterFactor * cellSize;
+          const y = gy * cellSize + (random() - 0.5) * jitterFactor * cellSize;
+          const w = cellSize * spanW * 0.94;
+          const d = cellSize * spanD * 0.94;
+          const h = lerp(0.4, 1.0, random()) * heightFactor + roofFactor * random() * 0.6;
+          cells.push({
+            x, y, zBase: 0, w, d, h,
+            color: PALETTE_MAT[Math.floor(random() * PALETTE_MAT.length)],
+            hasCourt: (spanW > 1 || spanD > 1) && random() < 0.5,
+            showGrid: random() > 0.35
+          });
+        }
+      }
+
+      return cells.sort((a, b) => (a.x + a.y + a.h) - (b.x + b.y + b.h));
+    }
+
+    function drawCell(cell, cfg) {
+      const x0 = cell.x, x1 = cell.x + cell.w;
+      const y0 = cell.y, y1 = cell.y + cell.d;
+      const z0 = cell.zBase || 0, z1 = z0 + cell.h;
+      const base = cell.color;
+      const edge = "rgba(0,0,0,.6)";
+
+      const p000 = isoPoint(x0, y0, z0, cfg), p100 = isoPoint(x1, y0, z0, cfg);
+      const p110 = isoPoint(x1, y1, z0, cfg), p010 = isoPoint(x0, y1, z0, cfg);
+      const p001 = isoPoint(x0, y0, z1, cfg), p101 = isoPoint(x1, y0, z1, cfg);
+      const p111 = isoPoint(x1, y1, z1, cfg), p011 = isoPoint(x0, y1, z1, cfg);
+
+      const so = 18;
+      const alpha = 0.14 + cfg.shadow * 0.22;
+      polygon([
+        { x: p000.x + so, y: p000.y + so * 0.48 }, { x: p100.x + so, y: p100.y + so * 0.48 },
+        { x: p110.x + so, y: p110.y + so * 0.48 }, { x: p010.x + so, y: p010.y + so * 0.48 }
+      ], `rgba(0,0,0,${alpha.toFixed(2)})`);
+
+      polygon([p100, p110, p111, p101], shade(base, -42), edge, 1.2);
+      polygon([p010, p110, p111, p011], shade(base, -64), edge, 1.2);
+      polygon([p001, p101, p111, p011], shade(base,  26), edge, 1.2);
+
+      if (cell.hasCourt) {
+        const ci = cell.w * 0.32;
+        const v0 = isoPoint(x0 + ci, y0 + ci, z1 + 0.02, cfg);
+        const v1 = isoPoint(x1 - ci, y0 + ci, z1 + 0.02, cfg);
+        const v2 = isoPoint(x1 - ci, y1 - ci, z1 + 0.02, cfg);
+        const v3 = isoPoint(x0 + ci, y1 - ci, z1 + 0.02, cfg);
+        polygon([v0, v1, v2, v3], "rgba(6,6,6,.92)", "rgba(180,175,165,.18)");
+      }
+
+      if (cell.showGrid) {
+        ctx.strokeStyle = "rgba(80,78,75,.45)";
+        ctx.lineWidth = 0.6;
+        const divs = 3;
+        for (let i = 1; i < divs; i++) {
+          const t = i / divs;
+          const l0 = isoPoint(lerp(x0, x1, t), y0, z1, cfg), l1 = isoPoint(lerp(x0, x1, t), y1, z1, cfg);
+          ctx.beginPath(); ctx.moveTo(l0.x, l0.y); ctx.lineTo(l1.x, l1.y); ctx.stroke();
+          const l2 = isoPoint(x0, lerp(y0, y1, t), z1, cfg), l3 = isoPoint(x1, lerp(y0, y1, t), z1, cfg);
+          ctx.beginPath(); ctx.moveTo(l2.x, l2.y); ctx.lineTo(l3.x, l3.y); ctx.stroke();
+        }
+      }
+    }
+
+    // ─── EXPERIMENTAL PHYSICS ─────────────────────────────────────────────────
+    function applyExperimentalPhysics() {
+      const dx = experimentalPhysics ? Math.sin(frame * 0.017) * 4.5 : 0;
+      const dy = experimentalPhysics ? Math.cos(frame * 0.013) * 3.5 : 0;
+      const breathe = experimentalPhysics ? 1 + Math.sin(frame * 0.011) * 0.004 : 1;
+      canvas.style.transformOrigin = "50% 50%";
+      canvas.style.transform = experimentalPhysics ? `translate3d(${dx}px,${dy}px,0) scale(${breathe})` : "";
+      canvas.style.filter = experimentalPhysics ? "contrast(1.06) saturate(1.08)" : "";
+    }
+
+    // ─── DRAW ─────────────────────────────────────────────────────────────────
+    function makeCfg() {
+      const cyFactor  = P.formMode === 2 ? 0.60 : 0.70;
+      const scalediv  = P.formMode === 2 ? 36 : P.formMode === 1 ? 32 : 28;
+      const rotAnim   = P.rotation + Math.sin(frame * 0.01) * (running ? 1.8 : 0);
+      return {
+        cx: width * 0.5,
+        cy: height * cyFactor,
+        scale: Math.min(width, height) / scalediv,
+        perspective: P.perspective / 100,
+        rotationRad: rotAnim * Math.PI / 180,
+        shadow: P.shadowStrength / 100
+      };
+    }
+
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      const gradient = ctx.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, "#101010");
-      gradient.addColorStop(1, "#020202");
-      ctx.fillStyle = gradient;
+      const grad = ctx.createLinearGradient(0, 0, 0, height);
+      grad.addColorStop(0, "#101010");
+      grad.addColorStop(1, "#020202");
+      ctx.fillStyle = grad;
       ctx.fillRect(0, 0, width, height);
 
-      const cfg = {
-        cx: width * .5,
-        cy: height * .72,
-        scale: Math.min(width, height) / 28,
-        perspective: state.perspective / 100,
-        rotationRad: (state.rotation + Math.sin(frame * .012) * (running ? 1.5 : 0)) * Math.PI / 180,
-        shadow: state.shadowStrength / 100
-      };
+      const cfg = makeCfg();
 
       drawGround(cfg);
-      generateBlocks().forEach(block => drawBox(block, cfg));
+
+      // showBase: always render standard massing when enabled
+      if (P.showBase) {
+        let blocks = generateBlocks();
+        blocks = applyFold(blocks,
+          b => b.x + b.w * 0.5,
+          b => b.y + b.d * 0.5,
+          b => b.z,
+          (b, z) => ({ ...b, z })
+        );
+        blocks.forEach(b => drawBox(b, cfg));
+      }
+
+      // mode overlay
+      if (P.formMode === 1) {
+        let tiers = generateMegaform();
+        drawMegaformShadow(tiers, cfg);
+        tiers = applyFold(tiers,
+          t => t.x + t.w * 0.5,
+          t => t.y + t.d * 0.5,
+          t => t.z,
+          (t, z) => ({ ...t, z })
+        );
+        tiers.forEach(t => drawTier(t, cfg));
+      } else if (P.formMode === 2) {
+        let cells = generateMatBuilding();
+        cells = applyFold(cells,
+          c => c.x + c.w * 0.5,
+          c => c.y + c.d * 0.5,
+          c => c.zBase || 0,
+          (c, z) => ({ ...c, zBase: z })
+        );
+        cells.forEach(c => drawCell(c, cfg));
+      }
 
       ctx.fillStyle = "rgba(231,226,216,.72)";
       ctx.font = "11px ui-monospace, monospace";
-      ctx.fillText(seedInput.value || "seed", 16, height - 18);
+      ctx.fillText(seedStr || "seed", 16, height - 18);
     }
 
     function tick() {
@@ -548,88 +698,248 @@
       requestAnimationFrame(tick);
     }
 
-    function randomSeed() {
-      return `noixzy-mass-${Math.floor(Math.random() * 999999).toString(36)}`;
+    // ─── RESIZE ───────────────────────────────────────────────────────────────
+    function resizeCanvas() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const rect = canvas.getBoundingClientRect();
+      width  = Math.max(320, Math.floor(rect.width));
+      height = Math.max(260, Math.floor(rect.height));
+      canvas.width  = Math.floor(width  * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
     }
 
-    function resetAll() {
-      experimentalPhysics = false;
-      const physics = document.getElementById("experimental-physics");
-      if (physics) physics.checked = false;
-      applyExperimentalPhysics();
-      Object.assign(P, defaults);
-      state = P;
-      seedInput.value = "noixzy-mass-001";
-      controlDefs.forEach(([key]) => {
-        const input = document.getElementById(key);
-        input.value = state[key];
-        values[key].textContent = state[key];
+    // ─── RANDOMIZE ────────────────────────────────────────────────────────────
+    function randomBiasFor(label) {
+      const k = String(label).toLowerCase();
+      if (/palette|material|color|hue/.test(k)) return Math.random();
+      if (/density|count|grid|cells|tiers|segments/.test(k)) return 0.38 + Math.random() * 0.62;
+      if (/extrude|depth|height|stack|layer|width|size|scale|cantilever|slab|taper|base/.test(k)) return 0.28 + Math.random() * 0.72;
+      if (/offset|jitter|warp|bias|rotation|void|asymm|fold|incision/.test(k)) return 0.12 + Math.random() * 0.76;
+      if (/line|stroke|shadow|terrace|roof|connect|court/.test(k)) return 0.18 + Math.random() * 0.62;
+      return 0.15 + Math.random() * 0.7;
+    }
+
+    function snapToStep(value, min, max, step) {
+      const s = Number(step) || 1;
+      const snapped = Math.round(value / s) * s;
+      return Math.max(Number(min), Math.min(Number(max), Number.isInteger(s) ? Math.round(snapped) : Number(snapped.toFixed(3))));
+    }
+
+    function randomizeGroups(groups) {
+      histSnapshot();
+      PARAMS.forEach(p => {
+        if (!groups.includes(p.g)) return;
+        if (p.k === "formMode" || p.k === "showBase" || p.k === "foldEnabled") return;
+        P[p.k] = snapToStep(p.min + (p.max - p.min) * randomBiasFor(p.label || p.k), p.min, p.max, p.step);
       });
+      syncNativeControls();
+      draw();
+    }
+
+    // ─── EXPORT ───────────────────────────────────────────────────────────────
+    function exportCanvas(filename) {
+      draw();
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = filename;
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function exportThumb() {
+      const tw = 480, th = 320;
+      const off = document.createElement("canvas");
+      off.width  = tw * dpr;
+      off.height = th * dpr;
+      const octx = off.getContext("2d");
+      const sx = (canvas.width  - tw * dpr) / 2;
+      const sy = (canvas.height - th * dpr) / 2;
+      octx.drawImage(canvas, sx, sy, tw * dpr, th * dpr, 0, 0, tw * dpr, th * dpr);
+      off.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = `thumb_brutalist_massing_${seedStr}.png`;
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function exportSave2x() {
+      const w2 = width * 2, h2 = height * 2;
+      const savedW = canvas.width, savedH = canvas.height;
+      const savedTx = ctx.getTransform();
+      canvas.width  = Math.floor(w2 * dpr);
+      canvas.height = Math.floor(h2 * dpr);
+      ctx.setTransform(dpr * 2, 0, 0, dpr * 2, 0, 0);
+      const prevW = width, prevH = height;
+      width = w2; height = h2;
+      draw();
+      width = prevW; height = prevH;
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = `noixzy_brutalist_massing_2x_${seedStr}.png`;
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+        canvas.width  = savedW;
+        canvas.height = savedH;
+        ctx.setTransform(savedTx);
+        draw();
+      });
+    }
+
+    // ─── NATIVE CONTROLS ──────────────────────────────────────────────────────
+    function syncNativeControls() {
+      PARAMS.forEach(p => {
+        const el = document.getElementById(p.k);
+        if (el) el.value = P[p.k];
+        if (nativeVals[p.k]) nativeVals[p.k].textContent = P[p.k];
+      });
+    }
+
+    function buildControls() {
+      if (!controlsEl) return;
+      controlsEl.innerHTML = "";
+      PARAMS.forEach(p => {
+        const wrap = document.createElement("div");
+        wrap.className = "control";
+        wrap.innerHTML = `
+          <div class="control-head">
+            <label for="${p.k}">${p.label}</label>
+            <span class="value" id="${p.k}Value">${P[p.k]}</span>
+          </div>
+          <input id="${p.k}" type="range" min="${p.min}" max="${p.max}" step="${p.step}" value="${P[p.k]}">
+        `;
+        controlsEl.appendChild(wrap);
+        nativeVals[p.k] = wrap.querySelector(".value");
+        wrap.querySelector("input").addEventListener("input", e => {
+          histSnapshot();
+          P[p.k] = Number(e.target.value);
+          nativeVals[p.k].textContent = P[p.k];
+          draw();
+        });
+      });
+    }
+
+    // ─── RESET ────────────────────────────────────────────────────────────────
+    function resetAll() {
+      histSnapshot();
+      PARAMS.forEach(p => { P[p.k] = p.v; });
+      seedStr = "noixzy-mass-001";
+      if (seedInput) seedInput.value = seedStr;
+      syncNativeControls();
       frame = 0;
       draw();
     }
 
-    function exportPng() {
-      draw();
-      const link = document.createElement("a");
-      link.download = `noixzy_brutalist_massing_${seedInput.value || "seed"}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+    // ─── SEED ─────────────────────────────────────────────────────────────────
+    function makeSeed() {
+      return `noixzy-mass-${Math.floor(Math.random() * 999999).toString(36)}`;
     }
 
-    const physicsToggle = document.getElementById("experimental-physics");
-    if (physicsToggle) physicsToggle.addEventListener("change", () => {
-      experimentalPhysics = physicsToggle.checked;
-      applyExperimentalPhysics();
+    // ─── BOOT ─────────────────────────────────────────────────────────────────
+    if (seedInput) {
+      seedInput.addEventListener("input", () => {
+        seedStr = seedInput.value;
+        draw();
+      });
+    }
+
+    if (playButton) {
+      playButton.addEventListener("click", () => {
+        running = !running;
+        playButton.textContent = running ? "pause" : "play";
+        if (running) draw();
+      });
+    }
+
+    const randomizeBtn = document.getElementById("randomize");
+    if (randomizeBtn) randomizeBtn.addEventListener("click", () => {
+      seedStr = makeSeed();
+      if (seedInput) seedInput.value = seedStr;
+      randomizeGroups(["base", "mega", "mat", "fold"]);
       draw();
     });
 
-    seedInput.addEventListener("input", draw);
-    playButton.addEventListener("click", () => {
-      running = !running;
-      playButton.textContent = running ? "pause" : "play";
-      draw();
-    });
-    document.getElementById("randomize").addEventListener("click", () => {
-      seedInput.value = randomSeed();
-      randomizeModuleControls();
-      draw();
-    });
-    document.getElementById("reset").addEventListener("click", resetAll);
-    document.getElementById("export").addEventListener("click", exportPng);
+    const resetBtn = document.getElementById("reset");
+    if (resetBtn) resetBtn.addEventListener("click", resetAll);
+
+    const exportBtn = document.getElementById("export");
+    if (exportBtn) exportBtn.addEventListener("click", () => exportCanvas(`noixzy_brutalist_massing_${seedStr}.png`));
+
     window.addEventListener("resize", resizeCanvas);
 
     buildControls();
+    histSnapshot();
     resizeCanvas();
     tick();
 
-    // noixzy shell postMessage bridge
+    // ─── postMessage BRIDGE ───────────────────────────────────────────────────
     window.addEventListener("message", e => {
       if (!e.data) return;
-      if (e.data.type === "getParams") {
+      const { type } = e.data;
+
+      if (type === "getParams") {
         const defs = PARAMS.map(p => ({
-          k: p.k,
-          label: p.label,
-          min: p.min,
-          max: p.max,
-          step: p.step,
-          v: P[p.k] ?? p.v,
-          type: p.type || "range"
+          k: p.k, label: p.label, min: p.min, max: p.max, step: p.step,
+          v: P[p.k] ?? p.v, g: p.g, type: "range"
         }));
         window.parent.postMessage({ type: "params", data: defs }, "*");
+        return;
       }
-      if (e.data.type === "setParam") {
+
+      if (type === "setParam") {
         const { key, value } = e.data;
-        if (Object.prototype.hasOwnProperty.call(P, key)) {
-          const def = PARAMS.find(p => p.k === key);
-          const next = typeof value === "number" ? value : Number(value);
-          P[key] = Number.isFinite(next) ? clamp(next, def.min, def.max) : value;
-          state = P;
-          const input = document.getElementById(key);
-          if (input) input.value = P[key];
-          if (values[key]) values[key].textContent = P[key];
-          draw();
-        }
+        const def = PARAMS.find(p => p.k === key);
+        if (!def) return;
+        histSnapshot();
+        const next = typeof value === "number" ? value : Number(value);
+        P[key] = Number.isFinite(next) ? clamp(next, def.min, def.max) : value;
+        const el = document.getElementById(key);
+        if (el) el.value = P[key];
+        if (nativeVals[key]) nativeVals[key].textContent = P[key];
+        draw();
+        return;
+      }
+
+      if (type === "undo") { window._histUndoStep(); return; }
+      if (type === "redo") { window._histRedoStep(); return; }
+
+      if (type === "pause") {
+        running = !running;
+        if (playButton) playButton.textContent = running ? "pause" : "play";
+        if (running) draw();
+        return;
+      }
+
+      if (type === "newSeed") {
+        histSnapshot();
+        seedStr = makeSeed();
+        if (seedInput) seedInput.value = seedStr;
+        draw();
+        return;
+      }
+
+      if (type === "reset") { resetAll(); return; }
+
+      if (type === "save") { exportCanvas(`noixzy_brutalist_massing_${seedStr}.png`); return; }
+      if (type === "save2x") { exportSave2x(); return; }
+      if (type === "thumb") { exportThumb(); return; }
+
+      if (type === "randomAll")   { seedStr = makeSeed(); if (seedInput) seedInput.value = seedStr; randomizeGroups(["mode","base","mega","mat","fold"]); return; }
+      if (type === "randomForm")  { randomizeGroups(["base","mega","mat","fold"]); return; }
+      if (type === "randomColor") { /* no color params */ return; }
+
+      if (type === "bgAlpha") {
+        canvas.style.background = (e.data.value ? "transparent" : "");
+        return;
       }
     });
   </script>

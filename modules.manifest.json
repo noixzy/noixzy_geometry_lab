@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 58,
-    "liveCount": 58,
+    "listedCount": 55,
+    "liveCount": 55,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -561,35 +561,5 @@
       "enabledInShell": true,
       "status": "listed"
     },
-    {
-      "id": "brutalist_massing_megaform",
-      "title": "brutalist massing megaform",
-      "file": "brutalist_massing_megaform/noixzy_brutalist_massing_megaform.html",
-      "thumb": "home/thumbs/brutalist_massing_megaform.png",
-      "authorship": "hand-authored",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "brutalist_massing_mat",
-      "title": "brutalist massing mat",
-      "file": "brutalist_massing_mat/noixzy_brutalist_massing_mat.html",
-      "thumb": "home/thumbs/brutalist_massing_mat.png",
-      "authorship": "hand-authored",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "brutalist_massing_folded",
-      "title": "brutalist massing folded",
-      "file": "brutalist_massing_folded/noixzy_brutalist_massing_folded.html",
-      "thumb": "home/thumbs/brutalist_massing_folded.png",
-      "authorship": "hand-authored",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    }
   ]
 }
