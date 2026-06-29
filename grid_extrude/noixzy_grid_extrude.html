@@ -1391,10 +1391,39 @@ function buildNav(){
   setTimeout(()=>{ const el=strip.querySelector(".active"); if(el){ el.scrollIntoView({block:"center",inline:"nearest"}); } },50);
 }
 </script>
-
-
-
-
+<script>
+// ── noixzy shell postMessage bridge ──
+window.addEventListener("message", e => {
+  if (!e.data) return;
+  if (e.data.type === "getParams") {
+    const defs = PARAMS.map(p => ({
+      k: p.k,
+      label: p.label,
+      min: p.min,
+      max: p.max,
+      step: p.step,
+      v: P[p.k] ?? p.v,
+      type: p.type || "range"
+    }));
+    defs.push({ k: "__extrudeOff", label: "extrude off", type: "bool", v: extrudeOff });
+    window.parent.postMessage({ type: "params", data: defs }, "*");
+  }
+  if (e.data.type === "setParam") {
+    const { key, value } = e.data;
+    if (key === "__extrudeOff") {
+      extrudeOff = !!value;
+      _syncExtrudeOffButton();
+      _applyExtrudeOff();
+      dirty = true;
+    } else if (P[key] !== undefined) {
+      _histStart();
+      P[key] = value;
+      _histEnd();
+      dirty = true;
+    }
+  }
+});
+</script>
 <script src="../home/noixzy_ruler_overlay.js"></script>
 </body>
 </html>
