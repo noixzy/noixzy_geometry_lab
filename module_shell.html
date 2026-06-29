@@ -387,6 +387,15 @@ body {
     if (!defs || !defs.length) return;
     paramDivider.style.display = "block";
 
+    // bools first, __extrudeOff at very top
+    defs = [...defs].sort((a, b) => {
+      if (a.k === "__extrudeOff") return -1;
+      if (b.k === "__extrudeOff") return 1;
+      if (a.type === "bool" && b.type !== "bool") return -1;
+      if (a.type !== "bool" && b.type === "bool") return 1;
+      return 0;
+    });
+
     for (const def of defs) {
       const row = document.createElement("div");
 

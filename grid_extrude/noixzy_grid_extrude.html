@@ -1332,21 +1332,7 @@ function recordClip(dur=4){
     else { clearInterval(iv); btn.textContent='saving…'; rec.stop(); stream.getTracks().forEach(tr=>tr.stop()); }
   },1000);
 }
-const ALL_MODULES=[
-  {id:"grid_extrude",title:"grid extrude"},{id:"sdf_raymarch",title:"sdf raymarch"},
-  {id:"gyroid",title:"gyroid"},{id:"displacement",title:"displacement"},
-  {id:"displacement_primitives",title:"displacement primitives"},
-  {id:"mandelbulb",title:"mandelbulb"},{id:"fold",title:"fold"},
-  {id:"metafluid",title:"metafluid"},
-  {id:"flow_field",title:"flow field"},{id:"reaction_diffusion",title:"reaction diffusion"},
-  {id:"voronoi",title:"voronoi"},{id:"contour_field",title:"contour field"},
-  {id:"truchet",title:"truchet"},{id:"truchet_b",title:"truchet // color"},
-  {id:"l_system",title:"l-system"},{id:"cellular_erosion",title:"cellular erosion"},
-  {id:"recursive_grid",title:"recursive grid"},{id:"wave_interference",title:"wave interference"},
-  {id:"stipple",title:"stipple"},
-  {id:"hex_grid",title:"hex grid"},{id:"rose_curve",title:"rose curve"},
-  {id:"lissajous_mesh",title:"lissajous mesh"},{id:"torus_knot",title:"torus knot"},
-];
+const ALL_MODULES=[];
 function buildNav(){
   const idx=ALL_MODULES.findIndex(m=>m.id===PIECE);
   const safeIdx=idx>=0?idx:0;
