@@ -172,6 +172,13 @@
       }
     }
   </style>
+  <style>
+    /* shell embed: hide native UI, full-viewport canvas */
+    body { display:block !important; }
+    main { position:fixed !important; inset:0 !important; }
+    aside { display:none !important; visibility:hidden !important; pointer-events:none !important; }
+    canvas { position:fixed !important; inset:0 !important; width:100vw !important; height:100vh !important; }
+  </style>
 </head>
 <body>
   <main>

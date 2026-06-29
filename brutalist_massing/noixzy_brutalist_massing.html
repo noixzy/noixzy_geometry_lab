@@ -171,10 +171,7 @@
     /* shell embed: hide native UI, full-viewport canvas */
     body { display:block; }
     main { position:fixed; inset:0; }
-    aside,
-    .params, .paramPanel, .controls, .sidebar,
-    .leftPanel, .rightPanel, button, input,
-    select, label, footer, header, .stage, .stageTools { display:none; }
+    aside { display:none !important; visibility:hidden !important; pointer-events:none !important; }
     canvas {
       position:fixed;
       inset:0;
