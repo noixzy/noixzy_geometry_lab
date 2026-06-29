@@ -460,13 +460,13 @@ const PARAMS=[
   {k:"depth",  g:"system", label:"depth",     min:0,max:1,step:.01,v:.88,sys:true},
   {k:"thr",    g:"system", label:"threshold", min:0,max:1,step:.01,v:.63,sys:true},
   {k:"jit",    g:"system", label:"jitter",    min:0,max:1,step:.01,v:.15,sys:true},
-  {k:"gridRes",g:"system", label:"grid res",  min:4,max:64,step:1, v:16, sys:true},
-  {k:"cellSize",g:"system",label:"cell size", min:4,max:80,step:2, v:20, sys:true},
+  {k:"gridRes",g:"system", label:"grid res",  min:2,max:128,step:1, v:16, sys:true},
+  {k:"cellSize",g:"system",label:"cell size", min:2,max:160,step:2, v:20, sys:true},
   {k:"fill",   g:"system", label:"density",   min:0,max:1,step:.01,v:.60},
   {k:"pal",    g:"system", label:"palette",   min:0,max:9,step:1,  v:4},
   // EXTRUDE — flat cells -> 3D blocks
   {k:"height", g:"extrude",label:"height",    min:0,max:1,step:.01,v:.45},
-  {k:"zdepth", g:"extrude",label:"z depth",  min:-1.5,max:1.5,step:.01,v:0},
+  {k:"zdepth", g:"extrude",label:"z depth",  min:-3,max:3,step:.01,v:0},
   {k:"hvar",   g:"extrude",label:"variation", min:0,max:1,step:.01,v:.60},
   {k:"light",  g:"extrude",label:"light",     min:0,max:1,step:.01,v:.5},
   {k:"displace",g:"extrude",label:"displace", min:0,max:1,step:.01,v:0},
@@ -476,17 +476,17 @@ const PARAMS=[
   {k:"sheen",  g:"material",label:"sheen",     min:0,max:1,step:.01,v:.0},
   {k:"alpha",  g:"material",label:"opacity",   min:.1,max:1,step:.01,v:1},
   // FRAME — composition / transform
-  {k:"zoom",   g:"frame",  label:"zoom",      min:.4,max:2,step:.01,v:.9},
-  {k:"rot",    g:"frame",  label:"rotate",    min:-1,max:1,step:.01,v:0},
-  {k:"cx",     g:"frame",  label:"center X",  min:-1,max:1,step:.01,v:0},
-  {k:"cy",     g:"frame",  label:"center Y",  min:-1,max:1,step:.01,v:0},
+  {k:"zoom",   g:"frame",  label:"zoom",      min:.2,max:4,step:.01,v:.9},
+  {k:"rot",    g:"frame",  label:"rotate",    min:-2,max:2,step:.01,v:0},
+  {k:"cx",     g:"frame",  label:"center X",  min:-2,max:2,step:.01,v:0},
+  {k:"cy",     g:"frame",  label:"center Y",  min:-2,max:2,step:.01,v:0},
   {k:"mirror", g:"frame",  label:"symmetry mode", options:SYMMETRY_MODES, v:0},
   // LOOK — post / finishing
   {k:"contrast",g:"look",  label:"contrast",  min:0,max:1,step:.01,v:.4},
   {k:"vig",    g:"look",   label:"vignette",  min:0,max:1,step:.01,v:.45},
   {k:"glow",   g:"look",   label:"glow",      min:0,max:1,step:.01,v:.3},
   // MOTION — loop authoring
-  {k:"speed",  g:"motion", label:"speed",     min:0,max:2,step:.01,v:.2},
+  {k:"speed",  g:"motion", label:"speed",     min:0,max:4,step:.01,v:.2},
   {k:"drift",  g:"motion", label:"drift",     min:0,max:1,step:.01,v:.3},
 ];
 const P={}; PARAMS.forEach(p=>P[p.k]=p.v);
