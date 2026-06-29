@@ -223,7 +223,11 @@ body {
   }
 
   const proxyAliases = {
+    randomAll: ["randomUnlocked", "randomAll", "btnRandom", "btnRandomAll", "btnRandomUnlocked"],
+    randomForm: ["randomForm", "btnRandomForm"],
+    randomColor: ["randomColor", "btnRandomColor"],
     newSeed: ["newSeed", "btnNewSeed"],
+    pause: ["pause", "btnPause"],
     save: ["save", "btnSave", "btnSave2"],
     save2x: ["save2x", "btnSave2x", "btnSave2x2"],
     thumb: ["thumb", "btnThumb", "btnThumb2"],
@@ -241,6 +245,65 @@ body {
     return null;
   }
 
+  function cycleIframeTheme(doc, dir) {
+    const win = doc.defaultView;
+    if (win && typeof win.cycleTheme === "function") {
+      win.cycleTheme(dir);
+      return true;
+    }
+
+    const sel = doc.getElementById("themeSelect");
+    if (!sel || !sel.options || !sel.options.length) return false;
+
+    const next = (sel.selectedIndex + dir + sel.options.length) % sel.options.length;
+    sel.selectedIndex = next;
+    sel.dispatchEvent(new Event("input", { bubbles: true }));
+    sel.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+  }
+
+  function runProxyFallback(doc, id) {
+    const win = doc.defaultView;
+
+    if (id === "themePrev") return cycleIframeTheme(doc, -1);
+    if (id === "themeNext") return cycleIframeTheme(doc, 1);
+
+    if (id === "pause") {
+      if (win && typeof win.togglePause === "function") {
+        win.togglePause();
+        return true;
+      }
+      if (win && typeof win.pauseFromConsole === "function") {
+        win.pauseFromConsole();
+        return true;
+      }
+    }
+
+    if (id === "randomAll" && win && typeof win.randomizeParams === "function") {
+      win.randomizeParams("all");
+      return true;
+    }
+
+    if (id === "randomForm" && win && typeof win.randomizeParams === "function") {
+      win.randomizeParams("form");
+      return true;
+    }
+
+    if (id === "randomColor" && win && typeof win.randomizeParams === "function") {
+      win.randomizeParams("color");
+      return true;
+    }
+
+    if (id === "newSeed") {
+      if (win && typeof win._newMfSeed === "function") {
+        win._newMfSeed();
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   function bindShellControls() {
     const controls = document.getElementById("shellControls");
     if (!controls) return;
@@ -251,11 +314,20 @@ body {
 
       const id = btn.dataset.proxy;
       const doc = frame.contentDocument;
-      const target = doc && findProxyTarget(doc, id);
+      if (!doc) return;
+
+      if (["randomAll", "randomForm", "randomColor", "newSeed", "pause", "themePrev", "themeNext"].includes(id) && runProxyFallback(doc, id)) {
+        return;
+      }
+
+      const target = findProxyTarget(doc, id);
 
       if (target && typeof target.click === "function") {
         target.click();
+        return;
       }
+
+      runProxyFallback(doc, id);
     });
   }
 
