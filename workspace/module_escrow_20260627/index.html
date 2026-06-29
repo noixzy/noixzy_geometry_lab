@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>noixzy escrow index</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050505;
+      --panel: #0d0d0d;
+      --panel-2: #141414;
+      --line: #2b2b2b;
+      --text: #ece7dc;
+      --muted: #918c83;
+      --accent: #d0b36b;
+      --danger: #c35d5d;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: minmax(270px, 22vw) minmax(0, 1fr);
+    }
+
+    aside {
+      min-width: 0;
+      min-height: 0;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+    }
+
+    header {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      line-height: 1.25;
+      letter-spacing: 0;
+      text-transform: lowercase;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .tools {
+      display: grid;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid #353535;
+      background: #070707;
+      color: var(--text);
+      padding: 9px 10px;
+      font: inherit;
+      font-size: 12px;
+      outline: 0;
+    }
+
+    input[type="search"]:focus {
+      border-color: var(--accent);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    a.button,
+    button {
+      min-height: 32px;
+      border: 1px solid #363636;
+      background: #171717;
+      color: var(--text);
+      display: inline-grid;
+      place-items: center;
+      padding: 0 10px;
+      font: inherit;
+      font-size: 11px;
+      text-decoration: none;
+      text-transform: lowercase;
+      cursor: pointer;
+    }
+
+    a.button:hover,
+    button:hover {
+      border-color: var(--accent);
+    }
+
+    .list {
+      min-height: 0;
+      overflow: auto;
+      padding: 8px;
+    }
+
+    .candidate {
+      width: 100%;
+      min-height: 34px;
+      border: 0;
+      border-left: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      justify-content: start;
+      place-items: center start;
+      text-align: left;
+      padding: 6px 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .candidate:hover {
+      background: var(--panel-2);
+      color: var(--text);
+      border-color: #555;
+    }
+
+    .candidate.active {
+      background: #1a1812;
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    main {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      background: #020202;
+    }
+
+    .preview-head {
+      min-width: 0;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 9, 9, .96);
+    }
+
+    .selected {
+      min-width: 0;
+    }
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .path {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .preview-actions {
+      flex: 0 0 auto;
+      display: flex;
+      gap: 8px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #050505;
+    }
+
+    .empty {
+      padding: 18px 14px;
+      color: var(--danger);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 820px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 42vh minmax(0, 1fr);
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <header>
+      <h1>noixzy escrow index</h1>
+      <div class="meta"><span id="count">0</span> candidates</div>
+    </header>
+    <div class="tools">
+      <input id="filter" type="search" placeholder="filter candidates" spellcheck="false">
+      <div class="actions">
+        <a class="button" href="../../home/home.html">home</a>
+        <a class="button" href="candidates/">directory</a>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+  </aside>
+
+  <main>
+    <div class="preview-head">
+      <div class="selected">
+        <div class="name" id="selectedName">loading</div>
+        <div class="path" id="selectedPath">candidates/</div>
+      </div>
+      <div class="preview-actions">
+        <a class="button" id="openLink" href="candidates/" target="_blank" rel="noopener">open</a>
+        <button id="reload" type="button">reload</button>
+      </div>
+    </div>
+    <iframe id="preview" title="escrow candidate preview"></iframe>
+  </main>
+
+  <script>
+    const directoryUrl = "candidates/";
+    const listEl = document.getElementById("list");
+    const countEl = document.getElementById("count");
+    const filterEl = document.getElementById("filter");
+    const frame = document.getElementById("preview");
+    const selectedName = document.getElementById("selectedName");
+    const selectedPath = document.getElementById("selectedPath");
+    const openLink = document.getElementById("openLink");
+    const reload = document.getElementById("reload");
+
+    let candidates = [];
+    let selected = null;
+
+    function labelFromFile(file) {
+      return file.replace(/^noixzy_/, "").replace(/\.html$/, "").replaceAll("_", " ");
+    }
+
+    function normalizeHref(href) {
+      const url = new URL(href, location.href);
+      return `${directoryUrl}${url.pathname.split("/").pop()}`;
+    }
+
+    function selectCandidate(candidate, updateHash = true) {
+      selected = candidate;
+      selectedName.textContent = labelFromFile(candidate.file);
+      selectedPath.textContent = candidate.href;
+      openLink.href = candidate.href;
+      frame.src = candidate.href;
+      if (updateHash) history.replaceState(null, "", `#${candidate.file}`);
+      renderList();
+    }
+
+    function renderList() {
+      const q = filterEl.value.trim().toLowerCase();
+      const visible = candidates.filter(item => {
+        return item.file.toLowerCase().includes(q) || labelFromFile(item.file).includes(q);
+      });
+      listEl.innerHTML = "";
+      if (!visible.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "no matching candidates";
+        listEl.appendChild(empty);
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      visible.forEach(candidate => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `candidate${selected && selected.file === candidate.file ? " active" : ""}`;
+        button.textContent = labelFromFile(candidate.file);
+        button.title = candidate.file;
+        button.addEventListener("click", () => selectCandidate(candidate));
+        frag.appendChild(button);
+      });
+      listEl.appendChild(frag);
+    }
+
+    async function loadCandidates() {
+      try {
+        const response = await fetch(directoryUrl, { cache: "no-store" });
+        if (!response.ok) throw new Error(`directory ${response.status}`);
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        candidates = [...doc.querySelectorAll("a")]
+          .map(a => {
+            const href = a.getAttribute("href") || "";
+            const file = decodeURIComponent(href.split("/").pop() || "");
+            return { file, href: normalizeHref(href) };
+          })
+          .filter(item => /^noixzy_.*\.html$/.test(item.file))
+          .sort((a, b) => a.file.localeCompare(b.file));
+
+        countEl.textContent = String(candidates.length);
+        const hashFile = decodeURIComponent(location.hash.replace(/^#/, ""));
+        const initial = candidates.find(item => item.file === hashFile) || candidates[0];
+        if (initial) selectCandidate(initial, false);
+        else {
+          selectedName.textContent = "empty";
+          selectedPath.textContent = directoryUrl;
+          renderList();
+        }
+      } catch (error) {
+        selectedName.textContent = "directory unavailable";
+        selectedPath.textContent = String(error.message || error);
+        listEl.innerHTML = '<div class="empty">unable to load candidates</div>';
+      }
+    }
+
+    filterEl.addEventListener("input", renderList);
+    reload.addEventListener("click", () => {
+      if (selected) frame.src = selected.href;
+    });
+    window.addEventListener("hashchange", () => {
+      const hashFile = decodeURIComponent(location.hash.replace(/^#/, ""));
+      const next = candidates.find(item => item.file === hashFile);
+      if (next) selectCandidate(next, false);
+    });
+
+    loadCandidates();
+  </script>
+</body>
+</html>
