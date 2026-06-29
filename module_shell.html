@@ -138,6 +138,7 @@ body {
   z-index:80;
   display:flex;
   flex-direction:column;
+  align-items:center;
   gap:7px;
   padding:8px;
   border:1px solid rgba(255,255,255,.08);
@@ -150,12 +151,7 @@ body {
   transform:translateX(8px);
   transition:opacity .18s ease, transform .18s ease;
   max-height:calc(100vh - 180px);
-  overflow-y:auto;
-  scrollbar-width:none;
-}
-
-.shellControls::-webkit-scrollbar {
-  display:none;
+  overflow:hidden;
 }
 
 .shellTrigger:hover ~ .shellControls,
@@ -205,9 +201,9 @@ body {
 .navTriggerLeft {
   position:fixed;
   left:0;
-  top:105px;
-  width:60px;
-  height:30px;
+  top:80px;
+  width:130px;
+  height:80px;
   z-index:79;
   pointer-events:auto;
 }
@@ -215,9 +211,9 @@ body {
 .navTriggerRight {
   position:fixed;
   right:0;
-  top:105px;
-  width:60px;
-  height:30px;
+  top:80px;
+  width:130px;
+  height:80px;
   z-index:79;
   pointer-events:auto;
 }
@@ -228,10 +224,10 @@ body {
   z-index:80;
   display:flex;
   flex-direction:row;
-  gap:4px;
-  padding:4px 8px;
+  gap:6px;
+  padding:7px 14px;
   border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;
+  border-radius:24px;
   background:rgba(0,0,0,.38);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
@@ -268,12 +264,12 @@ body {
   display:flex;
   align-items:center;
   justify-content:center;
-  width:28px;
-  height:24px;
-  border-radius:14px;
+  width:40px;
+  height:36px;
+  border-radius:18px;
   text-decoration:none;
   color:#fff;
-  font-size:14px;
+  font-size:20px;
 }
 
 .navBtn:hover {
@@ -338,6 +334,37 @@ body {
   background:rgba(255,255,255,.10);
 }
 
+/* ── undo / redo bar ── */
+.undoBar {
+  flex-shrink:0;
+  display:flex;
+  gap:4px;
+  width:92px;
+}
+
+.undoBar button {
+  flex:1;
+  min-width:0;
+}
+
+.undoBar button:disabled {
+  opacity:.3;
+  cursor:default;
+}
+
+/* ── param scroll wrapper ── */
+.paramScrollWrap {
+  flex:1 1 0;
+  min-height:0;
+  overflow-y:auto;
+  scrollbar-width:none;
+  width:100%;
+}
+
+.paramScrollWrap::-webkit-scrollbar {
+  display:none;
+}
+
 /* ── param panel ── */
 .paramDivider {
   width:100%;
@@ -363,11 +390,30 @@ body {
   gap:3px;
 }
 
+.paramHead {
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:8px;
+  min-width:0;
+}
+
 .paramLabel {
   font-size:9px;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:rgba(255,255,255,.45);
+}
+
+.paramValue {
+  flex:0 0 auto;
+  max-width:72px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:rgba(255,255,255,.55);
+  font:9px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-align:right;
 }
 
 .paramRow input[type=range] {
@@ -432,10 +478,6 @@ body {
       <button type="button" data-proxy="randomColor">rand color</button>
     </div>
     <div class="btnRow">
-      <button type="button" data-proxy="undo">undo</button>
-      <button type="button" data-proxy="redo">redo</button>
-    </div>
-    <div class="btnRow">
       <button type="button" data-proxy="newSeed">new seed</button>
       <button type="button" data-proxy="reset">reset</button>
     </div>
@@ -445,8 +487,14 @@ body {
       <button type="button" data-proxy="themePrev">thm prev</button>
       <button type="button" data-proxy="themeNext">thm next</button>
     </div>
-    <div class="paramDivider" id="paramDivider" style="display:none"></div>
-    <div class="paramPanel" id="paramPanel"></div>
+    <div class="undoBar">
+      <button type="button" data-proxy="undo">undo</button>
+      <button type="button" data-proxy="redo">redo</button>
+    </div>
+    <div class="paramScrollWrap" id="paramScrollWrap">
+      <div class="paramDivider" id="paramDivider" style="display:none"></div>
+      <div class="paramPanel" id="paramPanel"></div>
+    </div>
   </aside>
 
   <div class="navTriggerLeft"></div>
@@ -507,6 +555,26 @@ body {
     paramDivider.style.display = "none";
   }
 
+  const PARAM_VALUE_LABELS = {
+    animMode: ["Drift", "Pulse", "Breathe", "Swarm"],
+    depthAxis: ["Y", "X", "Z", "Diagonal"],
+    rotAxis: ["current", "next", "third"],
+  };
+
+  function formatParamValue(def, rawValue) {
+    const key = def.k || "";
+    const value = parseFloat(rawValue);
+    if (key === "pal" || key === "palette") return `palette ${Math.round(value)}`;
+    if (PARAM_VALUE_LABELS[key]) {
+      return PARAM_VALUE_LABELS[key][Math.round(value)] ?? String(Math.round(value));
+    }
+    const step = Number(def.step ?? 0.01);
+    if (Number.isInteger(step) || step >= 1) return String(Math.round(value));
+    const stepText = String(step);
+    const decimals = stepText.includes(".") ? Math.min(4, stepText.split(".")[1].length) : 2;
+    return Number.isFinite(value) ? value.toFixed(decimals) : String(rawValue);
+  }
+
   function renderParams(defs) {
     clearParams();
     if (!defs || !defs.length) return;
@@ -540,19 +608,31 @@ body {
         row.appendChild(label);
       } else {
         row.className = "paramRow";
+        const head = document.createElement("div");
+        head.className = "paramHead";
         const lbl = document.createElement("div");
         lbl.className = "paramLabel";
         lbl.textContent = def.label || def.k;
+        const val = document.createElement("div");
+        val.className = "paramValue";
         const slider = document.createElement("input");
         slider.type = "range";
         slider.min = def.min ?? 0;
         slider.max = def.max ?? 1;
         slider.step = def.step ?? 0.01;
         slider.value = def.v ?? 0.5;
+        const updateValue = () => {
+          val.textContent = formatParamValue(def, slider.value);
+          val.title = val.textContent;
+        };
+        updateValue();
         slider.addEventListener("input", () => {
+          updateValue();
           frame.contentWindow?.postMessage({ type: "setParam", key: def.k, value: parseFloat(slider.value) }, "*");
         });
-        row.appendChild(lbl);
+        head.appendChild(lbl);
+        head.appendChild(val);
+        row.appendChild(head);
         row.appendChild(slider);
       }
 
@@ -656,12 +736,14 @@ body {
       return true;
     }
     if (id === "undo") {
+      frame.contentWindow?.postMessage({ type: "undo" }, "*");
       if (win && typeof win._histUndoStep === "function") { win._histUndoStep(); return true; }
-      return clickFirst(doc, ["btnUndo", "undo"]);
+      return clickFirst(doc, ["btnUndo", "undo"]) || true;
     }
     if (id === "redo") {
+      frame.contentWindow?.postMessage({ type: "redo" }, "*");
       if (win && typeof win._histRedoStep === "function") { win._histRedoStep(); return true; }
-      return clickFirst(doc, ["btnRedo", "redo"]);
+      return clickFirst(doc, ["btnRedo", "redo"]) || true;
     }
     if (id === "themePrev") return cycleIframeTheme(doc, -1);
     if (id === "themeNext") return cycleIframeTheme(doc, 1);
@@ -740,6 +822,20 @@ body {
         a.innerHTML = `<img src="${thumbPath(module)}" alt="${title}" loading="lazy">`;
         rail.appendChild(a);
       }
+
+      // restore scroll position from previous thumb click
+      const savedScroll = sessionStorage.getItem("railScroll");
+      if (savedScroll !== null) {
+        rail.scrollLeft = parseInt(savedScroll, 10);
+        sessionStorage.removeItem("railScroll");
+      }
+
+      // save scroll position before navigating via a rail thumb
+      rail.addEventListener("click", e => {
+        if (e.target.closest(".railThumb")) {
+          sessionStorage.setItem("railScroll", rail.scrollLeft);
+        }
+      });
 
       frame.src = moduleHref(active);
       status.remove();

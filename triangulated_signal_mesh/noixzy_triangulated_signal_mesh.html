@@ -212,23 +212,25 @@
       lineWeight: 1,
       bump: 28,
       palette: 2,
-      animMode: 0,
+      animMode: 3,
       animSpeed: 0.5,
-      animIntensity: 0.5
+      animIntensity: 0.5,
+      fillColor: 0
     };
 
     const controlDefs = [
       ["pointCount", "point count", 5, 440, 1],
-      ["connectionRadius", "connection radius", 0, 360, 1],
+      ["connectionRadius", "connection radius", 0, 1080, 1],
       ["jitter", "jitter", 0, 200, 1],
       ["signalWarp", "signal warp", -100, 200, 1],
-      ["facetFill", "facet fill", 0, 200, 1],
+      ["facetFill", "facet fill", 0, 600, 1],
       ["lineWeight", "line weight", 0, 12, 1],
       ["bump", "bump", -100, 200, 1],
       ["palette", "palette", 0, 5, 1],
       ["animMode", "anim mode", 0, 3, 1],
       ["animSpeed", "anim speed", 0, 4, 0.01],
-      ["animIntensity", "intensity", 0, 1, 0.01]
+      ["animIntensity", "intensity", 0, 1, 0.01],
+      ["fillColor", "fill color", 0, 7, 1]
     ];
 
     const PARAMS = controlDefs.map(([key, label, min, max, step]) => ({
@@ -251,6 +253,9 @@
       ["#090606", "#d2a487", "#d8c9aa"],
       ["#08070a", "#c7b2df", "#80d6d0"]
     ];
+
+    // Fill color palette — base hues for facet fill areas, independent of point/line colors
+    const FILL_COLORS = [198, 28, 260, 160, 340, 45, 200, 15];
 
     const canvas = document.getElementById("view");
     const ctx = canvas.getContext("2d");
@@ -483,7 +488,8 @@
         const b = near[0].point;
         const c = near[1].point;
         const alpha = 0.012 + P.facetFill * 0.0017;
-        ctx.fillStyle = hsl(198 + P.palette * 14 + Math.sin(t + i) * 12, 28, 44, alpha);
+        const _fh = FILL_COLORS[Math.abs(Math.floor(P.fillColor || 0)) % FILL_COLORS.length];
+        ctx.fillStyle = hsl(_fh + Math.sin(t + i) * 12, 28, 44, alpha);
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x + Math.sin(t + i) * P.signalWarp * 0.03, b.y);
