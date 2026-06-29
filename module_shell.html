@@ -324,6 +324,11 @@ body {
 
   <div class="shellTrigger"></div>
   <aside class="shellControls" id="shellControls" aria-label="module controls">
+    <label class="checkRow" id="extrudeOffRow" style="display:none">
+      <input type="checkbox" id="extrudeOffCheck">
+      <span class="paramLabel" style="color:rgba(255,255,255,.55)">extrude off</span>
+    </label>
+    <div class="paramDivider" id="extrudeDivider" style="display:none"></div>
     <button type="button" data-proxy="randomAll">random all</button>
     <button type="button" data-proxy="randomForm">random form</button>
     <button type="button" data-proxy="randomColor">random color</button>
@@ -387,12 +392,10 @@ body {
     if (!defs || !defs.length) return;
     paramDivider.style.display = "block";
 
-    // bools first, __extrudeOff at very top
+    // __extrudeOff floats to top of param panel
     defs = [...defs].sort((a, b) => {
       if (a.k === "__extrudeOff") return -1;
       if (b.k === "__extrudeOff") return 1;
-      if (a.type === "bool" && b.type !== "bool") return -1;
-      if (a.type !== "bool" && b.type === "bool") return 1;
       return 0;
     });
 
@@ -437,10 +440,26 @@ body {
     }
   }
 
+  // ── extrude off checkbox ──
+  const extrudeOffRow = document.getElementById("extrudeOffRow");
+  const extrudeOffCheck = document.getElementById("extrudeOffCheck");
+  const extrudeDivider = document.getElementById("extrudeDivider");
+
+  extrudeOffCheck?.addEventListener("change", () => {
+    frame.contentWindow?.postMessage({ type: "setParam", key: "__extrudeOff", value: extrudeOffCheck.checked }, "*");
+  });
+
   // ── listen for messages from module ──
   window.addEventListener("message", e => {
     if (!e.data || e.data.type !== "params") return;
-    renderParams(e.data.data);
+    const defs = e.data.data;
+    const extrudeDef = defs.find(d => d.k === "__extrudeOff");
+    if (extrudeDef) {
+      extrudeOffCheck.checked = !!extrudeDef.v;
+      extrudeOffRow.style.display = "";
+      extrudeDivider.style.display = "";
+    }
+    renderParams(defs.filter(d => d.k !== "__extrudeOff"));
   });
 
   function requestParams() {

@@ -1397,10 +1397,20 @@ window.addEventListener("message", e => {
   if (e.data.type === "setParam") {
     const { key, value } = e.data;
     if (key === "__extrudeOff") {
+      const prev = P.height;
       extrudeOff = !!value;
       _syncExtrudeOffButton();
-      _applyExtrudeOff();
-      dirty = true;
+      if (extrudeOff) {
+        window.__savedHeight = prev;
+        _applyExtrudeOff();
+      } else {
+        if (window.__savedHeight !== undefined) {
+          P.height = window.__savedHeight;
+          const h = document.getElementById("p_height");
+          if (h) h.value = window.__savedHeight;
+        }
+        dirty = true;
+      }
     } else if (P[key] !== undefined) {
       _histStart();
       P[key] = value;
