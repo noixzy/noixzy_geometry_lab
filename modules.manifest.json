@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 47,
-    "liveCount": 48,
+    "listedCount": 53,
+    "liveCount": 54,
     "unlistedLiveCount": 1,
     "listedMissingCount": 0
   },
@@ -18,36 +18,6 @@
       "title": "grid extrude",
       "file": "grid_extrude/noixzy_grid_extrude.html",
       "thumb": "home/thumbs/grid_extrude.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "sdf_raymarch",
-      "title": "sdf raymarch",
-      "file": "sdf_raymarch/noixzy_sdf_raymarch.html",
-      "thumb": "home/thumbs/sdf_raymarch.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "displacement",
-      "title": "displacement sphere",
-      "file": "displacement/noixzy_displacement.html",
-      "thumb": "home/thumbs/displacement.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "displacement_primitives",
-      "title": "displacement primitives",
-      "file": "displacement_primitives/noixzy_displacement_primitives.html",
-      "thumb": "home/thumbs/displacement_primitives.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
@@ -469,7 +439,9 @@
       "file": "agent_swarm_relief/noixzy_agent_swarm_relief.html",
       "thumb": "home/thumbs/agent_swarm_relief.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "catenary_web",
@@ -477,7 +449,9 @@
       "file": "catenary_web/noixzy_catenary_web.html",
       "thumb": "home/thumbs/catenary_web.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "gyroid",
@@ -495,7 +469,9 @@
       "file": "hyperbolic_tiling/noixzy_hyperbolic_tiling.html",
       "thumb": "home/thumbs/hyperbolic_tiling.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "origami_fold_field",
@@ -503,7 +479,9 @@
       "file": "origami_fold_field/noixzy_origami_fold_field.html",
       "thumb": "home/thumbs/origami_fold_field.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "phyllotaxis_stack",
@@ -511,7 +489,9 @@
       "file": "phyllotaxis_stack/noixzy_phyllotaxis_stack.html",
       "thumb": "home/thumbs/phyllotaxis_stack.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "quasicrystal_relief",
@@ -519,7 +499,9 @@
       "file": "quasicrystal_relief/noixzy_quasicrystal_relief.html",
       "thumb": "home/thumbs/quasicrystal_relief.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "reaction_terraces",
@@ -527,7 +509,9 @@
       "file": "reaction_terraces/noixzy_reaction_terraces.html",
       "thumb": "home/thumbs/reaction_terraces.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "sdf",
@@ -545,7 +529,9 @@
       "file": "tensegrity_nodes/noixzy_tensegrity_nodes.html",
       "thumb": "home/thumbs/tensegrity_nodes.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "voronoi_tower_field",
@@ -553,7 +539,9 @@
       "file": "voronoi_tower_field/noixzy_voronoi_tower_field.html",
       "thumb": "home/thumbs/voronoi_tower_field.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     },
     {
       "id": "woven_lattice_relief",
@@ -561,7 +549,9 @@
       "file": "woven_lattice_relief/noixzy_woven_lattice_relief.html",
       "thumb": "home/thumbs/woven_lattice_relief.png",
       "authorship": "generated",
-      "enabledInShell": true
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
     }
   ]
 }

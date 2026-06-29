@@ -119,6 +119,16 @@ body {
   background:#000;
 }
 
+.shellTrigger {
+  position:fixed;
+  right:0;
+  top:0;
+  width:72px;
+  height:100vh;
+  z-index:79;
+  pointer-events:auto;
+}
+
 .shellControls {
   position:fixed;
   right:18px;
@@ -128,11 +138,22 @@ body {
   flex-direction:column;
   gap:7px;
   padding:8px;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:14px;
-  background:rgba(0,0,0,.50);
+  background:rgba(0,0,0,.38);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
+  opacity:0;
+  pointer-events:none;
+  transform:translateX(8px);
+  transition:opacity .18s ease, transform .18s ease;
+}
+
+.shellTrigger:hover ~ .shellControls,
+.shellControls:hover {
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0);
 }
 
 .shellControls button {
@@ -177,6 +198,7 @@ body {
   </div>
 
 
+  <div class="shellTrigger"></div>
   <aside class="shellControls" id="shellControls" aria-label="module controls">
     <button type="button" data-proxy="randomAll">random all</button>
     <button type="button" data-proxy="randomForm">random form</button>
@@ -252,10 +274,8 @@ body {
       win.cycleTheme(dir);
       return true;
     }
-
     const sel = doc.getElementById("themeSelect");
     if (!sel || !sel.options || !sel.options.length) return false;
-
     const next = (sel.selectedIndex + dir + sel.options.length) % sel.options.length;
     sel.selectedIndex = next;
     sel.dispatchEvent(new Event("input", { bubbles: true }));
@@ -278,109 +298,60 @@ body {
     const win = doc.defaultView;
     const api = win && win.noixzyModuleControls;
 
-    if (api && typeof api[id] === "function") {
-      api[id]();
-      return true;
-    }
+    if (api && typeof api[id] === "function") { api[id](); return true; }
 
     if (id === "themePrev") return cycleIframeTheme(doc, -1);
     if (id === "themeNext") return cycleIframeTheme(doc, 1);
 
     if (id === "randomAll") {
-      if (win && typeof win.randomizeParams === "function") {
-        win.randomizeParams("all");
-        return true;
-      }
+      if (win && typeof win.randomizeParams === "function") { win.randomizeParams("all"); return true; }
       const formClicked = clickFirst(doc, ["randomForm", "btnRandomForm"]);
       const colorClicked = clickFirst(doc, ["randomColor", "btnRandomColor"]);
       if (formClicked || colorClicked) return true;
       return clickFirst(doc, ["randomUnlocked", "btnRandom", "randomAll"]);
     }
-
     if (id === "randomForm") {
-      if (win && typeof win.randomizeParams === "function") {
-        win.randomizeParams("form");
-        return true;
-      }
+      if (win && typeof win.randomizeParams === "function") { win.randomizeParams("form"); return true; }
       return clickFirst(doc, ["randomForm", "btnRandomForm"]);
     }
-
     if (id === "randomColor") {
-      if (win && typeof win.randomizeParams === "function") {
-        win.randomizeParams("color");
-        return true;
-      }
+      if (win && typeof win.randomizeParams === "function") { win.randomizeParams("color"); return true; }
       return clickFirst(doc, ["randomColor", "btnRandomColor"]);
     }
-
     if (id === "newSeed") {
-      if (win && typeof win._newMfSeed === "function") {
-        win._newMfSeed();
-        return true;
-      }
+      if (win && typeof win._newMfSeed === "function") { win._newMfSeed(); return true; }
       return clickFirst(doc, ["btnNewSeed", "newSeed"]);
     }
-
     if (id === "pause") {
-      if (win && typeof win.noixzyTogglePause === "function") {
-        win.noixzyTogglePause();
-        return true;
-      }
-      if (win && typeof win.togglePause === "function") {
-        win.togglePause();
-        return true;
-      }
-      if (win && typeof win.pauseFromConsole === "function") {
-        win.pauseFromConsole();
-        return true;
-      }
+      if (win && typeof win.noixzyTogglePause === "function") { win.noixzyTogglePause(); return true; }
+      if (win && typeof win.togglePause === "function") { win.togglePause(); return true; }
+      if (win && typeof win.pauseFromConsole === "function") { win.pauseFromConsole(); return true; }
       return clickFirst(doc, ["btnPause", "pause"]);
     }
-
     if (id === "reset") {
-      if (win && typeof win._resetMf === "function") {
-        win._resetMf();
-        return true;
-      }
-      if (win && typeof win.resetFromConsole === "function") {
-        win.resetFromConsole();
-        return true;
-      }
+      if (win && typeof win._resetMf === "function") { win._resetMf(); return true; }
+      if (win && typeof win.resetFromConsole === "function") { win.resetFromConsole(); return true; }
       return clickFirst(doc, ["btnReset", "reset"]);
     }
 
-    const targets = proxyAliases[id] || [id];
-    return clickFirst(doc, targets);
+    return clickFirst(doc, proxyAliases[id] || [id]);
   }
-
 
   function bindShellControls() {
     const controls = document.getElementById("shellControls");
     if (!controls) return;
-
     controls.addEventListener("click", event => {
       const btn = event.target.closest("[data-proxy]");
       if (!btn) return;
-
       const id = btn.dataset.proxy;
       const doc = frame.contentDocument;
       if (!doc) return;
-
-      if (runProxyFallback(doc, id)) {
-        return;
-      }
-
+      if (runProxyFallback(doc, id)) return;
       const target = findProxyTarget(doc, id);
-
-      if (target && typeof target.click === "function") {
-        target.click();
-        return;
-      }
-
+      if (target && typeof target.click === "function") { target.click(); return; }
       runProxyFallback(doc, id);
     });
   }
-
 
   bindShellControls();
 

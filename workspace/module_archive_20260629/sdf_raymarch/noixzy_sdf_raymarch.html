@@ -415,37 +415,6 @@ body {
 <body class="geoOnly">
 <div class="app">
   <div id="stage" class="stage">
-    <div id="stageFavs" class="stageFavs"></div>
-    <div class="stageTools" id="stageTools">
-      <div class="stageToolGroup" data-zone="native-bridge">
-        <button id="btnPin" type="button">pin</button>
-        <button id="exportFavs" type="button">export</button>
-        <button id="btnCopy" type="button">copy</button>
-        <button id="btnPaste" type="button">paste</button>
-      </div>
-      <div class="stageToolGroup" data-zone="native-bridge">
-        <button id="btnAudio" type="button">audio</button>
-        <button id="clearFavs" type="button">clear</button>
-      </div>
-      <div class="stageToolGroup">
-        <button id="btnThumb" type="button"> thumb</button>
-        <button id="btnRec" type="button">video</button>
-        <select id="btnRecDur" title="video duration">
-          <option value="2">2s</option>
-          <option value="4" selected>4s</option>
-          <option value="8">8s</option>
-          <option value="16">16s</option>
-        </select>
-        <button id="btnSave" type="button">save png</button>
-        <button id="btnSave2x" type="button">save 2x</button>
-      </div>
-    </div>
-    <div class="stageThumbs" id="stageThumbs">
-      <div class="label">modules</div>
-      <button id="thumbUp" class="thumbScrollBtn" type="button">▲</button>
-      <div class="thumbRow" id="moduleThumbStrip"></div>
-      <button id="thumbDown" class="thumbScrollBtn" type="button">▼</button>
-    </div>
   </div>
   <div class="panel" data-zone="right-panel">
     <h1></h1>
@@ -1495,13 +1464,6 @@ function _recSdf(){
     }
   },1000);
 }
-function _bindUtilityControls(){
-  document.getElementById("reset")?.addEventListener("click",_resetSdf);
-  document.getElementById("copy")?.addEventListener("click",_copySdfState);
-  document.getElementById("paste")?.addEventListener("click",_pasteSdfState);
-  document.getElementById("save2x")?.addEventListener("click",_saveSdf2x);
-  document.getElementById("rec")?.addEventListener("click",_recSdf);
-}
 
 let audioCtx,analyser,audioData,audioActive=false;
 const ABANDS={bass:0,mid:0,high:0,presence:0};
@@ -1637,236 +1599,9 @@ function _buildAudioUI(){
     dep.addEventListener("input",()=>{ADEPTH[band]=parseFloat(dep.value);});
     row.append(lbl,sel,dep);audioBands.appendChild(row);
   });
-  _bindUtilityControls();
 }
 
 
-/* NOIXZY_SDF_BOTTOM_TOOLBAR_FINAL_START */
-
-/* NOIXZY_SDF_VIDEO_COUNTDOWN_UI_START */
-function _sdfVideoCountdownUI(seconds){
-  const btn=document.getElementById("btnRec");
-  if(!btn) return;
-  if(btn.dataset.counting==="1") return;
-
-  btn.dataset.counting="1";
-  let remaining=seconds;
-  btn.textContent="● " + remaining + "s";
-
-  const iv=setInterval(()=>{
-    remaining--;
-    if(remaining>0){
-      btn.textContent="● " + remaining + "s";
-    } else {
-      clearInterval(iv);
-      btn.textContent="saving…";
-      setTimeout(()=>{
-        btn.textContent="video";
-        btn.dataset.counting="";
-      },900);
-    }
-  },1000);
-}
-/* NOIXZY_SDF_VIDEO_COUNTDOWN_UI_END */
-
-function _bindSdfBottomToolbarFinal(){
-  const by=id=>document.getElementById(id);
-  const tools=by("stageTools");
-
-  if(tools && !tools.dataset.finalStop){
-    tools.dataset.finalStop="1";
-    ["pointerdown","pointerup","mousedown","mouseup","touchstart","touchend","click","dblclick","wheel"].forEach(type=>{
-      tools.addEventListener(type,e=>{
-        e.stopPropagation();
-      }, type==="wheel" ? {passive:false} : false);
-    });
-  }
-
-  const pin=by("btnPin");
-  if(pin) pin.onclick=e=>{ e.preventDefault(); e.stopPropagation(); _pinFav(); };
-
-  const exp=by("exportFavs");
-  if(exp) exp.onclick=e=>{
-    e.preventDefault(); e.stopPropagation();
-    const txt=JSON.stringify(_favs||[]);
-    if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>_flashConsole("favorites copied"),()=>prompt("favorites:",txt));
-    else prompt("favorites:",txt);
-  };
-
-  const clr=by("clearFavs");
-  if(clr) clr.onclick=e=>{
-    e.preventDefault(); e.stopPropagation();
-    if(!confirm("clear all favorites?")) return;
-    _favs=[];
-    _saveFavs();
-    _renderFavs();
-    _flashConsole("favorites cleared");
-  };
-
-  const copy=by("btnCopy");
-  if(copy) copy.onclick=e=>{ e.preventDefault(); e.stopPropagation(); _copySdfState(); };
-
-  const paste=by("btnPaste");
-  if(paste) paste.onclick=e=>{ e.preventDefault(); e.stopPropagation(); _pasteSdfState(); };
-
-  const thumb=by("btnThumb");
-  if(thumb) thumb.onclick=e=>{ e.preventDefault(); e.stopPropagation(); saveThumb(); };
-
-  const rec=by("btnRec");
-  if(rec) rec.onclick=e=>{
-    e.preventDefault(); e.stopPropagation();
-    const src=by("btnRecDur"), dst=by("recDur");
-    if(src && dst) dst.value=src.value;
-    _recSdf();
-  };
-
-  const save=by("btnSave");
-  if(save) save.onclick=e=>{
-    e.preventDefault(); e.stopPropagation();
-    saveCanvas(`noixzy_${PIECE}_${seed}`, "png");
-  };
-
-  const save2=by("btnSave2x");
-  if(save2) save2.onclick=e=>{ e.preventDefault(); e.stopPropagation(); _saveSdf2x(); };
-}
-/* NOIXZY_SDF_BOTTOM_TOOLBAR_FINAL_END */
-
-
-/* NOIXZY_SDF_PANEL_ORDER_DOM_ONLY_START */
-function _orderSdfPanelLikeGrid(){
-  const panel=document.querySelector(".panel");
-  const consoleBtns=document.querySelector(".panel .consoleBtns");
-  const tools=document.querySelector(".panel .tools");
-  const presetBox=document.querySelector(".panel .presetBox");
-  const seedRow=[...document.querySelectorAll(".panel .row")].find(row=>row.textContent.includes("seed"));
-  const densityRow=[...document.querySelectorAll(".panel .row")].find(row=>row.textContent.includes("density"));
-
-  if(!panel || !consoleBtns || !densityRow) return;
-
-  let anchor=consoleBtns.nextSibling;
-
-  if(tools){
-    panel.insertBefore(tools, anchor);
-    anchor=tools.nextSibling;
-  }
-  if(presetBox){
-    panel.insertBefore(presetBox, anchor);
-    anchor=presetBox.nextSibling;
-  }
-  if(seedRow){
-    panel.insertBefore(seedRow, anchor);
-  }
-}
-/* NOIXZY_SDF_PANEL_ORDER_DOM_ONLY_END */
-
-
-/* NOIXZY_SDF_RANDOM_RESET_ORDER_ONLY_START */
-function _orderSdfRandomResetLikeGrid(){
-  const panel=document.querySelector(".panel");
-  const themeCycle=document.querySelector(".panel .cycleLine");
-  const tools=document.querySelector(".panel .tools");
-  const consoleBtns=document.querySelector(".panel .consoleBtns");
-  const presetBox=document.querySelector(".panel .presetBox");
-
-  if(!panel || !themeCycle || !tools || !consoleBtns) return;
-
-  panel.insertBefore(tools, themeCycle.nextSibling);
-  panel.insertBefore(consoleBtns, tools.nextSibling);
-  if(presetBox) panel.insertBefore(presetBox, consoleBtns.nextSibling);
-}
-/* NOIXZY_SDF_RANDOM_RESET_ORDER_ONLY_END */
-
-
-/* NOIXZY_SDF_VIDEO_BUTTON_OWNS_RECORDING_START */
-function _bindSdfVideoButtonOwnsRecording(){
-  const btn=document.getElementById("btnRec");
-  if(!btn || btn.dataset.videoOwnsRecording==="1") return;
-  btn.dataset.videoOwnsRecording="1";
-
-  btn.addEventListener("click", e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-
-    const canvas=document.querySelector("#stage canvas") || document.querySelector("canvas");
-    if(!canvas || !canvas.captureStream){
-      btn.textContent="unsupported";
-      setTimeout(()=>btn.textContent="video",1200);
-      return;
-    }
-
-    const durEl=document.getElementById("btnRecDur");
-    const seconds=durEl ? parseInt(durEl.value,10) || 4 : 4;
-
-    let stream, recorder, chunks=[];
-    try{
-      stream=canvas.captureStream(30);
-      const mimeType=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm']
-        .find(t=>MediaRecorder.isTypeSupported(t)) || '';
-      recorder=new MediaRecorder(stream, mimeType ? {mimeType} : {});
-    }catch(err){
-      btn.textContent="rec error";
-      setTimeout(()=>btn.textContent="video",1200);
-      return;
-    }
-
-    recorder.ondataavailable=ev=>{
-      if(ev.data && ev.data.size>0) chunks.push(ev.data);
-    };
-
-    recorder.onstop=()=>{
-      const blob=new Blob(chunks,{type:"video/webm"});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement("a");
-      a.href=url;
-      a.download=`noixzy_sdf_raymarch_${seed}_${seconds}s.webm`;
-      a.click();
-      setTimeout(()=>URL.revokeObjectURL(url),1000);
-      stream.getTracks().forEach(tr=>tr.stop());
-      btn.textContent="video";
-    };
-
-    recorder.start();
-
-    let remaining=seconds;
-    btn.textContent="● " + remaining + "s";
-
-    const iv=setInterval(()=>{
-      remaining--;
-      if(remaining>0){
-        btn.textContent="● " + remaining + "s";
-      }else{
-        clearInterval(iv);
-        btn.textContent="saving…";
-        if(recorder.state==="recording") recorder.stop();
-      }
-    },1000);
-  }, true);
-}
-/* NOIXZY_SDF_VIDEO_BUTTON_OWNS_RECORDING_END */
-
-
-function _bindTransparentBgToggle(){
-  const btn=document.getElementById("btnTransparentBg");
-  const stage=document.getElementById("stage");
-  if(!btn || btn.dataset.boundTransparentBg==="1") return;
-  btn.dataset.boundTransparentBg="1";
-
-  const sync=()=>{
-    btn.textContent = transparentBg ? "bg alpha ✓" : "bg alpha";
-    btn.style.color = transparentBg ? "var(--accent)" : "";
-    if(stage) stage.classList.toggle("transparentPreview", transparentBg);
-  };
-
-  btn.addEventListener("click", e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    transparentBg = !transparentBg;
-    sync();
-  });
-
-  sync();
-}
 
 function bindUI(){
   populateStarterPresets();
@@ -1958,18 +1693,9 @@ function bindUI(){
   _loadFavs();
   _initOrbit(document.getElementById("stage"));
   buildNav();
-  _orderSdfRandomResetLikeGrid();
   // cycle theme
   document.getElementById("themePrev")?.addEventListener("click",()=>cycleTheme(-1));
   document.getElementById("themeNext")?.addEventListener("click",()=>cycleTheme(1));
-  // reset/pause (new panel buttons)
-  document.getElementById("btnReset")?.addEventListener("click",()=>{ if(typeof loadState==="function"&&typeof captureState==="function"){ const def=captureState(); location.reload(); } else location.reload(); });
-  document.getElementById("btnPause")?.addEventListener("click",()=>{
-    const b=document.getElementById("pause"); if(b) b.click();
-  });
-  // save / thumb (new stage buttons pointing to existing logic)
-  document.getElementById("btnSave")?.addEventListener("click",()=>{ const b=document.getElementById("save"); if(b) b.click(); });
-  document.getElementById("btnThumb")?.addEventListener("click",saveThumb);
   // starter cycle arrows
   document.getElementById("starterPrev")?.addEventListener("click",()=>{
     const sel=document.getElementById("starterPreset"); if(!sel||!STARTER_PRESETS) return;
@@ -1981,44 +1707,71 @@ function bindUI(){
     const n=(parseInt(sel.value||"0")+1)%STARTER_PRESETS.length;
     sel.value=n; loadState(STARTER_PRESETS[n].state); _flashConsole("loaded "+STARTER_PRESETS[n].name);
   });
-  // new stage toolbar wiring (separate IDs from old panel buttons)
-  document.getElementById("btnCopy")?.addEventListener("click",()=>{ const b=document.getElementById("copy"); if(b) b.click(); });
-  document.getElementById("btnPaste")?.addEventListener("click",()=>{ const b=document.getElementById("paste"); if(b) b.click(); });
-  document.getElementById("btnSave2x")?.addEventListener("click",()=>{ const b=document.getElementById("save2x"); if(b) b.click(); });
-  document.getElementById("btnRec")?.addEventListener("click",()=>{ const b=document.getElementById("rec"); if(b) b.click(); });
-  _bindSdfBottomToolbarFinal();
-  _bindSdfVideoButtonOwnsRecording();
-  _bindTransparentBgToggle();
-  _orderSdfPanelLikeGrid();
 }
 
-// Ensure initial render on some browsers that may not start p5 loop immediately
 window.addEventListener('load', function(){
   setTimeout(function(){
-    try{ if(typeof _bindSdfVideoButtonOwnsRecording==="function") _bindSdfVideoButtonOwnsRecording(); }catch(e){}
-  }, 120);
-
-  setTimeout(function(){
-    try{ if(typeof buildPrims==='function') buildPrims(); if(typeof buildSystem==='function') buildSystem(); /* ensure shader rebuild */ dirty=true; }catch(e){}
-    try{ if(typeof _bindSdfBottomToolbarFinal==="function") _bindSdfBottomToolbarFinal(); }catch(e){}
-    try{ if(typeof _orderSdfPanelLikeGrid==="function") _orderSdfPanelLikeGrid(); }catch(e){}
-    try{ if(typeof _orderSdfRandomResetLikeGrid==="function") _orderSdfRandomResetLikeGrid(); }catch(e){}
+    try{ if(typeof buildPrims==='function') buildPrims(); if(typeof buildSystem==='function') buildSystem(); dirty=true; }catch(e){}
   }, 30);
 });
 const ALL_MODULES=[
-  {id:"grid_extrude",title:"grid extrude"},{id:"sdf_raymarch",title:"sdf raymarch"},
-  {id:"gyroid",title:"gyroid"},{id:"displacement",title:"displacement"},
+  {id:"grid_extrude",title:"grid extrude"},
+  {id:"sdf_raymarch",title:"sdf raymarch"},
+  {id:"displacement",title:"displacement sphere"},
   {id:"displacement_primitives",title:"displacement primitives"},
-  {id:"mandelbulb",title:"mandelbulb"},{id:"fold",title:"fold"},
+  {id:"mandelbulb",title:"mandelbulb"},
   {id:"metafluid",title:"metafluid"},
-  {id:"flow_field",title:"flow field"},{id:"reaction_diffusion",title:"reaction diffusion"},
-  {id:"voronoi",title:"voronoi"},{id:"contour_field",title:"contour field"},
-  {id:"truchet",title:"truchet"},{id:"truchet_b",title:"truchet // color"},
-  {id:"l_system",title:"l-system"},{id:"cellular_erosion",title:"cellular erosion"},
-  {id:"recursive_grid",title:"recursive grid"},{id:"wave_interference",title:"wave interference"},
+  {id:"moire_field",title:"moire field"},
+  {id:"particle_orbitals",title:"particle orbitals"},
+  {id:"radial_noise",title:"radial noise"},
+  {id:"kaleidoscope_field",title:"kaleidoscope field"},
+  {id:"topographic_rings",title:"topographic rings"},
+  {id:"ribbon_flow",title:"ribbon flow"},
+  {id:"glyph_field",title:"glyph field"},
+  {id:"crystal_growth",title:"crystal growth"},
+  {id:"vector_scope",title:"vector scope"},
+  {id:"wave_lattice",title:"wave lattice"},
+  {id:"fractal_tiles",title:"fractal tiles"},
+  {id:"plasma_membrane",title:"plasma membrane"},
+  {id:"interference_grid",title:"interference grid"},
+  {id:"cellular_bloom",title:"cellular bloom"},
+  {id:"vortex_sheet",title:"vortex sheet"},
+  {id:"prism_moire",title:"prism moire"},
+  {id:"terrain_slice",title:"terrain slice"},
+  {id:"signal_weave",title:"signal weave"},
+  {id:"crater_field",title:"crater field"},
+  {id:"spiral_lattice",title:"spiral lattice"},
+  {id:"signal_rain",title:"signal rain"},
+  {id:"echo_contours",title:"echo contours"},
+  {id:"magnetic_dust",title:"magnetic dust"},
+  {id:"neural_lattice",title:"neural lattice"},
+  {id:"flow_field",title:"flow field"},
+  {id:"reaction_diffusion",title:"reaction diffusion"},
+  {id:"voronoi",title:"voronoi"},
+  {id:"contour_field",title:"contour field"},
+  {id:"truchet",title:"truchet"},
+  {id:"truchet_b",title:"truchet // color"},
+  {id:"l_system",title:"l-system"},
+  {id:"cellular_erosion",title:"cellular erosion"},
+  {id:"recursive_grid",title:"recursive grid"},
+  {id:"wave_interference",title:"wave interference"},
   {id:"stipple",title:"stipple"},
-  {id:"hex_grid",title:"hex grid"},{id:"rose_curve",title:"rose curve"},
-  {id:"lissajous_mesh",title:"lissajous mesh"},{id:"torus_knot",title:"torus knot"},
+  {id:"hex_grid",title:"hex grid"},
+  {id:"rose_curve",title:"rose curve"},
+  {id:"lissajous_mesh",title:"lissajous mesh"},
+  {id:"torus_knot",title:"torus knot"},
+  {id:"agent_swarm_relief",title:"agent swarm relief"},
+  {id:"catenary_web",title:"catenary web"},
+  {id:"gyroid",title:"gyroid"},
+  {id:"hyperbolic_tiling",title:"hyperbolic tiling"},
+  {id:"origami_fold_field",title:"origami fold field"},
+  {id:"phyllotaxis_stack",title:"phyllotaxis stack"},
+  {id:"quasicrystal_relief",title:"quasicrystal relief"},
+  {id:"reaction_terraces",title:"reaction terraces"},
+  {id:"sdf",title:"sdf"},
+  {id:"tensegrity_nodes",title:"tensegrity nodes"},
+  {id:"voronoi_tower_field",title:"voronoi tower field"},
+  {id:"woven_lattice_relief",title:"woven lattice relief"},
 ];
 
 /* NOIXZY_SDF_VISIBLE_THEME_LABEL_FIX_START */
@@ -2057,50 +1810,6 @@ function buildNav(){
   const next=ALL_MODULES[(safeIdx+1)%ALL_MODULES.length];
   const np=document.getElementById("navPrev"); if(np){ np.href="../"+prev.id+"/noixzy_"+prev.id+".html"; np.title=prev.title; }
   const nn=document.getElementById("navNext"); if(nn){ nn.href="../"+next.id+"/noixzy_"+next.id+".html"; nn.title=next.title; }
-
-  const rail=document.getElementById("stageThumbs");
-  if(rail){
-    ["pointerdown","mousedown","mouseup","touchstart"].forEach(type=>{
-      rail.addEventListener(type,e=>e.stopPropagation(),true);
-    });
-    if(!rail.dataset.wheelBound){
-      rail.dataset.wheelBound="1";
-      rail.addEventListener("wheel",e=>{
-        e.preventDefault();
-        e.stopPropagation();
-        const strip=document.getElementById("moduleThumbStrip");
-        if(strip) strip.scrollTop += e.deltaY;
-      },{capture:true,passive:false});
-    }
-  }
-
-  const strip=document.getElementById("moduleThumbStrip"); if(!strip) return;
-  strip.innerHTML="";
-  let railSelected=safeIdx;
-
-  function selectThumb(i){
-    const links=[...strip.querySelectorAll(".navThumb")];
-    if(!links.length) return;
-    railSelected=(i+links.length)%links.length;
-    links.forEach(a=>a.classList.remove("selected"));
-    links[railSelected].classList.add("selected");
-    links[railSelected].scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"});
-  }
-
-  ALL_MODULES.forEach(m=>{
-    const a=document.createElement("a"); a.href="../"+m.id+"/noixzy_"+m.id+".html"; a.title=m.title;
-    a.className="navThumb"+(m.id===PIECE?" active":"");
-    a.onclick=e=>{ e.preventDefault(); e.stopPropagation(); window.location.href=a.href; };
-    const img=document.createElement("img"); img.src="../home/thumbs/"+m.id+".png"; img.alt=m.title;
-    a.appendChild(img); strip.appendChild(a);
-  });
-
-  const up=document.getElementById("thumbUp");
-  const dn=document.getElementById("thumbDown");
-  if(up){ up.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected-1); }; }
-  if(dn){ dn.onclick=e=>{ e.preventDefault(); e.stopPropagation(); selectThumb(railSelected+1); }; }
-
-  setTimeout(()=>{ const el=strip.querySelector(".active"); if(el){ el.scrollIntoView({block:"center",inline:"nearest"}); } },50);
 }
 </script>
 

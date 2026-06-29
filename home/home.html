@@ -327,7 +327,7 @@ body::after {
     const manifest = await response.json();
 
     const modules = (manifest.modules || [])
-      .filter(module => module.enabledInShell !== false);
+      .filter(module => module.listedInHome === true);
 
     count.textContent = `${modules.length} modules`;
 
