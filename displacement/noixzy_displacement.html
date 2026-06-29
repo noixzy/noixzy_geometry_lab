@@ -1070,12 +1070,13 @@ function setup() {
   });
   document.getElementById("btnThumb")?.addEventListener("click", saveThumb);
 
-  document.getElementById("btnPause")?.addEventListener("click", ()=>{
+  window.noixzyTogglePause = function(){
     paused = !paused;
     if(paused) pauseT = millis() - t0;
     else t0 = millis() - pauseT;
     document.getElementById("btnPause").textContent = paused ? "play" : "pause";
-  });
+  };
+  document.getElementById("btnPause")?.addEventListener("click", window.noixzyTogglePause);
 
   document.addEventListener("keydown", e=>{
     if(e.key === "h") document.getElementById("panel").classList.toggle("hidden");
@@ -1102,7 +1103,7 @@ function setup() {
   document.getElementById("themePrev")?.addEventListener("click",()=>cycleTheme(-1));
   document.getElementById("themeNext")?.addEventListener("click",()=>cycleTheme(1));
   // reset
-  document.getElementById("btnReset")?.addEventListener("click",()=>location.reload());
+  document.getElementById("btnReset")?.addEventListener("click",()=>location.replace(location.pathname + "?reset=" + Date.now()));
   // copy/paste state
   document.getElementById("btnCopy")?.addEventListener("click",()=>{
     const state=JSON.stringify({P:{...P},cs:{...cs}});
