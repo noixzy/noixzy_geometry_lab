@@ -1,28 +1,30 @@
-# PROJECT STATE
+# PROJECT STATE — noixzy_geometry_lab
 
-Started after final archive of:
-noixzy/noixzy_generative_lab
+Last updated: 2026-06-29
 
-Current baseline:
-- 57 module files
-- 57 manifest modules
-- all modules classified as generated
-- all modules enabled in shell
-- right panels hidden
-- bottom button panels hidden
-- viewport preview fix applied
-- legacy planning docs stored in _legacy_planning_docs
+## Current state
 
-Next priority:
-Rebuild home/shell as the only visible product layer.
+- 53 active modules, all listed in manifest, all enabled in shell
+- Home grid and top rail routing working correctly
+- Module shell loads correct module via URL param
+- CSS consolidated — no override drift, no !important
+- Dead files cleaned from root and home/
 
-## Repo declutter pass
+## What's working
 
-Moved baseline-import clutter into `_legacy_import/`:
-- manifest backups
-- scan reports
-- contact sheet files
-- old build assets
-- stray imported folders
+- home/home.html — clean single-block CSS, reads manifest dynamically
+- module_shell.html — loads module by ?module= param, shell controls wired
+- modules.manifest.json — single source of truth, no discrepancies
+- Local dev server: npx serve . -l 3000
 
-Root should now stay focused on the geometry lab product layer and module engines.
+## Archived
+
+- sdf module — benched, moved to workspace/module_archive_20260629/
+- home/index.html — old build, archived
+- Scan reports, handoff docs, gallery SVG — archived
+
+## Next
+
+- Define clean module addition contract
+- Add new modules with confidence
+- Parameter panels + UI overlay (ruler overlay kept as planning reference)

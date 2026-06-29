@@ -2,14 +2,12 @@
   "schemaVersion": "1.0.0",
   "summary": {
     "listedCount": 53,
-    "liveCount": 54,
-    "unlistedLiveCount": 1,
+    "liveCount": 53,
+    "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
   "discrepancies": {
-    "unlistedLive": [
-      "sdf"
-    ],
+    "unlistedLive": [],
     "listedMissingFiles": []
   },
   "modules": [
@@ -512,16 +510,6 @@
       "listedInHome": true,
       "enabledInShell": true,
       "status": "listed"
-    },
-    {
-      "id": "sdf",
-      "title": "sdf",
-      "file": "sdf/noixzy_sdf.html",
-      "thumb": "home/thumbs/sdf.png",
-      "authorship": "generated",
-      "listedInHome": false,
-      "enabledInShell": true,
-      "status": "unlisted"
     },
     {
       "id": "tensegrity_nodes",

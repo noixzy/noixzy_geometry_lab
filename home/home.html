@@ -6,290 +6,176 @@
 <title>home</title>
 <style>
   :root {
-    --bg:#050506;
-    --ink:#f2f2ee;
-    --dim:#8f8f8a;
-    --line:rgba(255,255,255,.13);
-    --panel:rgba(255,255,255,.045);
-    --accent:#d8c06a;
+    --bg: #000;
+    --ink: #f2f2ee;
+    --dim: #8f8f8a;
+    --line: rgba(255,255,255,.13);
+    --panel: rgba(255,255,255,.045);
+    --accent: #d8c06a;
   }
 
-  * { box-sizing:border-box; }
+  * { box-sizing: border-box; }
 
   html, body {
-    margin:0;
-    min-height:100%;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(255,255,255,.07), transparent 38%),
-      linear-gradient(180deg, #09090b 0%, #050506 48%, #020203 100%);
-    color:var(--ink);
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #000;
+    color: var(--ink);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    overflow-x: hidden;
   }
 
   body {
-    padding-top:132px;
-    overflow-x:hidden;
+    padding-top: 30px;
   }
 
-  .navBar {
-    position:fixed;
-    top:12px;
-    left:50%;
-    width:min(1500px, calc(100vw - 32px));
-    height:50px;
-    transform:translateX(-50%);
-    z-index:50;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0 18px;
-    background:rgba(0,0,0,.34);
-    border:1px solid rgba(255,255,255,.16);
-    border-radius:16px;
-    box-shadow:0 14px 40px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.10);
-    backdrop-filter:blur(14px) saturate(1.15);
-    -webkit-backdrop-filter:blur(14px) saturate(1.15);
-  }
-.thumbRailWrap {
-    position:fixed;
-    top:74px;
-    left:50%;
-    width:min(1500px, calc(100vw - 32px));
-    transform:translateX(-50%);
-    z-index:45;
-    padding:8px;
-    border:1px solid rgba(255,255,255,.11);
-    border-radius:14px;
-    background:rgba(0,0,0,.28);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
+  .thumbRailWrap {
+    position: relative;
+    width: min(1350px, calc(100vw - 96px));
+    margin: 0 auto 14px;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 14px;
+    background: rgba(0,0,0,.28);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .thumbRail {
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    overflow-y:hidden;
-    scrollbar-width:thin;
-    padding-bottom:2px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+  }
+
+  .thumbRail::-webkit-scrollbar {
+    display: none;
   }
 
   .railThumb {
-    flex:0 0 auto;
-    width:82px;
-    height:48px;
-    border:1px solid rgba(255,255,255,.13);
-    border-radius:9px;
-    overflow:hidden;
-    background:#000;
-    opacity:.72;
-    transition:opacity .16s ease, transform .16s ease, border-color .16s ease;
+    flex: 0 0 auto;
+    width: 82px;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 9px;
+    overflow: hidden;
+    background: #000;
+    opacity: .72;
+    transition: opacity .16s ease, transform .16s ease, border-color .16s ease;
   }
 
   .railThumb:hover {
-    opacity:1;
-    transform:translateY(-1px);
-    border-color:rgba(216,192,106,.65);
+    opacity: 1;
+    transform: translateY(-1px);
+    border-color: rgba(216,192,106,.65);
   }
 
   .railThumb img {
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .logoBox {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-50% - 5px));
+    z-index: 30;
+    width: 144px;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: 14px;
+    pointer-events: auto;
+  }
+
+  .logoBox img {
+    width: 68px;
+    height: 68px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
   }
 
   main {
-    width:min(1500px, calc(100vw - 32px));
-    margin:0 auto;
-    padding:28px 0 56px;
-  }
-
-  .topLine {
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    gap:16px;
-    margin:0 0 18px;
-  }
-
-  h1 {
-    margin:0;
-    font-size:13px;
-    font-weight:500;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--dim);
-  }
-
-  .count {
-    color:var(--dim);
-    font-size:11px;
-    letter-spacing:.08em;
+    width: min(1350px, calc(100vw - 96px));
+    margin: 0 auto;
+    padding: 0 0 56px;
   }
 
   .grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
-    gap:14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
   }
 
   .card {
-    display:block;
-    min-height:160px;
-    text-decoration:none;
-    color:var(--ink);
-    border:1px solid var(--line);
-    border-radius:16px;
-    background:var(--panel);
-    overflow:hidden;
-    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+    display: block;
+    min-height: 160px;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--panel);
+    overflow: hidden;
+    transition: transform .16s ease, border-color .16s ease, background .16s ease;
   }
 
   .card:hover {
-    transform:translateY(-2px);
-    border-color:rgba(216,192,106,.55);
-    background:rgba(255,255,255,.07);
+    transform: translateY(-2px);
+    border-color: rgba(216,192,106,.55);
+    background: rgba(255,255,255,.07);
   }
 
   .card img {
-    width:100%;
-    height:118px;
-    display:block;
-    object-fit:cover;
-    background:#000;
+    width: 100%;
+    height: 118px;
+    display: block;
+    object-fit: cover;
+    background: #000;
   }
 
   .meta {
-    padding:10px 11px 12px;
+    padding: 10px 11px 12px;
   }
 
   .title {
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .sub {
-    margin-top:5px;
-    font-size:10px;
-    color:var(--dim);
-    letter-spacing:.08em;
+    margin-top: 5px;
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: .08em;
   }
 
   .error {
-    color:#ff7676;
-    border:1px solid rgba(255,118,118,.3);
-    padding:16px;
-    border-radius:14px;
-    background:rgba(255,118,118,.08);
+    color: #ff7676;
+    border: 1px solid rgba(255,118,118,.3);
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,118,118,.08);
   }
-
-/* FINAL: rail at very top of page canvas, centered, not sticky */
-html,
-body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-body {
-  display: block !important;
-}
-
-.thumbRailWrap {
-  position: static !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  z-index: auto !important;
-  width: min(1350px, calc(100vw - 96px)) !important;
-  margin: 0 auto 14px auto !important;
-  padding-top: 0 !important;
-  transform: none !important;
-}
-
-.thumbRail {
-  position: static !important;
-  margin: 0 auto !important;
-}
-
-main {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-
-/* hide rail scrollbar, keep horizontal scrolling */
-.thumbRail {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-.thumbRail::-webkit-scrollbar {
-  display: none !important;
-}
-
-
-/* pull entire home page content down 30px */
-body {
-  padding-top: 30px !important;
-}
-
-
-/* force home background all black */
-html,
-body {
-  background: rgba(0,0,0,.72) !important;
-  background-color: #000 !important;
-}
-body::before,
-body::after {
-  display: none !important;
-}
-
-
-/* remove HOME label and module count text */
-.topLine {
-  display: none !important;
-}
-
-/* logo hovers over center of thumbnail rail */
-.thumbRailWrap {
-  position: relative !important;
-}
-
-.logoBox {
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, calc(-50% - 5px)) !important;
-  z-index: 30 !important;
-  margin: 0 !important;
-  width: 144px !important;
-  height: 104px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 14px !important;
-  pointer-events: auto !important;
-}
-
-.logoBox img {
-  width: 68px !important;
-  height: 68px !important;
-  display: block !important;
-  object-fit: contain !important;
-  pointer-events: none !important;
-}
-
 </style>
 </head>
 <body>
-<div class="thumbRailWrap">
+
+  <div class="thumbRailWrap">
     <a class="logoBox" href="home.html" aria-label="home">
       <img src="assets/waveform_logo.svg" alt="waveform logo">
     </a>
@@ -297,70 +183,63 @@ body::after {
   </div>
 
   <main>
-    <div class="topLine">
-      <h1>home</h1>
-      <div class="count" id="count">loading</div>
-    </div>
     <section class="grid" id="grid"></section>
   </main>
 
-<script>
-(async function(){
-  const grid = document.getElementById("grid");
-  const rail = document.getElementById("thumbRail");
-  const count = document.getElementById("count");
+  <script>
+  (async function(){
+    const grid = document.getElementById("grid");
+    const rail  = document.getElementById("thumbRail");
 
-  function thumbPath(module) {
-    const id = module.id || (module.file || "").split("/")[0];
-    const raw = module.thumb || `home/thumbs/${id}.png`;
-    return raw.replace(/^home\//, "");
-  }
-
-  function shellHref(module) {
-    const id = module.id || (module.file || "").split("/")[0];
-    return `../module_shell.html?module=${encodeURIComponent(id)}`;
-  }
-
-  try {
-    const response = await fetch("../modules.manifest.json", { cache:"no-store" });
-    if (!response.ok) throw new Error(`manifest ${response.status}`);
-    const manifest = await response.json();
-
-    const modules = (manifest.modules || [])
-      .filter(module => module.listedInHome === true);
-
-    count.textContent = `${modules.length} modules`;
-
-    for (const module of modules) {
-      const id = module.id || (module.file || "").split("/")[0];
-      const title = module.title || id.replaceAll("_", " ");
-      const href = shellHref(module);
-      const thumb = thumbPath(module);
-
-      const railA = document.createElement("a");
-      railA.className = "railThumb";
-      railA.href = href;
-      railA.title = title;
-      railA.innerHTML = `<img src="${thumb}" alt="${title}" loading="lazy">`;
-      rail.appendChild(railA);
-
-      const card = document.createElement("a");
-      card.className = "card";
-      card.href = `../module_shell.html?module=${encodeURIComponent(module.id)}`;
-      card.innerHTML = `
-        <img src="${thumb}" alt="${title}" loading="lazy">
-        <div class="meta">
-          <div class="title">${title}</div>
-          <div class="sub">geometry engine · shell route</div>
-        </div>
-      `;
-      grid.appendChild(card);
+    function thumbPath(module) {
+      const id  = module.id || (module.file || "").split("/")[0];
+      const raw = module.thumb || `home/thumbs/${id}.png`;
+      return raw.replace(/^home\//, "");
     }
-  } catch (err) {
-    count.textContent = "error";
-    grid.innerHTML = `<div class="error">Unable to load modules.manifest.json<br>${err.message}</div>`;
-  }
-})();
-</script>
+
+    function shellHref(module) {
+      const id = module.id || (module.file || "").split("/")[0];
+      return `../module_shell?module=${encodeURIComponent(id)}`;
+    }
+
+    try {
+      const response = await fetch("../modules.manifest.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`manifest ${response.status}`);
+      const manifest = await response.json();
+
+      const modules = (manifest.modules || [])
+        .filter(m => m.listedInHome === true);
+
+      for (const module of modules) {
+        const id    = module.id || (module.file || "").split("/")[0];
+        const title = module.title || id.replaceAll("_", " ");
+        const href  = shellHref(module);
+        const thumb = thumbPath(module);
+
+        const railA = document.createElement("a");
+        railA.className = "railThumb";
+        railA.href  = href;
+        railA.title = title;
+        railA.innerHTML = `<img src="${thumb}" alt="${title}" loading="lazy">`;
+        rail.appendChild(railA);
+
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = href;
+        card.innerHTML = `
+          <img src="${thumb}" alt="${title}" loading="lazy">
+          <div class="meta">
+            <div class="title">${title}</div>
+            <div class="sub">geometry engine · shell route</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    } catch (err) {
+      grid.innerHTML = `<div class="error">Unable to load modules.manifest.json<br>${err.message}</div>`;
+    }
+  })();
+  </script>
+
 </body>
 </html>
