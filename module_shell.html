@@ -649,9 +649,33 @@ body {
     frame.contentWindow?.postMessage({ type: "setParam", key: "__extrudeOff", value: extrudeOffCheck.checked }, "*");
   });
 
+  // ── param request with cancellation ──
+  let _paramTimer = null;
+
+  function cancelParamRetries() {
+    if (_paramTimer !== null) { clearTimeout(_paramTimer); _paramTimer = null; }
+  }
+
+  function requestParams() {
+    clearParams();
+    cancelParamRetries();
+    let attempts = 0;
+    const MAX = 3, INTERVAL = 300, INITIAL = 150;
+    function try_() {
+      if (attempts >= MAX) { _paramTimer = null; return; }
+      attempts++;
+      frame.contentWindow?.postMessage({ type: "getParams" }, "*");
+      _paramTimer = setTimeout(try_, INTERVAL);
+    }
+    _paramTimer = setTimeout(try_, INITIAL);
+  }
+
+  frame.addEventListener("load", requestParams);
+
   // ── listen for messages from module ──
   window.addEventListener("message", e => {
     if (!e.data || e.data.type !== "params") return;
+    cancelParamRetries();
     const defs = e.data.data;
     const extrudeDef = defs.find(d => d.k === "__extrudeOff");
     if (extrudeDef) {
@@ -661,19 +685,6 @@ body {
     }
     renderParams(defs.filter(d => d.k !== "__extrudeOff"));
   });
-
-  function requestParams() {
-    clearParams();
-    let attempts = 0;
-    const try_ = () => {
-      frame.contentWindow?.postMessage({ type: "getParams" }, "*");
-      attempts++;
-      if (attempts < 5) setTimeout(try_, 600);
-    };
-    setTimeout(try_, 500);
-  }
-
-  frame.addEventListener("load", requestParams);
 
   // ── proxy controls ──
   const proxyAliases = {
