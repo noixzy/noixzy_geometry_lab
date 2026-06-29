@@ -228,6 +228,7 @@ body {
     randomColor: ["randomColor", "btnRandomColor"],
     newSeed: ["newSeed", "btnNewSeed"],
     pause: ["pause", "btnPause"],
+    reset: ["reset", "btnReset"],
     save: ["save", "btnSave", "btnSave2"],
     save2x: ["save2x", "btnSave2x", "btnSave2x2"],
     thumb: ["thumb", "btnThumb", "btnThumb2"],
@@ -279,6 +280,23 @@ body {
       }
     }
 
+    if (id === "reset") {
+      if (win && typeof win._resetMf === "function") {
+        win._resetMf();
+        return true;
+      }
+      if (win && typeof win.applyConfig === "function" && Array.isArray(win.PARAMS)) {
+        const d = {};
+        win.PARAMS.forEach(p => { d[p.k] = p.v; });
+        win.applyConfig({ seed: 1, P: d });
+        return true;
+      }
+      if (win && typeof win.resetFromConsole === "function") {
+        win.resetFromConsole();
+        return true;
+      }
+    }
+
     if (id === "randomAll" && win && typeof win.randomizeParams === "function") {
       win.randomizeParams("all");
       return true;
@@ -316,7 +334,7 @@ body {
       const doc = frame.contentDocument;
       if (!doc) return;
 
-      if (["randomAll", "randomForm", "randomColor", "newSeed", "pause", "themePrev", "themeNext"].includes(id) && runProxyFallback(doc, id)) {
+      if (["randomAll", "randomForm", "randomColor", "newSeed", "pause", "reset", "themePrev", "themeNext"].includes(id) && runProxyFallback(doc, id)) {
         return;
       }
 
