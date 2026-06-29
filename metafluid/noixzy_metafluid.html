@@ -819,13 +819,17 @@ let P  = { count:14, radius:0.45, smooth:0.55, speed:0.28, spread:0.58, spin:0.2
 let t0, paused=false, pauseT=0, theShader;
 let mfSeed = Math.floor(Math.random()*1000000);
 let _camAzimuth=0, _drag={active:false, x:0, y:0};
+let _velAz=0, _velElev=0;
+const _DAMPING=0.93;
 
 function _initOrbit(stg){
   stg.addEventListener("pointerdown", e=>{ _drag={active:true,x:e.clientX,y:e.clientY}; stg.setPointerCapture(e.pointerId); },{passive:true});
   stg.addEventListener("pointermove", e=>{
     if(!_drag.active) return;
-    _camAzimuth += (e.clientX-_drag.x)*0.012;
-    P.elev = clampV(P.elev-(e.clientY-_drag.y)*0.007,-1.5,2.5);
+    _velAz = (e.clientX-_drag.x)*0.012;
+    _velElev = -(e.clientY-_drag.y)*0.007;
+    _camAzimuth += _velAz;
+    P.elev = clampV(P.elev+_velElev,-1.5,2.5);
     _drag.x=e.clientX; _drag.y=e.clientY;
     const se=document.getElementById("sElev"); if(se){ se.value=P.elev; document.getElementById("vElev").textContent=P.elev.toFixed(2); }
   },{passive:true});
@@ -1439,6 +1443,18 @@ _bindConsoleUtilities();
 function draw() {
   if(paused) return;
   _audioApply();
+  if(!_drag.active) {
+    if(Math.abs(_velAz) > 0.0001) {
+      _camAzimuth += _velAz;
+      _velAz *= _DAMPING;
+      if(Math.abs(_velAz) < 0.0001) _velAz = 0;
+    }
+    if(Math.abs(_velElev) > 0.0001) {
+      P.elev = clampV(P.elev + _velElev, -1.5, 2.5);
+      _velElev *= _DAMPING;
+      if(Math.abs(_velElev) < 0.0001) _velElev = 0;
+    }
+  }
   const t = (millis() - t0) / 1000.0;
 
   shader(theShader);

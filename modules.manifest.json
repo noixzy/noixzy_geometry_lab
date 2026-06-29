@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 53,
-    "liveCount": 53,
+    "listedCount": 55,
+    "liveCount": 55,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -16,6 +16,26 @@
       "title": "grid extrude",
       "file": "grid_extrude/noixzy_grid_extrude.html",
       "thumb": "home/thumbs/grid_extrude.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "brutalist_massing",
+      "title": "brutalist massing",
+      "file": "brutalist_massing/noixzy_brutalist_massing.html",
+      "thumb": "home/thumbs/brutalist_massing.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "triangulated_signal_mesh",
+      "title": "triangulated signal mesh",
+      "file": "triangulated_signal_mesh/noixzy_triangulated_signal_mesh.html",
+      "thumb": "home/thumbs/triangulated_signal_mesh.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,

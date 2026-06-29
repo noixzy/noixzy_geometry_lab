@@ -175,12 +175,30 @@ body {
   font:10px/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   letter-spacing:.08em;
   text-transform:uppercase;
+  text-align:center;
   cursor:pointer;
 }
 
 .shellControls button:hover {
   border-color:rgba(216,192,106,.65);
   background:rgba(255,255,255,.10);
+}
+
+.btnRow {
+  display:flex;
+  gap:4px;
+  width:92px;
+}
+.btnRow button {
+  flex:1;
+  width:auto;
+  min-width:0;
+}
+
+.btnToggle.active {
+  background:rgba(216,192,106,.18);
+  border-color:rgba(216,192,106,.55);
+  color:rgb(216,192,106);
 }
 
 /* ── prev / next module nav ── */
@@ -409,13 +427,24 @@ body {
     </label>
     <div class="paramDivider" id="extrudeDivider" style="display:none"></div>
     <button type="button" data-proxy="randomAll">random all</button>
-    <button type="button" data-proxy="randomForm">random form</button>
-    <button type="button" data-proxy="randomColor">random color</button>
-    <button type="button" data-proxy="newSeed">new seed</button>
+    <div class="btnRow">
+      <button type="button" data-proxy="randomForm">rand form</button>
+      <button type="button" data-proxy="randomColor">rand color</button>
+    </div>
+    <div class="btnRow">
+      <button type="button" data-proxy="undo">undo</button>
+      <button type="button" data-proxy="redo">redo</button>
+    </div>
+    <div class="btnRow">
+      <button type="button" data-proxy="newSeed">new seed</button>
+      <button type="button" data-proxy="reset">reset</button>
+    </div>
     <button type="button" data-proxy="pause">pause</button>
-    <button type="button" data-proxy="reset">reset</button>
-    <button type="button" data-proxy="themePrev">theme prev</button>
-    <button type="button" data-proxy="themeNext">theme next</button>
+    <button type="button" data-proxy="bgAlpha" class="btnToggle" id="btnBgAlpha">bg alpha</button>
+    <div class="btnRow">
+      <button type="button" data-proxy="themePrev">thm prev</button>
+      <button type="button" data-proxy="themeNext">thm next</button>
+    </div>
     <div class="paramDivider" id="paramDivider" style="display:none"></div>
     <div class="paramPanel" id="paramPanel"></div>
   </aside>
@@ -568,19 +597,23 @@ body {
 
   // ── proxy controls ──
   const proxyAliases = {
-    randomAll: ["randomUnlocked", "randomAll", "btnRandom", "btnRandomAll", "btnRandomUnlocked"],
+    randomAll: ["randomUnlocked", "randomAll", "btnRandom", "btnRandomAll", "btnRandomUnlocked", "randomize"],
     randomForm: ["randomForm", "btnRandomForm"],
     randomColor: ["randomColor", "btnRandomColor"],
+    undo: ["btnUndo", "undo"],
+    redo: ["btnRedo", "redo"],
     newSeed: ["btnNewSeed", "newSeed"],
-    pause: ["btnPause", "pause"],
+    pause: ["btnPause", "pause", "play"],
     reset: ["btnReset", "reset"],
-    save: ["btnSave", "save", "btnSave2"],
+    save: ["btnSave", "save", "btnSave2", "export"],
     save2x: ["btnSave2x", "save2x", "btnSave2x2"],
     thumb: ["btnThumb", "thumb", "btnThumb2"],
     rec: ["btnRec", "rec", "btnRec2"],
     themePrev: ["themePrev"],
     themeNext: ["themeNext"],
   };
+
+  let _bgAlphaActive = false;
 
   function findProxyTarget(doc, id) {
     const ids = proxyAliases[id] || [id];
@@ -615,6 +648,21 @@ body {
     const win = doc.defaultView;
     const api = win && win.noixzyModuleControls;
     if (api && typeof api[id] === "function") { api[id](); return true; }
+    if (id === "bgAlpha") {
+      _bgAlphaActive = !_bgAlphaActive;
+      const btn = document.getElementById("btnBgAlpha");
+      if (btn) btn.classList.toggle("active", _bgAlphaActive);
+      frame.contentWindow?.postMessage({ type: "setParam", key: "__bgAlpha", value: _bgAlphaActive }, "*");
+      return true;
+    }
+    if (id === "undo") {
+      if (win && typeof win._histUndoStep === "function") { win._histUndoStep(); return true; }
+      return clickFirst(doc, ["btnUndo", "undo"]);
+    }
+    if (id === "redo") {
+      if (win && typeof win._histRedoStep === "function") { win._histRedoStep(); return true; }
+      return clickFirst(doc, ["btnRedo", "redo"]);
+    }
     if (id === "themePrev") return cycleIframeTheme(doc, -1);
     if (id === "themeNext") return cycleIframeTheme(doc, 1);
     if (id === "randomAll") {

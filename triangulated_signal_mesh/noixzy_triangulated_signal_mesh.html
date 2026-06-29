@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>noixzy triangulated signal mesh</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050505;
+      --panel: #101010;
+      --line: #2d2d2d;
+      --text: #e8e1d4;
+      --muted: #8c877d;
+      --accent: #a4c7d4;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 292px;
+      min-height: 100vh;
+    }
+
+    main {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255,255,255,.07), transparent 36%),
+        linear-gradient(#101010, #020202);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    aside {
+      border-left: 1px solid var(--line);
+      background: rgba(16, 16, 16, .96);
+      padding: 14px;
+      overflow: auto;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: lowercase;
+    }
+
+    .sub,
+    .note {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .sub {
+      margin: 0 0 14px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    button {
+      min-height: 34px;
+      border: 1px solid #373737;
+      background: #171717;
+      color: var(--text);
+      font: inherit;
+      font-size: 11px;
+      text-transform: lowercase;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: var(--accent); }
+
+    .seed-row {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    label,
+    .seed-row span {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: lowercase;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid #343434;
+      background: #080808;
+      color: var(--text);
+      padding: 8px;
+      font: inherit;
+      font-size: 11px;
+    }
+
+    .control {
+      padding: 9px 0;
+      border-top: 1px solid #222;
+    }
+
+    .control-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .value {
+      min-width: 42px;
+      color: var(--accent);
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .physics-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 12px;
+      padding: 9px 0;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: lowercase;
+    }
+
+    .physics-toggle input { accent-color: var(--accent); }
+
+    @media (max-width: 760px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 1fr) 315px;
+      }
+
+      aside {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <canvas id="view" aria-label="procedural triangulated signal mesh canvas"></canvas>
+  </main>
+  <aside>
+    <h1>noixzy triangulated signal mesh</h1>
+    <p class="sub">Delaunay-like signal facets, jittered point clouds, and tensioned mesh relief.</p>
+    <div class="buttons">
+      <button id="play">pause</button>
+      <button id="randomize">randomize</button>
+      <button id="reset">reset</button>
+      <button id="export">export png</button>
+    </div>
+    <div class="seed-row">
+      <span>seed</span>
+      <input id="seed" type="text" value="triangulated-signal-001" spellcheck="false">
+    </div>
+    <div id="controls"></div>
+    <label class="physics-toggle"><input id="experimental-physics" type="checkbox"> experimental physics</label>
+    <p class="note">batch 15 extract: signal facets, radius connections, seeded jitter, and mesh relief.</p>
+  </aside>
+
+  <script>
+    const defaults = {
+      pointCount: 96,
+      connectionRadius: 84,
+      jitter: 42,
+      signalWarp: 55,
+      facetFill: 36,
+      lineWeight: 1,
+      bump: 28,
+      palette: 2
+    };
+
+    const controlDefs = [
+      ["pointCount", "point count", 20, 220, 1],
+      ["connectionRadius", "connection radius", 20, 180, 1],
+      ["jitter", "jitter", 0, 100, 1],
+      ["signalWarp", "signal warp", 0, 100, 1],
+      ["facetFill", "facet fill", 0, 100, 1],
+      ["lineWeight", "line weight", 1, 6, 1],
+      ["bump", "bump", 0, 100, 1],
+      ["palette", "palette", 0, 5, 1]
+    ];
+
+    const PARAMS = controlDefs.map(([key, label, min, max, step]) => ({
+      k: key,
+      label,
+      min,
+      max,
+      step,
+      v: defaults[key],
+      type: "range"
+    }));
+    const P = {};
+    PARAMS.forEach(p => { P[p.k] = p.v; });
+
+    const PALETTES = [
+      ["#070707", "#d8c9aa", "#8fc8c2"],
+      ["#050706", "#a8d0ad", "#e4d8b6"],
+      ["#05080b", "#9dc7ff", "#e8c779"],
+      ["#090805", "#d4bd84", "#9bb7d2"],
+      ["#090606", "#d2a487", "#d8c9aa"],
+      ["#08070a", "#c7b2df", "#80d6d0"]
+    ];
+
+    const canvas = document.getElementById("view");
+    const ctx = canvas.getContext("2d");
+    const controls = document.getElementById("controls");
+    const seedInput = document.getElementById("seed");
+    const playButton = document.getElementById("play");
+    const values = {};
+    let running = true;
+    let frame = 0;
+    let width = 1;
+    let height = 1;
+    let dpr = 1;
+    let experimentalPhysics = false;
+
+    function hashString(text) {
+      let hash = 2166136261;
+      for (let i = 0; i < text.length; i++) {
+        hash ^= text.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return hash >>> 0;
+    }
+
+    function randomSource(seed) {
+      let t = hashString(seed) || 1;
+      return function random() {
+        t += 0x6D2B79F5;
+        let r = Math.imul(t ^ (t >>> 15), 1 | t);
+        r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function hsl(h, s, l, a) {
+      return `hsla(${h}, ${s}%, ${l}%, ${a})`;
+    }
+
+    function palette() {
+      return PALETTES[Math.abs(Math.floor(P.palette || 0)) % PALETTES.length];
+    }
+
+    function snapToStep(value, min, max, step) {
+      const safeStep = Number(step) || 1;
+      const snapped = Math.round(value / safeStep) * safeStep;
+      return Math.max(Number(min), Math.min(Number(max), Number.isInteger(safeStep) ? Math.round(snapped) : Number(snapped.toFixed(3))));
+    }
+
+    function randomBiasFor(label) {
+      const k = String(label).toLowerCase();
+      if (/palette|preset/.test(k)) return Math.random();
+      if (/count|grid|rows|columns|steps|iterations|order|recursion|points|copies|bands|shell/.test(k)) return 0.38 + Math.random() * 0.62;
+      if (/extrude|depth|bump|relief|scale|size|weight|radius|segment/.test(k)) return 0.25 + Math.random() * 0.75;
+      return 0.12 + Math.random() * 0.76;
+    }
+
+    function buildControls() {
+      controls.innerHTML = "";
+      controlDefs.forEach(([key, label, min, max, step]) => {
+        const wrap = document.createElement("div");
+        wrap.className = "control";
+        wrap.innerHTML = `
+          <div class="control-head">
+            <label for="${key}">${label}</label>
+            <span class="value" id="${key}Value">${P[key]}</span>
+          </div>
+          <input id="${key}" type="range" min="${min}" max="${max}" step="${step}" value="${P[key]}">
+        `;
+        controls.appendChild(wrap);
+        values[key] = wrap.querySelector(".value");
+        wrap.querySelector("input").addEventListener("input", event => {
+          P[key] = Number(event.target.value);
+          values[key].textContent = P[key];
+          draw();
+        });
+      });
+    }
+
+    function syncControl(key) {
+      const input = document.getElementById(key);
+      if (input) input.value = P[key];
+      if (values[key]) values[key].textContent = P[key];
+    }
+
+    function randomizeModuleControls() {
+      controlDefs.forEach(([key, label, min, max, step]) => {
+        const value = snapToStep(min + (max - min) * randomBiasFor(label || key), min, max, step);
+        P[key] = value;
+        syncControl(key);
+      });
+      experimentalPhysics = Math.random() > 0.55;
+      const physics = document.getElementById("experimental-physics");
+      if (physics) physics.checked = experimentalPhysics;
+      applyExperimentalPhysics();
+    }
+
+    function applyExperimentalPhysics() {
+      const dx = experimentalPhysics ? Math.sin(frame * 0.017) * 4 : 0;
+      const dy = experimentalPhysics ? Math.cos(frame * 0.013) * 3 : 0;
+      const breathe = experimentalPhysics ? 1 + Math.sin(frame * 0.011) * 0.004 : 1;
+      canvas.style.transformOrigin = "50% 50%";
+      canvas.style.transform = experimentalPhysics ? `translate3d(${dx}px, ${dy}px, 0) scale(${breathe})` : "";
+      canvas.style.filter = experimentalPhysics ? "contrast(1.06) saturate(1.08)" : "";
+    }
+
+    function resizeCanvas() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const rect = canvas.getBoundingClientRect();
+      width = Math.max(320, Math.floor(rect.width));
+      height = Math.max(260, Math.floor(rect.height));
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function drawBackground(colors) {
+      ctx.fillStyle = colors[0];
+      ctx.fillRect(0, 0, width, height);
+      const glow = ctx.createRadialGradient(width * 0.5, height * 0.26, 0, width * 0.5, height * 0.26, Math.min(width, height) * 0.62);
+      glow.addColorStop(0, "rgba(255,255,255,.075)");
+      glow.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    function buildPoints(random) {
+      const points = [];
+      const count = Math.floor(P.pointCount);
+      for (let i = 0; i < count; i++) {
+        points.push({
+          x: width * (0.1 + random() * 0.8) + (random() - 0.5) * P.jitter,
+          y: height * (0.12 + random() * 0.76) + (random() - 0.5) * P.jitter,
+          phase: random() * Math.PI * 2
+        });
+      }
+      return points;
+    }
+
+    function drawFacets(points, colors, t) {
+      if (P.facetFill <= 0 || points.length < 3) return;
+      const stride = Math.max(3, Math.floor(18 - P.facetFill * 0.13));
+      const radius = P.connectionRadius * (0.78 + P.facetFill * 0.006);
+      ctx.save();
+      for (let i = 0; i < points.length - 2; i += stride) {
+        const a = points[i];
+        const near = [];
+        for (let j = 0; j < points.length; j++) {
+          if (i === j) continue;
+          const b = points[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < radius) near.push({ point: b, d });
+        }
+        near.sort((m, n) => m.d - n.d);
+        if (near.length < 2) continue;
+        const b = near[0].point;
+        const c = near[1].point;
+        const alpha = 0.012 + P.facetFill * 0.0017;
+        ctx.fillStyle = hsl(198 + P.palette * 14 + Math.sin(t + i) * 12, 28, 44, alpha);
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x + Math.sin(t + i) * P.signalWarp * 0.03, b.y);
+        ctx.lineTo(c.x, c.y + Math.cos(t + i) * P.signalWarp * 0.03);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawConnections(points, t) {
+      ctx.lineWidth = P.lineWeight;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i];
+          const b = points[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < P.connectionRadius) {
+            const alpha = 0.12 + (1 - d / P.connectionRadius) * 0.35;
+            ctx.strokeStyle = `rgba(164,199,212,${alpha})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x + Math.sin(t + i) * P.signalWarp * 0.05, a.y);
+            ctx.lineTo(b.x, b.y + Math.cos(t + j) * P.signalWarp * 0.05);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawPoints(points, colors, t) {
+      points.forEach((point, index) => {
+        const size = 2 + P.bump * 0.02;
+        const lift = Math.sin(t * 1.5 + point.phase) * P.bump * 0.018;
+        ctx.fillStyle = index % 5 === 0 ? colors[1] : colors[2];
+        ctx.fillRect(point.x - P.bump * 0.015, point.y + lift, size, size);
+      });
+    }
+
+    function draw() {
+      const colors = palette();
+      const random = randomSource(`${seedInput.value}|triangulated`);
+      const t = frame * 0.012;
+      drawBackground(colors);
+      const points = buildPoints(random);
+      drawFacets(points, colors, t);
+      drawConnections(points, t);
+      drawPoints(points, colors, t);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "rgba(232,225,212,.68)";
+      ctx.font = "11px ui-monospace, monospace";
+      ctx.fillText(seedInput.value || "seed", 16, height - 18);
+    }
+
+    function tick() {
+      if (running) {
+        frame++;
+        applyExperimentalPhysics();
+        draw();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function randomSeed() {
+      return `triangulated-${Math.floor(Math.random() * 999999).toString(36)}`;
+    }
+
+    function resetAll() {
+      Object.assign(P, defaults);
+      controlDefs.forEach(([key]) => syncControl(key));
+      seedInput.value = "triangulated-signal-001";
+      experimentalPhysics = false;
+      const physics = document.getElementById("experimental-physics");
+      if (physics) physics.checked = false;
+      applyExperimentalPhysics();
+      frame = 0;
+      draw();
+    }
+
+    function exportPng() {
+      draw();
+      const link = document.createElement("a");
+      link.download = `noixzy_triangulated_signal_mesh_${seedInput.value || "seed"}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    const physicsToggle = document.getElementById("experimental-physics");
+    if (physicsToggle) physicsToggle.addEventListener("change", () => {
+      experimentalPhysics = physicsToggle.checked;
+      applyExperimentalPhysics();
+      draw();
+    });
+
+    seedInput.addEventListener("input", draw);
+    playButton.addEventListener("click", () => {
+      running = !running;
+      playButton.textContent = running ? "pause" : "play";
+      draw();
+    });
+    document.getElementById("randomize").addEventListener("click", () => {
+      seedInput.value = randomSeed();
+      randomizeModuleControls();
+      draw();
+    });
+    document.getElementById("reset").addEventListener("click", resetAll);
+    document.getElementById("export").addEventListener("click", exportPng);
+    window.addEventListener("resize", resizeCanvas);
+
+    buildControls();
+    resizeCanvas();
+    tick();
+
+    // noixzy shell postMessage bridge
+    window.addEventListener("message", e => {
+      if (!e.data) return;
+      if (e.data.type === "getParams") {
+        const defs = PARAMS.map(p => ({
+          k: p.k,
+          label: p.label,
+          min: p.min,
+          max: p.max,
+          step: p.step,
+          v: P[p.k] ?? p.v,
+          type: p.type || "range"
+        }));
+        window.parent.postMessage({ type: "params", data: defs }, "*");
+      }
+      if (e.data.type === "setParam") {
+        const { key, value } = e.data;
+        if (Object.prototype.hasOwnProperty.call(P, key)) {
+          const def = PARAMS.find(p => p.k === key);
+          const next = typeof value === "number" ? value : Number(value);
+          P[key] = Number.isFinite(next) ? clamp(next, def.min, def.max) : value;
+          syncControl(key);
+          draw();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
