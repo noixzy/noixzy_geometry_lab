@@ -263,11 +263,63 @@ body {
     return true;
   }
 
+  function clickFirst(doc, ids) {
+    for (const id of ids) {
+      const target = doc.getElementById(id);
+      if (target && typeof target.click === "function") {
+        target.click();
+        return true;
+      }
+    }
+    return false;
+  }
+
   function runProxyFallback(doc, id) {
     const win = doc.defaultView;
+    const api = win && win.noixzyModuleControls;
+
+    if (api && typeof api[id] === "function") {
+      api[id]();
+      return true;
+    }
 
     if (id === "themePrev") return cycleIframeTheme(doc, -1);
     if (id === "themeNext") return cycleIframeTheme(doc, 1);
+
+    if (id === "randomAll") {
+      if (win && typeof win.randomizeParams === "function") {
+        win.randomizeParams("all");
+        return true;
+      }
+      const formClicked = clickFirst(doc, ["randomForm", "btnRandomForm"]);
+      const colorClicked = clickFirst(doc, ["randomColor", "btnRandomColor"]);
+      if (formClicked || colorClicked) return true;
+      return clickFirst(doc, ["randomUnlocked", "btnRandom", "randomAll"]);
+    }
+
+    if (id === "randomForm") {
+      if (win && typeof win.randomizeParams === "function") {
+        win.randomizeParams("form");
+        return true;
+      }
+      return clickFirst(doc, ["randomForm", "btnRandomForm"]);
+    }
+
+    if (id === "randomColor") {
+      if (win && typeof win.randomizeParams === "function") {
+        win.randomizeParams("color");
+        return true;
+      }
+      return clickFirst(doc, ["randomColor", "btnRandomColor"]);
+    }
+
+    if (id === "newSeed") {
+      if (win && typeof win._newMfSeed === "function") {
+        win._newMfSeed();
+        return true;
+      }
+      return clickFirst(doc, ["btnNewSeed", "newSeed"]);
+    }
 
     if (id === "pause") {
       if (win && typeof win.noixzyTogglePause === "function") {
@@ -282,6 +334,7 @@ body {
         win.pauseFromConsole();
         return true;
       }
+      return clickFirst(doc, ["btnPause", "pause"]);
     }
 
     if (id === "reset") {
@@ -293,43 +346,13 @@ body {
         win.resetFromConsole();
         return true;
       }
-      const resetBtn = doc.getElementById("btnReset");
-      if (resetBtn && typeof resetBtn.click === "function") {
-        resetBtn.click();
-        return true;
-      }
-      if (win && typeof win.applyConfig === "function" && Array.isArray(win.PARAMS)) {
-        const d = {};
-        win.PARAMS.forEach(p => { d[p.k] = p.v; });
-        win.applyConfig({ seed: 1, P: d });
-        return true;
-      }
+      return clickFirst(doc, ["btnReset", "reset"]);
     }
 
-    if (id === "randomAll" && win && typeof win.randomizeParams === "function") {
-      win.randomizeParams("all");
-      return true;
-    }
-
-    if (id === "randomForm" && win && typeof win.randomizeParams === "function") {
-      win.randomizeParams("form");
-      return true;
-    }
-
-    if (id === "randomColor" && win && typeof win.randomizeParams === "function") {
-      win.randomizeParams("color");
-      return true;
-    }
-
-    if (id === "newSeed") {
-      if (win && typeof win._newMfSeed === "function") {
-        win._newMfSeed();
-        return true;
-      }
-    }
-
-    return false;
+    const targets = proxyAliases[id] || [id];
+    return clickFirst(doc, targets);
   }
+
 
   function bindShellControls() {
     const controls = document.getElementById("shellControls");
@@ -343,7 +366,7 @@ body {
       const doc = frame.contentDocument;
       if (!doc) return;
 
-      if (["randomAll", "randomForm", "randomColor", "newSeed", "pause", "reset", "themePrev", "themeNext"].includes(id) && runProxyFallback(doc, id)) {
+      if (runProxyFallback(doc, id)) {
         return;
       }
 
