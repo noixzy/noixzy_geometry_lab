@@ -183,6 +183,85 @@ body {
   background:rgba(255,255,255,.10);
 }
 
+/* ── prev / next module nav ── */
+.navTriggerLeft {
+  position:fixed;
+  left:0;
+  top:105px;
+  width:60px;
+  height:30px;
+  z-index:79;
+  pointer-events:auto;
+}
+
+.navTriggerRight {
+  position:fixed;
+  right:0;
+  top:105px;
+  width:60px;
+  height:30px;
+  z-index:79;
+  pointer-events:auto;
+}
+
+.navPill {
+  position:fixed;
+  top:105px;
+  z-index:80;
+  display:flex;
+  flex-direction:row;
+  gap:4px;
+  padding:4px 8px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  background:rgba(0,0,0,.38);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease;
+}
+
+.navPillLeft {
+  left:18px;
+  transform:translateX(-4px);
+}
+
+.navPillRight {
+  right:18px;
+  transform:translateX(4px);
+}
+
+.navTriggerLeft:hover ~ .navPillLeft,
+.navPillLeft:hover {
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0);
+}
+
+.navTriggerRight:hover ~ .navPillRight,
+.navPillRight:hover {
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0);
+}
+
+.navBtn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:24px;
+  border-radius:14px;
+  text-decoration:none;
+  color:#fff;
+  font-size:14px;
+}
+
+.navBtn:hover {
+  color:rgba(216,192,106,1);
+}
+
 /* ── utility bar ── */
 .utilityTrigger {
   position:fixed;
@@ -253,7 +332,7 @@ body {
   display:flex;
   flex-direction:column;
   gap:8px;
-  width:92px;
+  width:140px;
 }
 
 .paramPanel:empty {
@@ -340,6 +419,18 @@ body {
     <div class="paramDivider" id="paramDivider" style="display:none"></div>
     <div class="paramPanel" id="paramPanel"></div>
   </aside>
+
+  <div class="navTriggerLeft"></div>
+  <div class="navPill navPillLeft" id="navPillLeft">
+    <a class="navBtn" id="navPrevL" href="#" aria-label="previous module">&#8592;</a>
+    <a class="navBtn" id="navNextL" href="#" aria-label="next module">&#8594;</a>
+  </div>
+
+  <div class="navTriggerRight"></div>
+  <div class="navPill navPillRight" id="navPillRight">
+    <a class="navBtn" id="navPrevR" href="#" aria-label="previous module">&#8592;</a>
+    <a class="navBtn" id="navNextR" href="#" aria-label="next module">&#8594;</a>
+  </div>
 
   <div class="utilityTrigger"></div>
   <div class="utilityBar" id="utilityBar">
@@ -604,6 +695,15 @@ body {
 
       frame.src = moduleHref(active);
       status.remove();
+
+      // wire prev/next
+      const activeIdx = modules.findIndex(m => m.id === active.id);
+      const prevModule = modules[(activeIdx - 1 + modules.length) % modules.length];
+      const nextModule = modules[(activeIdx + 1) % modules.length];
+      const prevHref = shellHref(prevModule);
+      const nextHref = shellHref(nextModule);
+      ["navPrevL","navPrevR"].forEach(id => { const el = document.getElementById(id); if(el) el.href = prevHref; });
+      ["navNextL","navNextR"].forEach(id => { const el = document.getElementById(id); if(el) el.href = nextHref; });
     })
     .catch(err => {
       status.textContent = `error: ${err.message}`;
