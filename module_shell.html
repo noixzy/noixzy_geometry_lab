@@ -151,6 +151,7 @@ body {
   transform:translateX(8px);
   transition:opacity .18s ease, transform .18s ease;
   max-height:calc(100vh - 180px);
+  height:calc(100vh - 180px);
   overflow:hidden;
 }
 
@@ -357,8 +358,9 @@ body {
   flex:1 1 0;
   min-height:0;
   overflow-y:auto;
+  overflow-x:hidden;
   scrollbar-width:none;
-  width:100%;
+  width:92px;
 }
 
 .paramScrollWrap::-webkit-scrollbar {
@@ -377,7 +379,7 @@ body {
   display:flex;
   flex-direction:column;
   gap:8px;
-  width:140px;
+  width:92px;
 }
 
 .paramPanel:empty {
@@ -660,14 +662,15 @@ body {
     clearParams();
     cancelParamRetries();
     let attempts = 0;
-    const MAX = 3, INTERVAL = 300, INITIAL = 150;
+    const MAX = 8, BASE = 300, CAP = 3000;
     function try_() {
       if (attempts >= MAX) { _paramTimer = null; return; }
-      attempts++;
       frame.contentWindow?.postMessage({ type: "getParams" }, "*");
-      _paramTimer = setTimeout(try_, INTERVAL);
+      const delay = Math.min(BASE * Math.pow(2, attempts), CAP);
+      attempts++;
+      _paramTimer = setTimeout(try_, delay);
     }
-    _paramTimer = setTimeout(try_, INITIAL);
+    try_();
   }
 
   frame.addEventListener("load", requestParams);
