@@ -211,7 +211,10 @@
       facetFill: 36,
       lineWeight: 1,
       bump: 28,
-      palette: 2
+      palette: 2,
+      animMode: 0,
+      animSpeed: 0.5,
+      animIntensity: 0.5
     };
 
     const controlDefs = [
@@ -222,7 +225,10 @@
       ["facetFill", "facet fill", 0, 200, 1],
       ["lineWeight", "line weight", 0, 12, 1],
       ["bump", "bump", -100, 200, 1],
-      ["palette", "palette", 0, 5, 1]
+      ["palette", "palette", 0, 5, 1],
+      ["animMode", "anim mode", 0, 3, 1],
+      ["animSpeed", "anim speed", 0, 4, 0.01],
+      ["animIntensity", "intensity", 0, 1, 0.01]
     ];
 
     const PARAMS = controlDefs.map(([key, label, min, max, step]) => ({
@@ -258,6 +264,8 @@
     let height = 1;
     let dpr = 1;
     let experimentalPhysics = false;
+    let pts = [];
+    let _ptsKey = "";
 
     function hashString(text) {
       let hash = 2166136261;
@@ -387,6 +395,75 @@
       return points;
     }
 
+    function _ptsNeedRebuild() {
+      return `${seedInput.value}|${Math.floor(P.pointCount)}|${P.jitter}` !== _ptsKey;
+    }
+
+    function _initPts(random) {
+      const base = buildPoints(random);
+      pts = base.map(p => ({
+        x: p.x, y: p.y, bx: p.x, by: p.y,
+        phase: p.phase,
+        vx: 0, vy: 0,
+        ox: (random() - 0.5) * 200,
+        oy: (random() - 0.5) * 200
+      }));
+      _ptsKey = `${seedInput.value}|${Math.floor(P.pointCount)}|${P.jitter}`;
+    }
+
+    function _updatePts(t) {
+      const mode = Math.round(P.animMode || 0);
+      const speed = P.animSpeed != null ? P.animSpeed : 0.5;
+      const intensity = P.animIntensity != null ? P.animIntensity : 0.5;
+
+      if (mode === 0) {
+        // Drift Field: each point moves on its own slow noise-like path
+        for (let i = 0; i < pts.length; i++) {
+          const p = pts[i];
+          const f = 2.0 + (Math.abs(p.ox) % 17) * 0.06;
+          p.x = p.bx + Math.sin(t * speed * f + p.ox * 0.01) * intensity * 68;
+          p.y = p.by + Math.cos(t * speed * f * 1.19 + p.oy * 0.01) * intensity * 68;
+        }
+      } else if (mode === 1) {
+        // Pulse: slow drift only; connection flashing handled in drawConnections
+        for (let i = 0; i < pts.length; i++) {
+          const p = pts[i];
+          const f = 0.9 + (Math.abs(p.ox) % 11) * 0.04;
+          p.x = p.bx + Math.sin(t * speed * f * 0.28 + p.ox * 0.015) * intensity * 22;
+          p.y = p.by + Math.cos(t * speed * f * 0.28 + p.oy * 0.015) * intensity * 22;
+        }
+      } else if (mode === 2) {
+        // Breathe: points stay at base; scale transform applied in draw()
+        for (let i = 0; i < pts.length; i++) {
+          pts[i].x = pts[i].bx; pts[i].y = pts[i].by;
+        }
+      } else if (mode === 3) {
+        // Swarm: velocity-based neighbor steering with random wander
+        const maxSpd = Math.max(0.1, speed * 2.2 * intensity);
+        const steerF = 0.014 * intensity;
+        for (let i = 0; i < pts.length; i++) {
+          const p = pts[i];
+          let ax = 0, ay = 0, n = 0;
+          for (let j = 0; j < pts.length; j++) {
+            if (i === j) continue;
+            const q = pts[j];
+            const dx = q.x - p.x, dy = q.y - p.y;
+            const d = Math.hypot(dx, dy);
+            if (d < P.connectionRadius * 1.4 && d > 1) { ax += dx / d; ay += dy / d; n++; }
+          }
+          if (n > 0) { p.vx += ax / n * steerF; p.vy += ay / n * steerF; }
+          p.vx += Math.sin(t * speed * 1.9 + p.ox) * 0.07;
+          p.vy += Math.cos(t * speed * 1.6 + p.oy) * 0.07;
+          p.vx *= 0.93; p.vy *= 0.93;
+          const spd = Math.hypot(p.vx, p.vy);
+          if (spd > maxSpd) { p.vx = p.vx / spd * maxSpd; p.vy = p.vy / spd * maxSpd; }
+          const bd = Math.hypot(p.x - p.bx, p.y - p.by);
+          if (bd > 90 + intensity * 70) { p.vx += (p.bx - p.x) * 0.004; p.vy += (p.by - p.y) * 0.004; }
+          p.x += p.vx; p.y += p.vy;
+        }
+      }
+    }
+
     function drawFacets(points, colors, t) {
       if (P.facetFill <= 0 || points.length < 3) return;
       const stride = Math.max(3, Math.floor(18 - P.facetFill * 0.13));
@@ -418,7 +495,16 @@
     }
 
     function drawConnections(points, t) {
-      ctx.lineWidth = P.lineWeight;
+      const mode = Math.round(P.animMode || 0);
+      const speed = P.animSpeed != null ? P.animSpeed : 0.5;
+      const intensity = P.animIntensity != null ? P.animIntensity : 0.5;
+      let lw = P.lineWeight;
+      if (mode === 2) {
+        // Breathe: line weight pulses with the field scale
+        const breathe = 1 + Math.sin(t * speed * 2.0) * intensity * 1.2;
+        lw = Math.max(0.2, P.lineWeight * breathe);
+      }
+      ctx.lineWidth = lw;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       for (let i = 0; i < points.length; i++) {
@@ -427,7 +513,12 @@
           const b = points[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < P.connectionRadius) {
-            const alpha = 0.12 + (1 - d / P.connectionRadius) * 0.35;
+            let alpha = 0.12 + (1 - d / P.connectionRadius) * 0.35;
+            if (mode === 1) {
+              // Pulse: flash as points cross the proximity threshold
+              const pulse = Math.pow(Math.abs(Math.sin(t * speed * 3.8 + (i + j) * 0.53)), 0.6);
+              alpha *= 0.3 + pulse * 0.7 * (0.5 + intensity * 0.5);
+            }
             ctx.strokeStyle = `rgba(164,199,212,${alpha})`;
             ctx.beginPath();
             ctx.moveTo(a.x + Math.sin(t + i) * P.signalWarp * 0.05, a.y);
@@ -448,14 +539,35 @@
     }
 
     function draw() {
-      const colors = palette();
-      const random = randomSource(`${seedInput.value}|triangulated`);
+      if (_ptsNeedRebuild()) {
+        const random = randomSource(`${seedInput.value}|triangulated`);
+        _initPts(random);
+      }
       const t = frame * 0.012;
+      if (running) _updatePts(t);
+
+      const colors = palette();
+      const mode = Math.round(P.animMode || 0);
+      const speed = P.animSpeed != null ? P.animSpeed : 0.5;
+      const intensity = P.animIntensity != null ? P.animIntensity : 0.5;
+
       drawBackground(colors);
-      const points = buildPoints(random);
-      drawFacets(points, colors, t);
-      drawConnections(points, t);
-      drawPoints(points, colors, t);
+
+      if (mode === 2) {
+        // Breathe: scale entire scene about center on a slow sine
+        const s = 1 + Math.sin(t * speed * 2.0) * intensity * 0.14;
+        ctx.save();
+        ctx.translate(width / 2, height / 2);
+        ctx.scale(s, s);
+        ctx.translate(-width / 2, -height / 2);
+      }
+
+      drawFacets(pts, colors, t);
+      drawConnections(pts, t);
+      drawPoints(pts, colors, t);
+
+      if (mode === 2) ctx.restore();
+
       ctx.globalAlpha = 1;
       ctx.fillStyle = "rgba(232,225,212,.68)";
       ctx.font = "11px ui-monospace, monospace";
@@ -484,6 +596,7 @@
       if (physics) physics.checked = false;
       applyExperimentalPhysics();
       frame = 0;
+      pts = []; _ptsKey = "";
       draw();
     }
 

@@ -464,6 +464,13 @@ const PARAMS=[
   {k:"cellSize",g:"system",label:"cell size", min:2,max:160,step:2, v:20, sys:true},
   {k:"fill",   g:"system", label:"density",   min:0,max:1,step:.01,v:.60},
   {k:"pal",    g:"system", label:"palette",   min:0,max:9,step:1,  v:4},
+  // ARCHITECTURAL DISPLACEMENT — hard-edged, rigid, no smoothing
+  {k:"dispSteps",  g:"system",label:"disp steps",   min:2,max:8,step:1,  v:4},
+  {k:"dispInset",  g:"system",label:"inset depth",  min:0,max:1,step:.01,v:.4},
+  {k:"dispLateral",g:"system",label:"lateral push", min:0,max:1,step:.01,v:.3},
+  {k:"dispPunch",  g:"system",label:"punch density",min:0,max:1,step:.01,v:.6},
+  {k:"depthAxis",  g:"system",label:"depth axis",   min:0,max:3,step:1,  v:0},
+  {k:"rotAxis",    g:"system",label:"rot axis",     min:0,max:2,step:1,  v:0},
   // EXTRUDE — flat cells -> 3D blocks
   {k:"height", g:"extrude",label:"height",    min:0,max:1,step:.01,v:.45},
   {k:"zdepth", g:"extrude",label:"z depth",  min:-3,max:3,step:.01,v:0},
@@ -797,7 +804,9 @@ function drawScene(time){
   scene.clear(); if(!transparentBg) scene.background(pal[0][0],pal[0][1],pal[0][2]);
   scene.translate(W/2 + P.cx*W*0.5, H/2 - P.cy*H*0.5);
   scene.scale(P.zoom);
-  scene.rotate(P.rot*0.5);
+  const _rAng=P.rot*0.5;
+  const _rAxis=Math.round(P.rotAxis||0);
+  if(_rAxis===1) scene.shearX(_rAng); else if(_rAxis===2) scene.shearY(_rAng); else scene.rotate(_rAng);
   scene.translate(-W/2,-H/2);
   scene.noStroke();
   const lightF = 0.35 + P.light*0.5;
@@ -814,7 +823,11 @@ function drawScene(time){
   for(let li = numLayers - 1; li >= 0; li--){       // back to front
     const layerA = a255 * (1 - li * 0.25);
     if(layerA <= 0) continue;
-    const layerYOff = li * P.depth * 18;
+    const _layerStep = li * P.depth * 18;
+    const _dAxis = Math.round(P.depthAxis||0);
+    const layerXOff = (_dAxis===1||_dAxis===3) ? _layerStep : 0;   // X: horizontal, diagonal
+    const layerYOff = (_dAxis===0||_dAxis===3) ? _layerStep : 0;   // Y: vertical, diagonal
+    const layerScl  = _dAxis===2 ? 1 + li * P.depth * 0.06 : 1;   // Z: scale out from center
     const layerDim  = 1 - li * 0.08;
   for(const c of drawLeaves){
     if(c.fl > P.fill) continue;                // density: leave cells empty (negative space)
@@ -823,12 +836,21 @@ function drawScene(time){
     const tf=Math.max(0,Math.min(1,(c.y+c.h*0.5)/H));
     const z=tf*2-1;
     // contour_field-style z staging
-    const scl=Math.abs(zdep)>0.01?1-z*0.36*zdep:1;
+    const scl=(Math.abs(zdep)>0.01?1-z*0.36*zdep:1)*layerScl;
     const yOff=(Math.abs(zdep)>0.01?z*(H/2)*0.34*zdep:0) + layerYOff;
     const shadeZ=Math.abs(zdep)>0.01?1+z*0.24*zdep:1;
-    const oh = P.height*70 * lerp(1, c.hn*1.6, P.hvar) * (P.drift>0?pulse:1) * (0.85+0.15*scl);
-    const O=[oh, -oh];                         // iso lift toward top-right
-    const zp=(x,y)=>[W/2+(x-W/2)*scl, H/2+(y-H/2)*scl+yOff];
+    // ARCHITECTURAL DISPLACEMENT — hard-edged, rigid, four modes
+    // 1. Hard Step: quantize to discrete plateau levels
+    const _dSteps=Math.max(2,Math.round(P.dispSteps||4));
+    const _qhn=Math.floor(c.hn*_dSteps)/(_dSteps-1);
+    // 2. Inset + Extrude: binary — below threshold insets hard, above extrudes hard
+    const _insetCell=c.hn<0.38;
+    const _insetF=_insetCell?(1-(P.dispInset||0)*0.88):(1+(P.dispInset||0)*0.32);
+    const oh=P.height*70*lerp(1,_qhn*1.6,P.hvar)*_insetF*(P.drift>0?pulse:1)*(0.85+0.15*scl);
+    // 3. Lateral Push: noise-selected cells shear cap sideways — hard, no falloff
+    const _latAmt=(c.r>0.62)?((c.hn>0.5?1:-1)*(P.dispLateral||0)*32):0;
+    const O=[oh+_latAmt,-oh];                  // iso lift + lateral shear
+    const zp=(x,y)=>[W/2+(x-W/2)*scl+layerXOff, H/2+(y-H/2)*scl+yOff];
     const A=zp(c.x,c.y),B=zp(c.x+c.w,c.y),D=zp(c.x,c.y+c.h),C=zp(c.x+c.w,c.y+c.h);
     let base = c.r<0.14 ? pal[1] : (c.r<0.24 ? pal[2] : dark);
     base=[Math.min(255,base[0]*shadeZ*layerDim),Math.min(255,base[1]*shadeZ*layerDim),Math.min(255,base[2]*shadeZ*layerDim)];
@@ -846,6 +868,19 @@ function drawScene(time){
     // specular edge highlight along the leading cap edge (glossy metallic)
     if(spec>0.06){ scene.stroke(255,255,255, 230*spec*layerDim); scene.strokeWeight(1.4);
       scene.line(A[0]+O[0],A[1]+O[1], B[0]+O[0],B[1]+O[1]); scene.noStroke(); }
+    // 4. Faceted Punch: secondary inner face extruded higher — dominant at defaults
+    if((P.dispPunch||0)>0.01&&c.fl<P.dispPunch&&oh>4){
+      const _pi=0.20,_pOh=oh*1.55,_pO=[_pOh+_latAmt,-_pOh];
+      const _px=c.x+c.w*_pi,_py=c.y+c.h*_pi,_pw=c.w*(1-2*_pi),_ph=c.h*(1-2*_pi);
+      const pA=zp(_px,_py),pB=zp(_px+_pw,_py),pD=zp(_px,_py+_ph),pC=zp(_px+_pw,_py+_ph);
+      let _ps=shade(cap,sLfac*0.80); scene.fill(_ps[0],_ps[1],_ps[2],layerA);
+      scene.quad(pA[0]+O[0],pA[1]+O[1],pD[0]+O[0],pD[1]+O[1],pD[0]+_pO[0],pD[1]+_pO[1],pA[0]+_pO[0],pA[1]+_pO[1]);
+      _ps=shade(cap,sBfac*0.80); scene.fill(_ps[0],_ps[1],_ps[2],layerA);
+      scene.quad(pD[0]+O[0],pD[1]+O[1],pC[0]+O[0],pC[1]+O[1],pC[0]+_pO[0],pC[1]+_pO[1],pD[0]+_pO[0],pD[1]+_pO[1]);
+      const _pc=[Math.min(255,cap[0]*1.18),Math.min(255,cap[1]*1.18),Math.min(255,cap[2]*1.18)];
+      scene.fill(_pc[0],_pc[1],_pc[2],layerA);
+      scene.quad(pA[0]+_pO[0],pA[1]+_pO[1],pB[0]+_pO[0],pB[1]+_pO[1],pC[0]+_pO[0],pC[1]+_pO[1],pD[0]+_pO[0],pD[1]+_pO[1]);
+    }
   }
   }
   scene.pop();
