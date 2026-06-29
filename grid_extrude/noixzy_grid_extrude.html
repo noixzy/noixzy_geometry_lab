@@ -819,25 +819,23 @@ function drawScene(time){
   // dark "concrete" base so most blocks read dark; accents pop
   const dark=[lerp(pal[0][0],pal[2][0],0.17), lerp(pal[0][1],pal[2][1],0.17), lerp(pal[0][2],pal[2][2],0.17)];
   const drawLeaves=Math.abs(P.zdepth||0)>0.01 ? [...leaves].sort((a,b)=>(a.y+a.h*0.5)-(b.y+b.h*0.5)) : leaves;
-  const numLayers = 1 + Math.floor(P.depth * 3);   // depth=0→1 layer, depth=1→4 layers
-  for(let li = numLayers - 1; li >= 0; li--){       // back to front
-    const layerA = a255 * (1 - li * 0.25);
-    if(layerA <= 0) continue;
-    const _layerStep = li * P.depth * 18;
-    const _dAxis = Math.round(P.depthAxis||0);
-    const layerXOff = (_dAxis===1||_dAxis===3) ? _layerStep : 0;   // X: horizontal, diagonal
-    const layerYOff = (_dAxis===0||_dAxis===3) ? _layerStep : 0;   // Y: vertical, diagonal
-    const layerScl  = _dAxis===2 ? 1 + li * P.depth * 0.06 : 1;   // Z: scale out from center
-    const layerDim  = 1 - li * 0.08;
-  for(const c of drawLeaves){
+  const numLayers = Math.round(map(P.depth, 0, 1, 1, 4));
+  for(let layerIndex = numLayers - 1; layerIndex >= 0; layerIndex--){ // back to front
+    const layerAlphaMul = 1 - layerIndex * 0.25;
+    if(layerAlphaMul <= 0) continue;
+    const layerA = a255 * layerAlphaMul;
+    const layerDim = 1 - layerIndex * 0.08;
+    scene.push();
+    scene.translate(0, layerIndex * P.depth * 18);
+    for(const c of drawLeaves){
     if(c.fl > P.fill) continue;                // density: leave cells empty (negative space)
     const pulse = 1 + P.drift*0.35*Math.sin(time*1.2*P.speed + c.ph);
     const zdep=P.zdepth||0;
     const tf=Math.max(0,Math.min(1,(c.y+c.h*0.5)/H));
     const z=tf*2-1;
     // contour_field-style z staging
-    const scl=(Math.abs(zdep)>0.01?1-z*0.36*zdep:1)*layerScl;
-    const yOff=(Math.abs(zdep)>0.01?z*(H/2)*0.34*zdep:0) + layerYOff;
+    const scl=(Math.abs(zdep)>0.01?1-z*0.36*zdep:1);
+    const yOff=(Math.abs(zdep)>0.01?z*(H/2)*0.34*zdep:0);
     const shadeZ=Math.abs(zdep)>0.01?1+z*0.24*zdep:1;
     // ARCHITECTURAL DISPLACEMENT — hard-edged, rigid, four modes
     // 1. Hard Step: quantize to discrete plateau levels
@@ -850,7 +848,7 @@ function drawScene(time){
     // 3. Lateral Push: noise-selected cells shear cap sideways — hard, no falloff
     const _latAmt=(c.r>0.62)?((c.hn>0.5?1:-1)*(P.dispLateral||0)*32):0;
     const O=[oh+_latAmt,-oh];                  // iso lift + lateral shear
-    const zp=(x,y)=>[W/2+(x-W/2)*scl+layerXOff, H/2+(y-H/2)*scl+yOff];
+    const zp=(x,y)=>[W/2+(x-W/2)*scl, H/2+(y-H/2)*scl+yOff];
     const A=zp(c.x,c.y),B=zp(c.x+c.w,c.y),D=zp(c.x,c.y+c.h),C=zp(c.x+c.w,c.y+c.h);
     let base = c.r<0.14 ? pal[1] : (c.r<0.24 ? pal[2] : dark);
     base=[Math.min(255,base[0]*shadeZ*layerDim),Math.min(255,base[1]*shadeZ*layerDim),Math.min(255,base[2]*shadeZ*layerDim)];
@@ -866,7 +864,7 @@ function drawScene(time){
     scene.fill(cap[0],cap[1],cap[2], layerA);
     scene.quad(A[0]+O[0],A[1]+O[1], B[0]+O[0],B[1]+O[1], C[0]+O[0],C[1]+O[1], D[0]+O[0],D[1]+O[1]);
     // specular edge highlight along the leading cap edge (glossy metallic)
-    if(spec>0.06){ scene.stroke(255,255,255, 230*spec*layerDim); scene.strokeWeight(1.4);
+    if(spec>0.06){ scene.stroke(255,255,255, 230*spec*layerAlphaMul); scene.strokeWeight(1.4);
       scene.line(A[0]+O[0],A[1]+O[1], B[0]+O[0],B[1]+O[1]); scene.noStroke(); }
     // 4. Faceted Punch: secondary inner face extruded higher — dominant at defaults
     if((P.dispPunch||0)>0.01&&c.fl<P.dispPunch&&oh>4){
@@ -881,7 +879,8 @@ function drawScene(time){
       scene.fill(_pc[0],_pc[1],_pc[2],layerA);
       scene.quad(pA[0]+_pO[0],pA[1]+_pO[1],pB[0]+_pO[0],pB[1]+_pO[1],pC[0]+_pO[0],pC[1]+_pO[1],pD[0]+_pO[0],pD[1]+_pO[1]);
     }
-  }
+    }
+    scene.pop();
   }
   scene.pop();
 }
