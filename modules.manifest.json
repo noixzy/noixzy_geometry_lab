@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 56,
-    "liveCount": 56,
+    "listedCount": 59,
+    "liveCount": 59,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -566,6 +566,36 @@
       "title": "blob field",
       "file": "blob_field/noixzy_blob_field.html",
       "thumb": "home/thumbs/blob_field.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "curl_tendrils",
+      "title": "curl tendrils",
+      "file": "curl_tendrils/noixzy_curl_tendrils.html",
+      "thumb": "home/thumbs/curl_tendrils.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "voronoi_foam",
+      "title": "voronoi foam",
+      "file": "voronoi_foam/noixzy_voronoi_foam.html",
+      "thumb": "home/thumbs/voronoi_foam.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "poly_fold",
+      "title": "poly fold",
+      "file": "poly_fold/noixzy_poly_fold.html",
+      "thumb": "home/thumbs/poly_fold.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
