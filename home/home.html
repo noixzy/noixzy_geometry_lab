@@ -27,7 +27,67 @@
   }
 
   body {
-    padding-top: 30px;
+    padding-top: 24px;
+  }
+
+  .labHeader {
+    width: min(1350px, calc(100vw - 96px));
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .labTitle {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--dim);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .labTitle strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .searchWrap {
+    position: relative;
+    flex: 0 0 220px;
+  }
+
+  .searchWrap input {
+    width: 100%;
+    padding: 6px 10px 6px 30px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 8px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: .06em;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+
+  .searchWrap input::placeholder {
+    color: var(--dim);
+  }
+
+  .searchWrap input:focus {
+    border-color: rgba(216,192,106,.55);
+    background: rgba(255,255,255,.08);
+  }
+
+  .searchWrap svg {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .45;
+    pointer-events: none;
   }
 
   .thumbRailWrap {
@@ -175,6 +235,17 @@
 </head>
 <body>
 
+  <header class="labHeader">
+    <div class="labTitle"><strong>noixzy</strong>&thinsp;/&thinsp;geometry lab</div>
+    <div class="searchWrap">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+        <line x1="9" y1="9" x2="12.5" y2="12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <input id="searchInput" type="search" placeholder="search modules" autocomplete="off" spellcheck="false">
+    </div>
+  </header>
+
   <div class="thumbRailWrap">
     <a class="logoBox" href="home.html" aria-label="home">
       <img src="assets/waveform_logo.svg" alt="waveform logo">
@@ -235,6 +306,17 @@
         `;
         grid.appendChild(card);
       }
+
+      // Search filtering
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", () => {
+        const q = searchInput.value.trim().toLowerCase();
+        const cards = grid.querySelectorAll(".card");
+        cards.forEach(c => {
+          const name = c.querySelector(".title")?.textContent.toLowerCase() || "";
+          c.style.display = (!q || name.includes(q)) ? "" : "none";
+        });
+      });
     } catch (err) {
       grid.innerHTML = `<div class="error">Unable to load modules.manifest.json<br>${err.message}</div>`;
     }

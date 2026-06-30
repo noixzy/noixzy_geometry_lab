@@ -1,7 +1,7 @@
 # noixzy Visual Engine — Blender MCP Prompt Template
 
 **Author:** Chris Tucker  
-**Purpose:** Structured prompt template for generating Blender MCP scenes seeded by noixzy lab geometry. Fill each axis independently. All five axes are required — omitting any axis risks defaulting to the excluded behaviors listed below.
+**Purpose:** Structured prompt template for generating Blender MCP scenes seeded by noixzy_geometry_lab. Fill each axis independently. All five axes are required — omitting any axis risks defaulting to the excluded behaviors listed below.
 
 ---
 

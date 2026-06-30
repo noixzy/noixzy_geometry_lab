@@ -547,15 +547,19 @@ let pg;
 let transparentBg=false;
 
 const PARAMS=[
-  {id:"sA",     vid:"vA",     key:"a",      fmt:v=>Math.round(v).toString()},
-  {id:"sB",     vid:"vB",     key:"b",      fmt:v=>Math.round(v).toString()},
-  {id:"sCurves",vid:"vCurves",key:"curves", fmt:v=>Math.round(v).toString()},
-  {id:"sSpeed", vid:"vSpeed", key:"speed",  fmt:v=>v.toFixed(2)},
-  {id:"sTrail", vid:"vTrail", key:"trail",  fmt:v=>v.toFixed(2)},
-  {id:"sThick", vid:"vThick", key:"thick",  fmt:v=>v.toFixed(2)},
-  {id:"sDrift", vid:"vDrift", key:"drift",  fmt:v=>v.toFixed(2)},
-  {id:"sDepth", vid:"vDepth", key:"depth",  fmt:v=>v.toFixed(2)},
+  {k:"a",      g:"form",   label:"a",      min:1,max:9, step:1,  v:3},
+  {k:"b",      g:"form",   label:"b",      min:1,max:9, step:1,  v:2},
+  {k:"curves", g:"form",   label:"curves", min:4,max:48,step:2,  v:20},
+  {k:"speed",  g:"motion", label:"speed",  min:0,max:1, step:.01,v:.25},
+  {k:"trail",  g:"look",   label:"trail",  min:0,max:1, step:.01,v:.62},
+  {k:"thick",  g:"look",   label:"thick",  min:0,max:1, step:.01,v:.3},
+  {k:"drift",  g:"motion", label:"drift",  min:0,max:1, step:.01,v:.45},
+  {k:"depth",  g:"depth",  label:"depth",  min:0,max:1, step:.01,v:0},
 ];
+function paramDomSuffix(k){return k.charAt(0).toUpperCase()+k.slice(1);}
+function paramInputId(p){return "s"+paramDomSuffix(p.k);}
+function paramValueId(p){return "v"+paramDomSuffix(p.k);}
+function formatParamValue(p){return (p.step>=1)?Math.round(P[p.k]).toString():(+P[p.k]).toFixed(2);}
 
 function syncColorUI(){
   const bEl=document.getElementById("bgColor");if(bEl)bEl.value=rgbToHex(bgCol);
@@ -581,7 +585,7 @@ function loadStarter(s){
   Object.assign(P,s.P);applyTheme(PALETTES[s.pal][0]);syncUI();
 }
 function syncUI(){
-  PARAMS.forEach(c=>{document.getElementById(c.id).value=P[c.key];document.getElementById(c.vid).textContent=c.fmt(P[c.key]);});
+  PARAMS.forEach(c=>{document.getElementById(paramInputId(c)).value=P[c.k];document.getElementById(paramValueId(c)).textContent=formatParamValue(c);});
 }
 
 let _thumbDir=null,_pCanvas=null;
@@ -771,8 +775,9 @@ function setup(){
   tSel.addEventListener("change",e=>applyTheme(e.target.value));
 
   PARAMS.forEach(cfg=>{
-    const el=document.getElementById(cfg.id);
-    el.addEventListener("input",()=>{P[cfg.key]=parseFloat(el.value);document.getElementById(cfg.vid).textContent=cfg.fmt(P[cfg.key]);});
+    const el=document.getElementById(paramInputId(cfg));
+    el.min=cfg.min;el.max=cfg.max;el.step=cfg.step;el.value=P[cfg.k];
+    el.addEventListener("input",()=>{P[cfg.k]=parseFloat(el.value);document.getElementById(paramValueId(cfg)).textContent=formatParamValue(cfg);});
   });
 
   const starterSel=document.getElementById("starterPreset");
@@ -1504,6 +1509,38 @@ function buildNav(){
 
 
 
+
+<script>
+// noixzy shell postMessage bridge
+function postShellParams(){
+  const defs=PARAMS.map(p=>({
+    k:p.k,
+    label:p.label,
+    min:p.min,
+    max:p.max,
+    step:p.step,
+    v:P[p.k] ?? p.v,
+    g:p.g,
+    type:p.type || "range"
+  }));
+  window.parent.postMessage({type:"params",data:defs},"*");
+}
+window.addEventListener("message",e=>{
+  if(!e.data)return;
+  if(e.data.type==="getParams"){
+    postShellParams();
+  }
+  if(e.data.type==="setParam"){
+    const {key,value}=e.data;
+    const def=PARAMS.find(p=>p.k===key);
+    if(!def)return;
+    const next=typeof value==="number"?value:Number(value);
+    P[key]=Number.isFinite(next)?Math.min(def.max,Math.max(def.min,next)):value;
+    syncUI();
+  }
+});
+window.addEventListener("load",()=>postShellParams());
+</script>
 
 <script src="../home/noixzy_ruler_overlay.js"></script>
 </body>

@@ -663,6 +663,7 @@ const STARTERS=[
 
 let cs={bg:"#140d06",form:"#6b4514",hi:"#ffe0a0",bgVal:1,fSat:1,fVal:1,rim:1};
 let P={p:2,q:3,tube:0.28,scale:0.55,spin:0.22,dist:5.5,elev:0.8,ao:0.6};
+let seed=1;
 let t0,paused=false,pauseT=0,theShader;
 let _camAzimuth=0,_drag={active:false,x:0,y:0};
 let activeTheme=null;
@@ -699,16 +700,20 @@ function loadStarter(s){
   Object.assign(P,s.P);applyTheme(PALETTES[s.pal][0]);syncUI();
 }
 const PARAMS=[
-  {id:"sP",    vid:"vP",    key:"p",    fmt:v=>Math.round(v).toString()},
-  {id:"sQ",    vid:"vQ",    key:"q",    fmt:v=>Math.round(v).toString()},
-  {id:"sTube", vid:"vTube", key:"tube", fmt:v=>v.toFixed(2)},
-  {id:"sScale",vid:"vScale",key:"scale",fmt:v=>v.toFixed(2)},
-  {id:"sSpin", vid:"vSpin", key:"spin", fmt:v=>v.toFixed(2)},
-  {id:"sDist", vid:"vDist", key:"dist", fmt:v=>v.toFixed(2)},
-  {id:"sElev", vid:"vElev", key:"elev", fmt:v=>v.toFixed(2)},
-  {id:"sAO",   vid:"vAO",   key:"ao",   fmt:v=>v.toFixed(2)},
+  {k:"p",     g:"topology", label:"p",     min:2,max:9, step:1,   v:2},
+  {k:"q",     g:"topology", label:"q",     min:3,max:11,step:1,   v:3},
+  {k:"tube",  g:"form",     label:"tube",  min:0,max:1, step:.01, v:.28},
+  {k:"scale", g:"form",     label:"scale", min:0,max:1, step:.01, v:.55},
+  {k:"spin",  g:"motion",   label:"spin",  min:0,max:1, step:.01, v:.22},
+  {k:"dist",  g:"camera",   label:"dist",  min:2,max:9, step:.05, v:5.5},
+  {k:"elev",  g:"camera",   label:"elev",  min:-2,max:2,step:.05, v:.8},
+  {k:"ao",    g:"material", label:"ao",    min:0,max:1, step:.01, v:.6},
 ];
-function syncUI(){PARAMS.forEach(c=>{document.getElementById(c.id).value=P[c.key];document.getElementById(c.vid).textContent=c.fmt(P[c.key]);});}
+function paramDomSuffix(k){return k==="ao"?"AO":k.charAt(0).toUpperCase()+k.slice(1);}
+function paramInputId(p){return "s"+paramDomSuffix(p.k);}
+function paramValueId(p){return "v"+paramDomSuffix(p.k);}
+function formatParamValue(p){return (p.step>=1)?Math.round(P[p.k]).toString():(+P[p.k]).toFixed(2);}
+function syncUI(){PARAMS.forEach(c=>{document.getElementById(paramInputId(c)).value=P[c.k];document.getElementById(paramValueId(c)).textContent=formatParamValue(c);});}
 
 let _thumbDir=null,_pCanvas=null;
 
@@ -894,8 +899,9 @@ function setup(){
   tSel.addEventListener("change",e=>applyTheme(e.target.value));
 
   PARAMS.forEach(cfg=>{
-    const el=document.getElementById(cfg.id);
-    el.addEventListener("input",()=>{P[cfg.key]=parseFloat(el.value);document.getElementById(cfg.vid).textContent=cfg.fmt(P[cfg.key]);});
+    const el=document.getElementById(paramInputId(cfg));
+    el.min=cfg.min;el.max=cfg.max;el.step=cfg.step;el.value=P[cfg.k];
+    el.addEventListener("input",()=>{P[cfg.k]=parseFloat(el.value);document.getElementById(paramValueId(cfg)).textContent=formatParamValue(cfg);});
   });
 
   const starterSel=document.getElementById("starterPreset");
@@ -997,21 +1003,7 @@ function draw(){
   quad(-1,-1,1,-1,1,1,-1,1);
 }
 
-const ALL_MODULES=[
-  {id:"grid_extrude",title:"grid extrude"},{id:"sdf_raymarch",title:"sdf raymarch"},
-  {id:"gyroid",title:"gyroid"},{id:"displacement",title:"displacement"},
-  {id:"displacement_primitives",title:"displacement primitives"},
-  {id:"mandelbulb",title:"mandelbulb"},{id:"fold",title:"fold"},
-  {id:"metafluid",title:"metafluid"},
-  {id:"flow_field",title:"flow field"},{id:"reaction_diffusion",title:"reaction diffusion"},
-  {id:"voronoi",title:"voronoi"},{id:"contour_field",title:"contour field"},
-  {id:"truchet",title:"truchet"},{id:"truchet_b",title:"truchet // color"},
-  {id:"l_system",title:"l-system"},{id:"cellular_erosion",title:"cellular erosion"},
-  {id:"recursive_grid",title:"recursive grid"},{id:"wave_interference",title:"wave interference"},
-  {id:"stipple",title:"stipple"},
-  {id:"hex_grid",title:"hex grid"},{id:"rose_curve",title:"rose curve"},
-  {id:"lissajous_mesh",title:"lissajous mesh"},{id:"torus_knot",title:"torus knot"},
-];
+const ALL_MODULES=[];
 function _flashConsole(msg){ const el=document.getElementById("presetStatus"); if(el) el.textContent=msg; }
 
 /* NOIXZY_HAND_AUTHORED_GRID_UI_START */
@@ -1521,6 +1513,7 @@ window.addEventListener("load", () => {
 /* NOIXZY_BOTTOM_FAV_BUTTONS_ONLY_END */
 
 function buildNav(){
+  if(!Array.isArray(ALL_MODULES)||!ALL_MODULES.length) return;
   const idx=ALL_MODULES.findIndex(m=>m.id===PIECE);
   const safeIdx=idx>=0?idx:0;
   const prev=ALL_MODULES[(safeIdx-1+ALL_MODULES.length)%ALL_MODULES.length];
@@ -1568,6 +1561,144 @@ function buildNav(){
 
 
 
+<script>
+// noixzy shell postMessage bridge
+let _noixzyHistUndo=[], _noixzyHistRedo=[], _noixzyHistApplying=false;
+function _noixzySyncSeedUI(){
+  const read=document.getElementById("vSeed");
+  if(read) read.textContent=String(seed);
+}
+function _noixzySnapshot(){
+  return {
+    seed,
+    P:_clone(P),
+    cs:_clone(cs),
+    theme:activeTheme,
+    transparentBg
+  };
+}
+function _noixzySame(a,b){
+  return JSON.stringify(a)===JSON.stringify(b);
+}
+function _noixzyApplySnapshot(snap){
+  if(!snap) return;
+  _noixzyHistApplying=true;
+  if(snap.seed!==undefined) seed=snap.seed;
+  if(snap.P) Object.assign(P,snap.P);
+  if(snap.cs) Object.assign(cs,snap.cs);
+  if(snap.theme) applyTheme(snap.theme);
+  if(snap.transparentBg!==undefined) transparentBg=!!snap.transparentBg;
+  syncUI();
+  syncColorUI();
+  const stage=document.getElementById("stage");
+  if(stage) stage.classList.toggle("transparentPreview",transparentBg);
+  _noixzySyncSeedUI();
+  _noixzyHistApplying=false;
+  _noixzyPostShellParams();
+}
+function _noixzyPushHistory(before){
+  if(_noixzyHistApplying || !before) return;
+  const after=_noixzySnapshot();
+  if(_noixzySame(before,after)) return;
+  _noixzyHistUndo.push(before);
+  if(_noixzyHistUndo.length>80) _noixzyHistUndo.shift();
+  _noixzyHistRedo=[];
+}
+function _histUndoStep(){
+  if(!_noixzyHistUndo.length) return;
+  const cur=_noixzySnapshot();
+  const prev=_noixzyHistUndo.pop();
+  _noixzyHistRedo.push(cur);
+  _noixzyApplySnapshot(prev);
+}
+function _histRedoStep(){
+  if(!_noixzyHistRedo.length) return;
+  const cur=_noixzySnapshot();
+  const next=_noixzyHistRedo.pop();
+  _noixzyHistUndo.push(cur);
+  _noixzyApplySnapshot(next);
+}
+function _noixzyPostShellParams(){
+  const defs=PARAMS.map(p=>({
+    k:p.k,
+    label:p.label,
+    min:p.min,
+    max:p.max,
+    step:p.step,
+    v:P[p.k] ?? p.v,
+    g:p.g,
+    type:p.type || "range"
+  }));
+  window.parent.postMessage({type:"params",data:defs},"*");
+}
+function _noixzySetParam(key,value){
+  if(key==="__bgAlpha"){
+    const before=_noixzySnapshot();
+    transparentBg=!!value;
+    const stage=document.getElementById("stage");
+    if(stage) stage.classList.toggle("transparentPreview",transparentBg);
+    _noixzyPushHistory(before);
+    return;
+  }
+  const def=PARAMS.find(p=>p.k===key);
+  if(!def) return;
+  const before=_noixzySnapshot();
+  const next=typeof value==="number"?value:Number(value);
+  P[key]=Number.isFinite(next)?Math.min(def.max,Math.max(def.min,next)):value;
+  syncUI();
+  _noixzyPushHistory(before);
+  _noixzyPostShellParams();
+}
+function _noixzyNewSeed(){
+  const before=_noixzySnapshot();
+  seed=Math.floor(Math.random()*1e6);
+  _noixzySyncSeedUI();
+  randomizeParams("form");
+  _noixzyPushHistory(before);
+}
+function randomizeParams(mode="all"){
+  const before=_noixzySnapshot();
+  if(mode==="color" || mode==="all"){
+    applyTheme(THEME_NAMES[Math.floor(Math.random()*THEME_NAMES.length)]);
+  }
+  if(mode==="form" || mode==="all"){
+    PARAMS.forEach(p=>{
+      const raw=p.min+Math.random()*(p.max-p.min);
+      const stepped=p.step>=1?Math.round(raw):Math.round(raw/p.step)*p.step;
+      P[p.k]=Math.min(p.max,Math.max(p.min,stepped));
+    });
+    syncUI();
+  }
+  _noixzyPushHistory(before);
+  _noixzyPostShellParams();
+}
+window.noixzyModuleControls={
+  randomAll:()=>randomizeParams("all"),
+  randomForm:()=>randomizeParams("form"),
+  randomColor:()=>randomizeParams("color"),
+  undo:_histUndoStep,
+  redo:_histRedoStep,
+  newSeed:_noixzyNewSeed,
+  pause:()=>document.getElementById("btnPause")?.click(),
+  reset:resetState,
+  save:()=>document.getElementById("btnSave")?.click(),
+  save2x:save2xPNG,
+  thumb:saveThumb,
+  rec:()=>document.getElementById("btnRec")?.click()
+};
+window.addEventListener("message",e=>{
+  if(!e.data) return;
+  if(e.data.type==="getParams") _noixzyPostShellParams();
+  if(e.data.type==="setParam") _noixzySetParam(e.data.key,e.data.value);
+  if(e.data.type==="undo") _histUndoStep();
+  if(e.data.type==="redo") _histRedoStep();
+  if(e.data.type==="newSeed") _noixzyNewSeed();
+});
+window.addEventListener("load",()=>setTimeout(()=>{
+  _noixzySyncSeedUI();
+  _noixzyPostShellParams();
+},60));
+</script>
 <script src="../home/noixzy_ruler_overlay.js"></script>
 </body>
 </html>

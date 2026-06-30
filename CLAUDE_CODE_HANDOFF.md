@@ -1,13 +1,13 @@
 # Claude Code Handoff — noixzy_geometry_lab
 
-**Updated:** 2026-06-29 — commit `00530de` (handoff refresh; grid_extrude extrude-on centering; shell slider widening)
+**Updated:** 2026-06-30 — pending commits: legacy cleanup + bridge rollout batch 1 sub-batches 1–2
 
 ## Repo
 Repo-relative paths only. Local checkout path varies by environment (e.g. devcontainer mounts at `/workspaces/noixzy_geometry_lab`).
 
 ## Dev server
 Already running: `npx serve . -l 3000`
-Test at: `http://localhost:3000/module_shell.html?module=grid_extrude`
+Test at: `http://localhost:3000/module_shell?module=grid_extrude`
 
 ## Current task
 _None active — pick from "Future Milestones" or open new work._
@@ -65,6 +65,32 @@ grid_extrude/noixzy_grid_extrude.html is the gold standard. Match its patterns.
 ### Open
 _None tracked here. Open new tasks as they come up._
 
+## Bridge Rollout
+
+Rolling out the PARAMS/postMessage bridge to all 55 modules. Reference implementation: `grid_extrude/noixzy_grid_extrude.html`.
+
+### Batch 1 — core visual modules
+
+**Sub-batch 1 of 3 — done (hash TBD):**
+- `hex_grid/noixzy_hex_grid.html`
+- `rose_curve/noixzy_rose_curve.html`
+- `lissajous_mesh/noixzy_lissajous_mesh.html`
+
+**Sub-batch 2 of 3 — done (hash TBD):**
+- `torus_knot/noixzy_torus_knot.html`
+- `moire_field/noixzy_moire_field.html`
+- `particle_orbitals/noixzy_particle_orbitals.html`
+- `radial_noise/noixzy_radial_noise.html`
+- `kaleidoscope_field/noixzy_kaleidoscope_field.html`
+- `topographic_rings/noixzy_topographic_rings.html`
+- `ribbon_flow/noixzy_ribbon_flow.html`
+
+Notes: shared-template modules now expose the shell bridge, `randomizeParams`, `noixzyModuleControls`, `__extrudeOff`, and `__bgAlpha`; stale native `ALL_MODULES` payloads were cleared to stop archived-thumbnail 404s. `torus_knot` has a custom bridge with lightweight shell history and seed state.
+
+**Sub-batch 3 of 3 — not started.** (remaining modules TBD)
+
+Already bridged before this rollout: `brutalist_massing`, `triangulated_signal_mesh`, `grid_extrude`.
+
 ## What's already done and committed
 - CSS consolidated in `home/home.html` and `module_shell.html` (no overrides, no !important)
 - Routing fixed (module_shell uses ?module= param correctly)
@@ -85,9 +111,48 @@ _None tracked here. Open new tasks as they come up._
 - Module addition contract + validator: `LAB_MODULE_ADDITION_CONTRACT.md`, `scripts/validate_modules_manifest.js`, `npm run verify:modules`
 - Param panel sliders widened to 225px across all modules (`eec6a7e`)
 - grid_extrude: extrude-on form centering (-30px X shift in `drawScene()`) (`4d9b589`)
+- `_legacy_planning_docs/Users/` absolute-path clone removed: 44 outdated duplicates discarded, 21 unique files archived to `workspace/_legacy_archive_merge_20260629/` (hash TBD)
+- Bridge rollout batch 1 sub-batch 1: `hex_grid`, `rose_curve`, `lissajous_mesh` — PARAMS array + postMessage bridge wired (hash TBD)
+- Bridge rollout batch 1 sub-batch 2: `torus_knot`, `moire_field`, `particle_orbitals`, `radial_noise`, `kaleidoscope_field`, `topographic_rings`, `ribbon_flow` — PARAMS bridge + shell control shims wired (hash TBD)
 
 ## Git status
-Clean on `main`. Last commit: `docs(handoff): refresh to HEAD, add missing commit references` (`00530de`).
+Two commits staged, not yet committed:
+1. **Legacy cleanup** — 44 deletes + 21 renames: removes `_legacy_planning_docs/Users/` absolute-path clone, archives unique files to `workspace/_legacy_archive_merge_20260629/`
+2. **Bridge rollout batch 1 sub-batches 1–2** — `hex_grid`, `rose_curve`, `lissajous_mesh`, `torus_knot`, `moire_field`, `particle_orbitals`, `radial_noise`, `kaleidoscope_field`, `topographic_rings`, `ribbon_flow` + this handoff update
+
+Last committed HEAD: `b3339c6` (`docs(handoff): refresh to HEAD 00530de`).
+
+## Housekeeping Backlog
+
+Verified against current repo state (2026-06-30) from `LAB_AUDIT_20260629.md` (audit HEAD `15a5e73`). Items below remain open; resolved items are omitted.
+
+### Debug logs in module_shell.html
+Two `// DEBUG` console.log calls still live:
+- `module_shell.html:689` — `console.log("[shell] → getParams attempt", attempts, frame.src);`
+- `module_shell.html:702` — `console.log("[shell] msg:", e.data?.type, e.origin, e.data);`
+
+Remove both before any production build.
+
+### !important in triangulated_signal_mesh
+The native UI suppression block in `triangulated_signal_mesh/noixzy_triangulated_signal_mesh.html` (lines 177–179) uses `!important` on `body`, `main`, `aside`, and `canvas` — violating the migration checklist rule "No !important CSS overrides". Replace with a specificity-based approach matching the pattern in `grid_extrude`.
+
+### .gitignore cleanup
+Three issues remain:
+1. `.DS_Store` appears twice (lines 1 and 9) — deduplicate.
+2. The `planning_dashboard/dashboard_preview.png` rule is dead at the root level — the file lives at `_legacy_import/planning/planning_dashboard/dashboard_preview.png`, not the path the rule targets.
+3. No coverage for `*.zip`, `*.blend`, or `home/thumbs/*.png` — all currently tracked (see "Large files" below).
+
+### Large files tracked in git
+All of the following are in the index with no `.gitignore` exclusion:
+- `home/thumbs/*.png` — 60+ thumbnails; six exceed 500 KB (`contour_field.png`, `phyllotaxis_stack.png`, `reaction_terraces.png`, `agent_swarm_relief.png`, `voronoi_tower_field.png`, `origami_fold_field.png`)
+- `workspace/module_archive_20260629.zip` (≈2.7 MB) tracked alongside its unzipped `workspace/module_archive_20260629/` tree
+- `workspace/ae_scripts.zip` tracked alongside `workspace/ae_scripts/`
+- `_legacy_import/old_build_assets/blender_builds/unified_shell_pilot_scene.blend` tracked
+
+Consider `.gitignore`-ing archives and blends and generating `home/thumbs/` on demand rather than committing them.
+
+### make_contact_sheets.py at repo root
+`make_contact_sheets.py` sits at the repo root with no declared home. Move to `scripts/` or `_legacy_import/tools/` to reduce root-level noise.
 
 ## Future Milestones
 

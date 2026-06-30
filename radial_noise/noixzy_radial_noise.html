@@ -925,43 +925,10 @@ function keyPressed(){ const tag=document.activeElement&&document.activeElement.
   if(key==="s"||key==="S"){ triggerSavePNG(); return false; }
   if(key==="[") cycleTheme(-1); if(key==="]") cycleTheme(1); }
 
-const ALL_MODULES=[
-  {id:"grid_extrude",title:"grid extrude"},{id:"sdf_raymarch",title:"sdf raymarch"},
-  {id:"gyroid",title:"gyroid"},{id:"displacement",title:"displacement"},
-  {id:"displacement_primitives",title:"displacement primitives"},
-  {id:"mandelbulb",title:"mandelbulb"},{id:"fold",title:"fold"},
-  {id:"metafluid",title:"metafluid"},
-  {id:"moire_field",title:"moire field"},{id:"particle_orbitals",title:"particle orbitals"},
-  {id:"radial_noise",title:"radial noise"},
-  {id:"kaleidoscope_field",title:"kaleidoscope field"},
-  {id:"topographic_rings",title:"topographic rings"},{id:"ribbon_flow",title:"ribbon flow"},
-  {id:"glyph_field",title:"glyph field"},
-  {id:"crystal_growth",title:"crystal growth"},{id:"vector_scope",title:"vector scope"},
-  {id:"wave_lattice",title:"wave lattice"},
-  {id:"fractal_tiles",title:"fractal tiles"},{id:"plasma_membrane",title:"plasma membrane"},
-  {id:"interference_grid",title:"interference grid"},{id:"cellular_bloom",title:"cellular bloom"},
-  {id:"vortex_sheet",title:"vortex sheet"},
-  {id:"prism_moire",title:"prism moire"},{id:"terrain_slice",title:"terrain slice"},
-  {id:"signal_weave",title:"signal weave"},{id:"crater_field",title:"crater field"},
-  {id:"spiral_lattice",title:"spiral lattice"},
-  {id:"signal_rain",title:"signal rain"},{id:"echo_contours",title:"echo contours"},
-  {id:"magnetic_dust",title:"magnetic dust"},{id:"neural_lattice",title:"neural lattice"},
-  {id:"hyperbolic_tiling",title:"hyperbolic tiling"},{id:"voronoi_tower_field",title:"voronoi tower field"},
-  {id:"catenary_web",title:"catenary web"},{id:"reaction_terraces",title:"reaction terraces"},
-  {id:"quasicrystal_relief",title:"quasicrystal relief"},{id:"agent_swarm_relief",title:"agent swarm relief"},
-  {id:"tensegrity_nodes",title:"tensegrity nodes"},{id:"phyllotaxis_stack",title:"phyllotaxis stack"},
-  {id:"origami_fold_field",title:"origami fold field"},{id:"woven_lattice_relief",title:"woven lattice relief"},
-  {id:"flow_field",title:"flow field"},{id:"reaction_diffusion",title:"reaction diffusion"},
-  {id:"voronoi",title:"voronoi"},{id:"contour_field",title:"contour field"},
-  {id:"truchet",title:"truchet"},{id:"truchet_b",title:"truchet // color"},
-  {id:"l_system",title:"l-system"},{id:"cellular_erosion",title:"cellular erosion"},
-  {id:"recursive_grid",title:"recursive grid"},{id:"wave_interference",title:"wave interference"},
-  {id:"stipple",title:"stipple"},
-  {id:"hex_grid",title:"hex grid"},{id:"rose_curve",title:"rose curve"},
-  {id:"lissajous_mesh",title:"lissajous mesh"},{id:"torus_knot",title:"torus knot"},
-];
+const ALL_MODULES=[];
 function _flashConsole(msg){ const el=document.getElementById("presetStatus"); if(el) el.textContent=msg; }
 function buildNav(){
+  if(!Array.isArray(ALL_MODULES)||!ALL_MODULES.length) return;
   const idx=ALL_MODULES.findIndex(m=>m.id===PIECE);
   const safeIdx=idx>=0?idx:0;
   const prev=ALL_MODULES[(safeIdx-1+ALL_MODULES.length)%ALL_MODULES.length];
@@ -1534,6 +1501,82 @@ function recordClip(dur=4){
     else { clearInterval(iv); btn.textContent='saving…'; rec.stop(); stream.getTracks().forEach(tr=>tr.stop()); }
   },1000);
 }
+</script>
+<script>
+// noixzy shell postMessage bridge
+function _noixzyPostShellParams(){
+  const defs=PARAMS.map(p=>({
+    k:p.k,
+    label:p.label,
+    min:p.min,
+    max:p.max,
+    step:p.step,
+    v:P[p.k] ?? p.v,
+    g:p.g,
+    type:p.type || "range"
+  }));
+  defs.push({k:"__extrudeOff",label:"extrude off",type:"bool",v:!!extrudeOff});
+  window.parent.postMessage({type:"params",data:defs},"*");
+}
+function _noixzySetParam(key,value){
+  if(key==="__bgAlpha"){
+    transparentBg=!!value;
+    const stage=document.getElementById("stage");
+    if(stage) stage.classList.toggle("transparentPreview",transparentBg);
+    dirty=true;
+    return;
+  }
+  if(key==="__extrudeOff"){
+    const before=_histSnapshot();
+    if(!extrudeOff && value && P.height!==undefined) window.__savedHeight=P.height;
+    extrudeOff=!!value;
+    if(extrudeOff) _applyExtrudeOff();
+    else if(window.__savedHeight!==undefined && P.height!==undefined) P.height=window.__savedHeight;
+    _histSyncControls();
+    _syncExtrudeOffButton();
+    buildSystem();
+    _histPush(before);
+    _noixzyPostShellParams();
+    return;
+  }
+  const def=PARAMS.find(p=>p.k===key);
+  if(!def) return;
+  const before=_histSnapshot();
+  const next=typeof value==="number"?value:Number(value);
+  P[key]=Number.isFinite(next)?Math.min(def.max,Math.max(def.min,next)):value;
+  if(extrudeOff && def.g==="extrude") _applyExtrudeOff();
+  _histSyncControls();
+  if(def.k==="pal"){ initColorState(P.pal); syncColorUI(); }
+  if(def.sys) buildSystem(); else dirty=true;
+  _histPush(before);
+  _noixzyPostShellParams();
+}
+function randomizeParams(mode="all"){
+  if(mode==="color") _randomizeColor();
+  else if(mode==="form") _randomizeForm();
+  else _randomizeAll();
+}
+window.noixzyModuleControls={
+  randomAll:()=>randomizeParams("all"),
+  randomForm:()=>randomizeParams("form"),
+  randomColor:()=>randomizeParams("color"),
+  undo:_histUndoStep,
+  redo:_histRedoStep,
+  pause:togglePause,
+  reset:()=>document.getElementById("reset")?.click(),
+  save:triggerSavePNG,
+  save2x:save2xPNG,
+  thumb:saveThumb,
+  rec:()=>recordClip(getRecDuration())
+};
+window.addEventListener("message",e=>{
+  if(!e.data) return;
+  if(e.data.type==="getParams") _noixzyPostShellParams();
+  if(e.data.type==="setParam") _noixzySetParam(e.data.key,e.data.value);
+  if(e.data.type==="undo") _histUndoStep();
+  if(e.data.type==="redo") _histRedoStep();
+});
+window.addEventListener("load",()=>setTimeout(_noixzyPostShellParams,60));
 </script>
 </body>
 </html>
