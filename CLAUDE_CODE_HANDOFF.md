@@ -1,6 +1,6 @@
 # Claude Code Handoff — noixzy_geometry_lab
 
-**Updated:** 2026-06-30 — commit `08f7c99` (dead PARAMS cleanup; orphan brutalist variants archived; touch panel toggle)
+**Updated:** 2026-06-29 — commit `00530de` (handoff refresh; grid_extrude extrude-on centering; shell slider widening)
 
 ## Repo
 Repo-relative paths only. Local checkout path varies by environment (e.g. devcontainer mounts at `/workspaces/noixzy_geometry_lab`).
@@ -16,9 +16,11 @@ The previous task (layer stacking in `grid_extrude/noixzy_grid_extrude.html`) sh
 
 ### Shell / UI notes
 - Shell is at `module_shell.html` (root)
-- Param panel populated via postMessage bridge in `grid_extrude` (end of file, separate `<script>` tag)
+- Param panel populated via postMessage bridge in each module (end of file, separate `<script>` tag)
+- Param panel column width: **225px** (buttons, sliders, undo bar all match); `.shellTrigger` hover area 255px
 - Speed slider is sorted to top of param panel by shell
 - `__extrudeOff` checkbox lives in shell controls above random buttons, not in param panel
+- When extrude is **on** in grid_extrude, the world origin is shifted -30px X in `drawScene()` to compensate for the 3D mass shifting right
 
 ## Module Migration Checklist
 
@@ -81,9 +83,11 @@ _None tracked here. Open new tasks as they come up._
 - Touch-only param panel toggle for iPad / phones (`aeee7f4`)
 - Dead PARAMS entries removed: `depthAxis` in grid_extrude, `edge` in reaction_terraces (`08f7c99`)
 - Module addition contract + validator: `LAB_MODULE_ADDITION_CONTRACT.md`, `scripts/validate_modules_manifest.js`, `npm run verify:modules`
+- Param panel sliders widened to 225px across all modules (`eec6a7e`)
+- grid_extrude: extrude-on form centering (-30px X shift in `drawScene()`) (`4d9b589`)
 
 ## Git status
-Clean on `main`. Last commit: `chore: remove dead PARAMS entries (depthAxis in grid_extrude, edge in reaction_terraces)` (`08f7c99`).
+Clean on `main`. Last commit: `docs(handoff): refresh to HEAD, add missing commit references` (`00530de`).
 
 ## Future Milestones
 
