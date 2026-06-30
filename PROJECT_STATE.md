@@ -25,6 +25,6 @@ Last updated: 2026-06-29
 
 ## Next
 
-- Define clean module addition contract
-- Add new modules with confidence
+- Add new modules with confidence (contract + validator now in place)
 - Parameter panels + UI overlay (ruler overlay kept as planning reference)
+- Bridge rollout plan for modules still using proxy-only shell controls

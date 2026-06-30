@@ -22,3 +22,6 @@ Then open http://localhost:3000/home/home.html
 1. Create folder [id]/noixzy_[id].html
 2. Add thumbnail home/thumbs/[id].png
 3. Add entry to modules.manifest.json
+4. Validate contract: npm run verify:modules
+
+See LAB_MODULE_ADDITION_CONTRACT.md for the full acceptance checklist and naming rules.

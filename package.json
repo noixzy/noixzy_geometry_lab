@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "verify:modules": "node scripts/validate_modules_manifest.js"
+  },
   "dependencies": {
     "playwright": "^1.61.1"
   }
