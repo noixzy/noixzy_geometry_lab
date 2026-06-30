@@ -1407,6 +1407,35 @@ function recordClip(dur=4){
     else { clearInterval(iv); btn.textContent='saving…'; rec.stop(); stream.getTracks().forEach(tr=>tr.stop()); }
   },1000);
 }
+// noixzy shell postMessage bridge
+function _noixzyPostShellParams(){
+  const defs=PARAMS.map(p=>({
+    k:p.k,label:p.label,min:p.min,max:p.max,step:p.step,
+    v:P[p.k]??p.v,g:p.g,type:p.type||"range"
+  }));
+  defs.push({k:"__extrudeOff",label:"extrude off",type:"bool",v:!!extrudeOff});
+  defs.push({k:"__symmetryOff",label:"symmetry off",type:"bool",v:!!_symmetryOff});
+  window.parent.postMessage({type:"params",data:defs},"*");
+}
+let _symmetryOff=false;
+function _noixzySetParam(key,value){
+  if(key==="__bgAlpha"){transparentBg=!!value;const stage=document.getElementById("stage");if(stage)stage.classList.toggle("transparentPreview",transparentBg);dirty=true;return;}
+  if(key==="__extrudeOff"){const before=_histSnapshot();if(!extrudeOff&&value&&P.height!==undefined)window.__savedHeight=P.height;extrudeOff=!!value;if(extrudeOff)_applyExtrudeOff();else if(window.__savedHeight!==undefined&&P.height!==undefined)P.height=window.__savedHeight;_histSyncControls();_syncExtrudeOffButton();buildSystem();_histPush(before);_noixzyPostShellParams();return;}
+  if(key==="__symmetryOff"){const before=_histSnapshot();if(!_symmetryOff&&value&&P.mirror!==undefined)window.__savedMirror=P.mirror;_symmetryOff=!!value;if(_symmetryOff&&P.mirror!==undefined)P.mirror=0;else if(!_symmetryOff&&window.__savedMirror!==undefined&&P.mirror!==undefined)P.mirror=window.__savedMirror;_histSyncControls();buildSystem();_histPush(before);_noixzyPostShellParams();return;}
+  const def=PARAMS.find(p=>p.k===key);if(!def)return;
+  const before=_histSnapshot();
+  const next=typeof value==="number"?value:Number(value);
+  P[key]=Number.isFinite(next)?Math.min(def.max,Math.max(def.min,next)):value;
+  if(extrudeOff&&def.g==="extrude")_applyExtrudeOff();
+  _histSyncControls();
+  if(def.k==="pal"){initColorState(P.pal);syncColorUI();}
+  if(def.sys)buildSystem();else dirty=true;
+  _histPush(before);_noixzyPostShellParams();
+}
+function randomizeParams(mode="all"){if(mode==="color")_randomizeColor();else if(mode==="form")_randomizeForm();else _randomizeAll();}
+window.noixzyModuleControls={randomAll:()=>randomizeParams("all"),randomForm:()=>randomizeParams("form"),randomColor:()=>randomizeParams("color"),undo:_histUndoStep,redo:_histRedoStep,pause:togglePause,reset:()=>document.getElementById("reset")?.click(),save:triggerSavePNG,save2x:save2xPNG,thumb:saveThumb,rec:()=>recordClip(getRecDuration())};
+window.addEventListener("message",e=>{if(!e.data)return;if(e.data.type==="getParams")_noixzyPostShellParams();if(e.data.type==="setParam")_noixzySetParam(e.data.key,e.data.value);if(e.data.type==="undo")_histUndoStep();if(e.data.type==="redo")_histRedoStep();});
+window.addEventListener("load",()=>setTimeout(_noixzyPostShellParams,60));
 </script>
 </body>
 </html>

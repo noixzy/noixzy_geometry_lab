@@ -492,6 +492,10 @@ body {
       <input type="checkbox" id="extrudeOffCheck">
       <span class="paramLabel" style="color:rgba(255,255,255,.55)">extrude off</span>
     </label>
+    <label class="checkRow" id="symmetryOffRow" style="display:none">
+      <input type="checkbox" id="symmetryOffCheck">
+      <span class="paramLabel" style="color:rgba(255,255,255,.55)">symmetry off</span>
+    </label>
     <div class="paramDivider" id="extrudeDivider" style="display:none"></div>
     <button type="button" data-proxy="randomAll">random all</button>
     <div class="btnRow">
@@ -597,10 +601,78 @@ body {
     return Number.isFinite(value) ? value.toFixed(decimals) : String(rawValue);
   }
 
+  function makeSliderNorm(def) {
+    const sMin = def.min ?? 0;
+    const sMax = def.max ?? 1;
+    const sRange = sMax - sMin;
+    const sStep = def.step ?? 0.01;
+    // Use actual param step count (capped 2–500) so 1 slider position ≈ 1 param step
+    const numSteps = sRange > 0 ? Math.round(sRange / sStep) : 1;
+    const nSteps = Math.min(500, Math.max(2, numSteps));
+    const toNorm = actual => sRange > 0 ? (actual - sMin) / sRange : 0;
+    const toActual = norm => {
+      const raw = sMin + parseFloat(norm) * sRange;
+      const snapped = Math.round((raw - sMin) / sStep) * sStep + sMin;
+      return Math.min(sMax, Math.max(sMin, snapped));
+    };
+    return { sMin, sRange, sStep, nSteps, toNorm, toActual };
+  }
+
+  function buildParamRow(def) {
+    const row = document.createElement("div");
+    row.dataset.pk = def.k;
+
+    if (def.type === "bool" || def.type === "checkbox") {
+      row.className = "paramRow";
+      const label = document.createElement("label");
+      label.className = "checkRow";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!def.v;
+      cb.addEventListener("change", () => {
+        frame.contentWindow?.postMessage({ type: "setParam", key: def.k, value: cb.checked }, "*");
+      });
+      const span = document.createElement("span");
+      span.className = "paramLabel";
+      span.textContent = def.label || def.k;
+      label.appendChild(cb);
+      label.appendChild(span);
+      row.appendChild(label);
+    } else {
+      row.className = "paramRow";
+      const head = document.createElement("div");
+      head.className = "paramHead";
+      const lbl = document.createElement("div");
+      lbl.className = "paramLabel";
+      lbl.textContent = def.label || def.k;
+      const val = document.createElement("div");
+      val.className = "paramValue";
+      const slider = document.createElement("input");
+      slider.type = "range";
+      const { sMin, sRange, nSteps, toNorm, toActual } = makeSliderNorm(def);
+      slider.min = 0;
+      slider.max = 1;
+      slider.step = 1 / nSteps;
+      slider.value = toNorm(def.v ?? sMin);
+      const updateValue = () => {
+        val.textContent = formatParamValue(def, toActual(slider.value));
+        val.title = val.textContent;
+      };
+      updateValue();
+      slider.addEventListener("input", () => {
+        updateValue();
+        frame.contentWindow?.postMessage({ type: "setParam", key: def.k, value: toActual(slider.value) }, "*");
+      });
+      head.appendChild(lbl);
+      head.appendChild(val);
+      row.appendChild(head);
+      row.appendChild(slider);
+    }
+    return row;
+  }
+
   function renderParams(defs) {
-    clearParams();
-    if (!defs || !defs.length) return;
-    paramDivider.style.display = "block";
+    if (!defs || !defs.length) { clearParams(); return; }
 
     // sort: speed first, then rest
     defs = [...defs].sort((a, b) => {
@@ -609,66 +681,59 @@ body {
       return 0;
     });
 
-    for (const def of defs) {
-      const row = document.createElement("div");
+    // If structure matches, update in-place to preserve drag state
+    const existing = [...paramPanel.querySelectorAll("[data-pk]")];
+    const sameKeys = existing.length === defs.length &&
+      defs.every((d, i) => existing[i]?.dataset.pk === d.k);
 
-      if (def.type === "bool" || def.type === "checkbox") {
-        row.className = "paramRow";
-        const label = document.createElement("label");
-        label.className = "checkRow";
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = !!def.v;
-        cb.addEventListener("change", () => {
-          frame.contentWindow?.postMessage({ type: "setParam", key: def.k, value: cb.checked }, "*");
-        });
-        const span = document.createElement("span");
-        span.className = "paramLabel";
-        span.textContent = def.label || def.k;
-        label.appendChild(cb);
-        label.appendChild(span);
-        row.appendChild(label);
-      } else {
-        row.className = "paramRow";
-        const head = document.createElement("div");
-        head.className = "paramHead";
-        const lbl = document.createElement("div");
-        lbl.className = "paramLabel";
-        lbl.textContent = def.label || def.k;
-        const val = document.createElement("div");
-        val.className = "paramValue";
-        const slider = document.createElement("input");
-        slider.type = "range";
-        slider.min = def.min ?? 0;
-        slider.max = def.max ?? 1;
-        slider.step = def.step ?? 0.01;
-        slider.value = def.v ?? 0.5;
-        const updateValue = () => {
-          val.textContent = formatParamValue(def, slider.value);
-          val.title = val.textContent;
-        };
-        updateValue();
-        slider.addEventListener("input", () => {
-          updateValue();
-          frame.contentWindow?.postMessage({ type: "setParam", key: def.k, value: parseFloat(slider.value) }, "*");
-        });
-        head.appendChild(lbl);
-        head.appendChild(val);
-        row.appendChild(head);
-        row.appendChild(slider);
-      }
-
-      paramPanel.appendChild(row);
+    if (sameKeys) {
+      defs.forEach((def, i) => {
+        const row = existing[i];
+        if (def.type === "bool" || def.type === "checkbox") {
+          const cb = row.querySelector("input[type=checkbox]");
+          if (cb) cb.checked = !!def.v;
+        } else {
+          const { toNorm, toActual } = makeSliderNorm(def);
+          const slider = row.querySelector("input[type=range]");
+          const valEl = row.querySelector(".paramValue");
+          // Only update slider position if it's not the one being dragged
+          if (slider && slider !== document.activeElement) {
+            slider.value = toNorm(def.v ?? (def.min ?? 0));
+          }
+          if (valEl) {
+            const displayVal = slider ? toActual(slider.value) : (def.v ?? 0);
+            valEl.textContent = formatParamValue(def, displayVal);
+            valEl.title = valEl.textContent;
+          }
+        }
+      });
+      return;
     }
+
+    // Full rebuild
+    clearParams();
+    paramDivider.style.display = "block";
+    defs.forEach(def => paramPanel.appendChild(buildParamRow(def)));
   }
 
-  // ── extrude off checkbox ──
+  // ── extrude off / symmetry off checkboxes ──
   const extrudeOffRow = document.getElementById("extrudeOffRow");
   const extrudeOffCheck = document.getElementById("extrudeOffCheck");
+  const symmetryOffRow = document.getElementById("symmetryOffRow");
+  const symmetryOffCheck = document.getElementById("symmetryOffCheck");
   const extrudeDivider = document.getElementById("extrudeDivider");
+
+  function syncTopDivider() {
+    const show = extrudeOffRow.style.display !== "none" || symmetryOffRow.style.display !== "none";
+    extrudeDivider.style.display = show ? "" : "none";
+  }
 
   extrudeOffCheck?.addEventListener("change", () => {
     frame.contentWindow?.postMessage({ type: "setParam", key: "__extrudeOff", value: extrudeOffCheck.checked }, "*");
+  });
+
+  symmetryOffCheck?.addEventListener("change", () => {
+    frame.contentWindow?.postMessage({ type: "setParam", key: "__symmetryOff", value: symmetryOffCheck.checked }, "*");
   });
 
   // ── param request with cancellation ──
@@ -704,12 +769,23 @@ body {
     cancelParamRetries();
     const defs = e.data.data;
     const extrudeDef = defs.find(d => d.k === "__extrudeOff");
-    if (extrudeDef) {
-      extrudeOffCheck.checked = !!extrudeDef.v;
-      extrudeOffRow.style.display = "";
-      extrudeDivider.style.display = "";
-    }
-    renderParams(defs.filter(d => d.k !== "__extrudeOff"));
+    extrudeOffRow.style.display = extrudeDef ? "" : "none";
+    if (extrudeDef) extrudeOffCheck.checked = !!extrudeDef.v;
+
+    const symmetryDef = defs.find(d => d.k === "__symmetryOff");
+    symmetryOffRow.style.display = symmetryDef ? "" : "none";
+    if (symmetryDef) symmetryOffCheck.checked = !!symmetryDef.v;
+
+    syncTopDivider();
+    // Deduplicate by k (SYSTEM.concat(SHARED) can produce duplicate keys e.g. speed)
+    const seen = new Set();
+    const filtered = defs.filter(d => {
+      if (d.k === "__extrudeOff" || d.k === "__symmetryOff") return false;
+      if (seen.has(d.k)) return false;
+      seen.add(d.k);
+      return true;
+    });
+    renderParams(filtered);
   });
 
   // ── proxy controls ──

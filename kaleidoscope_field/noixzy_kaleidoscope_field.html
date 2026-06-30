@@ -1527,8 +1527,10 @@ function _noixzyPostShellParams(){
     type:p.type || "range"
   }));
   defs.push({k:"__extrudeOff",label:"extrude off",type:"bool",v:!!extrudeOff});
+  defs.push({k:"__symmetryOff",label:"symmetry off",type:"bool",v:!!_symmetryOff});
   window.parent.postMessage({type:"params",data:defs},"*");
 }
+let _symmetryOff=false;
 function _noixzySetParam(key,value){
   if(key==="__bgAlpha"){
     transparentBg=!!value;
@@ -1550,6 +1552,7 @@ function _noixzySetParam(key,value){
     _noixzyPostShellParams();
     return;
   }
+  if(key==="__symmetryOff"){const before=_histSnapshot();if(!_symmetryOff&&value&&P.mirror!==undefined)window.__savedMirror=P.mirror;_symmetryOff=!!value;if(_symmetryOff&&P.mirror!==undefined)P.mirror=0;else if(!_symmetryOff&&window.__savedMirror!==undefined&&P.mirror!==undefined)P.mirror=window.__savedMirror;_histSyncControls();buildSystem();_histPush(before);_noixzyPostShellParams();return;}
   const def=PARAMS.find(p=>p.k===key);
   if(!def) return;
   const before=_histSnapshot();
