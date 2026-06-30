@@ -1,6 +1,6 @@
 # Claude Code Handoff — noixzy_geometry_lab
 
-**Updated:** 2026-06-29 — commit `96989fc` (restore param panel to sidebar, JS hover bridge for shell controls, brutalist_massing pan/zoom view layer)
+**Updated:** 2026-06-29 — commit `15a5e73` (brutalist_massing mouse pan/zoom wiring; param widening across modules)
 
 ## Repo
 `/Users/noixzy.macbookpro/Documents/noixzy_geometry_lab`
@@ -10,28 +10,9 @@ Already running: `npx serve . -l 3000`
 Test at: `http://localhost:3000/module_shell?module=grid_extrude`
 
 ## Current task
-Add layer stacking to `grid_extrude/noixzy_grid_extrude.html`.
+_None active — pick from "Future Milestones" or open new work._
 
-### What depth currently does
-`P.depth` (line ~460, group `"system"`, range 0–1) maps to recursion max depth in `buildLeaves()`:
-```js
-const maxD = Math.floor(map(P.depth, 0, 1, 3, 8));
-```
-This controls grid subdivision but has no visible effect at default settings.
-
-### What we want depth to also do
-Drive a **layer stacking** effect — draw the full grid 1–4 times at increasing Y offsets, each layer slightly darker and more transparent. Depth = 0 → 1 layer (no stacking). Depth = 1 → 4 layers stacked behind the main one.
-
-### Where to hook in
-`drawScene()` function. The leaf draw loop starts at line ~806:
-```js
-const drawLeaves = Math.abs(P.zdepth||0) > 0.01 ? [...leaves].sort(...) : leaves;
-for (const c of drawLeaves) { ... }
-```
-Wrap the existing leaf block in a layer loop. Each layer pass should:
-- Offset Y by `layerIndex * P.depth * 18` pixels
-- Reduce alpha by `layerIndex * 0.25`
-- Reduce brightness slightly per layer
+The previous task (layer stacking in `grid_extrude/noixzy_grid_extrude.html`) shipped in commit `96fa0d9`. `P.depth` now drives both recursion max depth (`buildLeaves()`, line ~779) and a layer-stacking pass in `drawScene()` around line ~822: 1–4 layers offset by `layerIndex * P.depth * 18` px on Y, alpha reduced 0.25 per layer, brightness dimmed 0.08 per layer.
 
 ### Shell / UI notes
 - Shell is at `module_shell.html` (root)
@@ -73,11 +54,13 @@ grid_extrude/noixzy_grid_extrude.html is the gold standard. Match its patterns.
 
 ### Done this session
 - **Form mode 1 (megaform):** background/secondary form removed; mat now draws as base layer; mega tower is the only standing form. Modes 0 and 2 unchanged. No params, generators, or postMessage bridge touched.
-- **Pan/zoom view layer:** mouse-driven `view { panX, panY, zoom }` object added; wired into `getCamera()` so pan and dolly apply on top of existing param-driven camera. Not yet hooked to mouse events — wiring is the next step.
+- **Pan/zoom view layer:** mouse-driven `view { panX, panY, zoom }` object added; wired into `makeCfg()` so pan and dolly apply on top of existing param-driven camera.
+- **Mouse interaction:** `mousemove` / `wheel` events mutate `view.panX`, `view.panY`, `view.zoom` (drag to rotate/pan, scroll to dolly). Shipped in `15a5e73`.
+- **Mat z-order fix:** mat cells now get a small negative Y offset (`zBase -= 0.04`) so their top faces never project above other forms' ground planes at extreme camera angles. The renderer is 2D-canvas painter's algorithm, so this is a Y-offset fix rather than a depth-test one.
+- **Draw-order param group:** new `order` group exposes `orderMain` / `orderTower` / `orderMat` (0–2 each). `draw()` now collects enabled layers, sorts by `order` ascending, and runs them — replacing the previous hardcoded sequence. Defaults: mat=0, main=1, tower=2 (mat behind, tower on top).
 
 ### Still pending
-- **Mouse interaction:** wire `mousemove` / `wheel` events to mutate `view.panX`, `view.panY`, `view.zoom`; rotate on drag, pan on middle-click/two-finger, dolly on scroll.
-- **Mat z-order fix:** mat polygon is currently drawn mid-stack; needs to render as true ground plane beneath all towers regardless of sort order.
+_None tracked here. Open new tasks as they come up._
 
 ## What's already done and committed
 - CSS consolidated in `home/home.html` and `module_shell.html` (no overrides, no !important)
@@ -93,7 +76,7 @@ grid_extrude/noixzy_grid_extrude.html is the gold standard. Match its patterns.
 - brutalist_massing and triangulated_signal_mesh migrated — bridge wired, native UI hidden
 
 ## Git status
-Clean on `main`. Last commit: `feat: migrate brutalist_massing and triangulated_signal_mesh, migration checklist added`
+Clean on `main`. Last commit: `feat: update brutalist massing parameters and add mouse interaction for pan/zoom` (`15a5e73`).
 
 ## Future Milestones
 

@@ -186,6 +186,11 @@
       { k:"matFoldEnabled", label:"(mat) folding",    min:0, max:1,  step:1, v:0,  g:"mat" },
       { k:"matFoldAngle",   label:"(mat) fold angle", min:0, max:90, step:1, v:30, g:"mat" },
       { k:"matFoldAxis",    label:"(mat) fold axis",  min:0, max:2,  step:1, v:0,  g:"mat" },
+      // draw order — lower index draws first (sits behind). Renderer is 2D painter's algo,
+      // so this is the only way to control inter-layer stacking. Defaults: mat behind, tower on top.
+      { k:"orderMain",   label:"(order) main layer",  min:0, max:2, step:1, v:1, g:"order" },
+      { k:"orderTower",  label:"(order) tower layer", min:0, max:2, step:1, v:2, g:"order" },
+      { k:"orderMat",    label:"(order) mat layer",   min:0, max:2, step:1, v:0, g:"order" },
     ];
 
     const P = {};
@@ -662,45 +667,58 @@
 
       drawGround(cfg);
 
-      // mat: renders as base layer in formMode 2 AND beneath the tower in formMode 1
+      // Painter's-algo renderer: no depth buffer, so inter-layer order is purely the
+      // sequence of draw calls. Build each enabled layer, then run them in `order` order.
+      // Mat additionally gets a small negative Y offset (zBase sunk) so its top faces
+      // never project above another form's ground plane at extreme camera angles.
+      const MAT_Y_OFFSET = -0.04;
+      const layers = [];
+
       if (P.formMode === 2 || P.formMode === 1) {
-        let cells = generateMatBuilding();
-        cells = applyFold(cells,
-          c => c.x + c.w * 0.5,
-          c => c.y + c.d * 0.5,
-          c => c.zBase || 0,
-          (c, z) => ({ ...c, zBase: z }),
-          { enabled: P.matFoldEnabled, angle: P.matFoldAngle, axis: P.matFoldAxis }
-        );
-        cells.forEach(c => drawCell(c, cfg));
+        layers.push({ order: P.orderMat, run: () => {
+          let cells = generateMatBuilding();
+          cells = cells.map(c => ({ ...c, zBase: (c.zBase || 0) + MAT_Y_OFFSET }));
+          cells = applyFold(cells,
+            c => c.x + c.w * 0.5,
+            c => c.y + c.d * 0.5,
+            c => c.zBase || 0,
+            (c, z) => ({ ...c, zBase: z }),
+            { enabled: P.matFoldEnabled, angle: P.matFoldAngle, axis: P.matFoldAxis }
+          );
+          cells.forEach(c => drawCell(c, cfg));
+        }});
       }
 
-      // showBase: standard massing — suppressed in formMode 1 so the tower stands alone on the mat
       if (P.showBase && P.formMode !== 1) {
-        let blocks = generateBlocks();
-        blocks = applyFold(blocks,
-          b => b.x + b.w * 0.5,
-          b => b.y + b.d * 0.5,
-          b => b.z,
-          (b, z) => ({ ...b, z }),
-          { enabled: P.mainFoldEnabled, angle: P.mainFoldAngle, axis: P.mainFoldAxis }
-        );
-        blocks.forEach(b => drawBox(b, cfg));
+        layers.push({ order: P.orderMain, run: () => {
+          let blocks = generateBlocks();
+          blocks = applyFold(blocks,
+            b => b.x + b.w * 0.5,
+            b => b.y + b.d * 0.5,
+            b => b.z,
+            (b, z) => ({ ...b, z }),
+            { enabled: P.mainFoldEnabled, angle: P.mainFoldAngle, axis: P.mainFoldAxis }
+          );
+          blocks.forEach(b => drawBox(b, cfg));
+        }});
       }
 
-      // megaform overlay (formMode 1) renders on top of the mat base
       if (P.formMode === 1) {
-        let tiers = generateMegaform();
-        drawMegaformShadow(tiers, cfg);
-        tiers = applyFold(tiers,
-          t => t.x + t.w * 0.5,
-          t => t.y + t.d * 0.5,
-          t => t.z,
-          (t, z) => ({ ...t, z }),
-          { enabled: P.towerFoldEnabled, angle: P.towerFoldAngle, axis: P.towerFoldAxis }
-        );
-        tiers.forEach(t => drawTier(t, cfg));
+        layers.push({ order: P.orderTower, run: () => {
+          let tiers = generateMegaform();
+          drawMegaformShadow(tiers, cfg);
+          tiers = applyFold(tiers,
+            t => t.x + t.w * 0.5,
+            t => t.y + t.d * 0.5,
+            t => t.z,
+            (t, z) => ({ ...t, z }),
+            { enabled: P.towerFoldEnabled, angle: P.towerFoldAngle, axis: P.towerFoldAxis }
+          );
+          tiers.forEach(t => drawTier(t, cfg));
+        }});
       }
+
+      layers.sort((a, b) => a.order - b.order).forEach(l => l.run());
 
       ctx.fillStyle = "rgba(231,226,216,.72)";
       ctx.font = "11px ui-monospace, monospace";
