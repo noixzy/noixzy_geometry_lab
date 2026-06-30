@@ -109,3 +109,32 @@ wave_interference / wave_lattice. Multiple plane waves with different
 frequencies and phase offsets; isosurface of the interference pattern produces
 nodal sheets and ridges. Blender: shader displacement node with the same
 sum-of-sines formula, baked to mesh.
+
+---
+
+### Temporal / rhythmic family
+
+**Polyrhythmic form** (`poly_rhythm`) — *scoped, approved, pending implementation*
+Three SDF sphere voices orbiting a shared center in the XZ plane; each voice's
+angular position driven by `sin(2π * t / period_i)` with its own period. Periods
+set by an 8-preset ratio table (3:4:5, 2:3:5, 3:5:7, 5:7:11, 1:2:3, 2:3:4,
+1:1:1, 4:5:7) plus a `detune` param that breaks exact ratios for slow phase drift
+(Reich-style phasing). `smin` blending is distance-gated: when voices converge
+(phases align), spatial proximity triggers blending → forms merge into one. When
+diverged, three distinct spheres. The blend state IS the visual expression of
+rhythmic relationship.
+
+Architecture: time source is abstracted — module consumes a single `t` scalar and
+period ratios, no assumption about where `t` comes from. Currently driven by elapsed
+seconds × `tempo` param. Audio-reactive swap (beat-count or audio analysis) requires
+only changing the `t` source at the draw loop level; shader and period math are
+unchanged.
+
+PARAMS (16): `preset`, `detune`, `tempo`, `spread` (orbit radius), `radius` (sphere
+radius), `smooth` (smin kernel), `spin`, `dist`, `elev`, `ao`, `pal`, `bgVal`,
+`fmVal`, `fmSat`, `rim`, `bgAlpha`.
+
+Blender portability: geometry is inherently temporal — no static mesh. Reconstruction
+via three metaballs driven by F-curves or Geometry Nodes using identical period math
+(`orbit_r * cos/sin(2π * frame / fps * tempo / period_i)`). formSpec includes
+`snapshot_t` for static bake at a specific moment.
