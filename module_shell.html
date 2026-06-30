@@ -123,11 +123,11 @@ body {
 
 .shellTrigger {
   position:fixed;
-  right:0;
-  top:0;
-  width:72px;
-  height:100vh;
-  z-index:79;
+  right:12px;
+  top:148px;
+  width:116px;
+  height:calc(100vh - 168px);
+  z-index:89;
   pointer-events:auto;
 }
 
@@ -155,8 +155,7 @@ body {
   overflow:hidden;
 }
 
-.shellTrigger:hover ~ .shellControls,
-.shellControls:hover {
+.shellControls.shown {
   opacity:1;
   pointer-events:auto;
   transform:translateX(0);
@@ -221,56 +220,39 @@ body {
 
 .navPill {
   position:fixed;
-  top:105px;
+  top:65px;
   z-index:80;
   display:flex;
   flex-direction:row;
-  gap:6px;
-  padding:7px 14px;
+  gap:4px;
+  padding:5px 2px;
+  width:64px;
   border:1px solid rgba(255,255,255,.08);
-  border-radius:24px;
+  border-radius:17px;
   background:rgba(0,0,0,.38);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .18s ease, transform .18s ease;
+  box-shadow:0 0 6px rgba(255,255,255,.35);
 }
 
 .navPillLeft {
   left:18px;
-  transform:translateX(-4px);
 }
 
 .navPillRight {
   right:18px;
-  transform:translateX(4px);
-}
-
-.navTriggerLeft:hover ~ .navPillLeft,
-.navPillLeft:hover {
-  opacity:1;
-  pointer-events:auto;
-  transform:translateX(0);
-}
-
-.navTriggerRight:hover ~ .navPillRight,
-.navPillRight:hover {
-  opacity:1;
-  pointer-events:auto;
-  transform:translateX(0);
 }
 
 .navBtn {
   display:flex;
   align-items:center;
   justify-content:center;
-  width:40px;
-  height:36px;
-  border-radius:18px;
+  width:28px;
+  height:25px;
+  border-radius:13px;
   text-decoration:none;
   color:#fff;
-  font-size:20px;
+  font-size:14px;
 }
 
 .navBtn:hover {
@@ -379,7 +361,7 @@ body {
   display:flex;
   flex-direction:column;
   gap:8px;
-  width:92px;
+  width:100%;
 }
 
 .paramPanel:empty {
@@ -457,6 +439,8 @@ body {
   border-radius:8px;
   background:rgba(0,0,0,.6);
 }
+
+
 </style>
 </head>
 <body>
@@ -659,24 +643,27 @@ body {
   }
 
   function requestParams() {
+    if (!frame.src) return;
     clearParams();
     cancelParamRetries();
     let attempts = 0;
-    const MAX = 8, BASE = 300, CAP = 3000;
+    const MAX = 12, BASE = 300, CAP = 3000;
     function try_() {
       if (attempts >= MAX) { _paramTimer = null; return; }
+      console.log("[shell] → getParams attempt", attempts, frame.src); // DEBUG
       frame.contentWindow?.postMessage({ type: "getParams" }, "*");
       const delay = Math.min(BASE * Math.pow(2, attempts), CAP);
       attempts++;
       _paramTimer = setTimeout(try_, delay);
     }
-    try_();
+    _paramTimer = setTimeout(try_, 50);
   }
 
   frame.addEventListener("load", requestParams);
 
   // ── listen for messages from module ──
   window.addEventListener("message", e => {
+    console.log("[shell] msg:", e.data?.type, e.origin, e.data); // DEBUG
     if (!e.data || e.data.type !== "params") return;
     cancelParamRetries();
     const defs = e.data.data;
@@ -814,6 +801,33 @@ body {
 
   bindShellControls();
 
+  // ── shell controls hover bridge (JS-driven to work through iframe) ──
+  (() => {
+    const trigger  = document.querySelector('.shellTrigger');
+    const controls = document.getElementById('shellControls');
+    let hideTimer = null;
+
+    function showControls() {
+      clearTimeout(hideTimer);
+      hideTimer = null;
+      controls.classList.add('shown');
+      trigger.style.pointerEvents = 'none';
+    }
+
+    function scheduleHide() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        controls.classList.remove('shown');
+        trigger.style.pointerEvents = '';
+      }, 200);
+    }
+
+    trigger.addEventListener('mouseenter', showControls);
+    trigger.addEventListener('mouseleave', scheduleHide);
+    controls.addEventListener('mouseenter', showControls);
+    controls.addEventListener('mouseleave', scheduleHide);
+  })();
+
   fetch(manifestPath, { cache:"no-store" })
     .then(r => {
       if (!r.ok) throw new Error(`manifest ${r.status}`);
@@ -866,6 +880,7 @@ body {
     .catch(err => {
       status.textContent = `error: ${err.message}`;
     });
+
 })();
 </script>
 </body>

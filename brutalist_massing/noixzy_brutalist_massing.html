@@ -201,6 +201,9 @@
 
     let experimentalPhysics = false;
 
+    // ─── VIEW (mouse-driven pan/zoom; layered over PARAMS, not persisted) ─────
+    const view = { panX: 0, panY: 0, zoom: 1 };
+
     // ─── HISTORY ──────────────────────────────────────────────────────────────
     const _hist = [];
     let   _histIdx = -1;
@@ -629,9 +632,9 @@
       const scalediv  = P.formMode === 2 ? 36 : P.formMode === 1 ? 32 : 28;
       const rotAnim   = P.rotation + Math.sin(frame * 0.01) * (running ? 1.8 : 0);
       return {
-        cx: width * 0.5,
-        cy: height * cyFactor,
-        scale: Math.min(width, height) / scalediv,
+        cx: width * 0.5 + view.panX,
+        cy: height * cyFactor + view.panY,
+        scale: (Math.min(width, height) / scalediv) * view.zoom,
         perspective: P.perspective / 100,
         rotationRad: rotAnim * Math.PI / 180,
         shadow: P.shadowStrength / 100
@@ -650,8 +653,20 @@
 
       drawGround(cfg);
 
-      // showBase: always render standard massing when enabled
-      if (P.showBase) {
+      // mat: renders as base layer in formMode 2 AND beneath the tower in formMode 1
+      if (P.formMode === 2 || P.formMode === 1) {
+        let cells = generateMatBuilding();
+        cells = applyFold(cells,
+          c => c.x + c.w * 0.5,
+          c => c.y + c.d * 0.5,
+          c => c.zBase || 0,
+          (c, z) => ({ ...c, zBase: z })
+        );
+        cells.forEach(c => drawCell(c, cfg));
+      }
+
+      // showBase: standard massing — suppressed in formMode 1 so the tower stands alone on the mat
+      if (P.showBase && P.formMode !== 1) {
         let blocks = generateBlocks();
         blocks = applyFold(blocks,
           b => b.x + b.w * 0.5,
@@ -662,7 +677,7 @@
         blocks.forEach(b => drawBox(b, cfg));
       }
 
-      // mode overlay
+      // megaform overlay (formMode 1) renders on top of the mat base
       if (P.formMode === 1) {
         let tiers = generateMegaform();
         drawMegaformShadow(tiers, cfg);
@@ -673,15 +688,6 @@
           (t, z) => ({ ...t, z })
         );
         tiers.forEach(t => drawTier(t, cfg));
-      } else if (P.formMode === 2) {
-        let cells = generateMatBuilding();
-        cells = applyFold(cells,
-          c => c.x + c.w * 0.5,
-          c => c.y + c.d * 0.5,
-          c => c.zBase || 0,
-          (c, z) => ({ ...c, zBase: z })
-        );
-        cells.forEach(c => drawCell(c, cfg));
       }
 
       ctx.fillStyle = "rgba(231,226,216,.72)";
@@ -709,6 +715,77 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       draw();
     }
+
+    // ─── MOUSE INTERACTION (rotate / pan / dolly) ─────────────────────────────
+    (() => {
+      const MODE_NONE = 0, MODE_ROT = 1, MODE_PAN = 2;
+      let mode = MODE_NONE, lastX = 0, lastY = 0;
+      const ROT_SENS  = 0.5;
+      const TILT_SENS = 1.0;
+      const ZOOM_STEP = 0.0015;
+      const ZOOM_MIN  = 0.15;
+      const ZOOM_MAX  = 8;
+      const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+      function redrawIfPaused() { if (!running) draw(); }
+
+      canvas.addEventListener("contextmenu", e => e.preventDefault());
+
+      canvas.addEventListener("mousedown", e => {
+        if (e.button === 0) mode = e.altKey ? MODE_PAN : MODE_ROT;
+        else if (e.button === 1 || e.button === 2) mode = MODE_PAN;
+        else return;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        canvas.style.cursor = mode === MODE_PAN ? "grabbing" : "grabbing";
+        e.preventDefault();
+      });
+
+      window.addEventListener("mousemove", e => {
+        if (mode === MODE_NONE) return;
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        if (mode === MODE_ROT) {
+          P.rotation    = clamp(P.rotation    + dx * ROT_SENS,  -90,  90);
+          P.perspective = clamp(P.perspective + dy * TILT_SENS,   0, 200);
+          const rEl = document.getElementById("rotation");
+          if (rEl) rEl.value = P.rotation;
+          if (nativeVals.rotation) nativeVals.rotation.textContent = Math.round(P.rotation);
+          const pEl = document.getElementById("perspective");
+          if (pEl) pEl.value = P.perspective;
+          if (nativeVals.perspective) nativeVals.perspective.textContent = Math.round(P.perspective);
+        } else if (mode === MODE_PAN) {
+          view.panX += dx;
+          view.panY += dy;
+        }
+        redrawIfPaused();
+      });
+
+      window.addEventListener("mouseup", () => {
+        if (mode === MODE_NONE) return;
+        mode = MODE_NONE;
+        canvas.style.cursor = "grab";
+      });
+
+      canvas.addEventListener("wheel", e => {
+        e.preventDefault();
+        const factor = Math.exp(-e.deltaY * ZOOM_STEP);
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const newZoom = clamp(view.zoom * factor, ZOOM_MIN, ZOOM_MAX);
+        const k = newZoom / view.zoom;
+        view.panX = mx - k * (mx - view.panX);
+        view.panY = my - k * (my - view.panY);
+        view.zoom = newZoom;
+        redrawIfPaused();
+      }, { passive: false });
+
+      canvas.style.cursor = "grab";
+    })();
 
     // ─── RANDOMIZE ────────────────────────────────────────────────────────────
     function randomBiasFor(label) {
