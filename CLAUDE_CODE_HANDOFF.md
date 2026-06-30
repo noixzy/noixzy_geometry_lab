@@ -71,12 +71,12 @@ Rolling out the PARAMS/postMessage bridge to all 55 modules. Reference implement
 
 ### Batch 1 — core visual modules
 
-**Sub-batch 1 of 3 — done (hash TBD):**
+**Sub-batch 1 of 3 — done (`5129b27`):**
 - `hex_grid/noixzy_hex_grid.html`
 - `rose_curve/noixzy_rose_curve.html`
 - `lissajous_mesh/noixzy_lissajous_mesh.html`
 
-**Sub-batch 2 of 3 — done (hash TBD):**
+**Sub-batch 2 of 3 — done (`5129b27`):**
 - `torus_knot/noixzy_torus_knot.html`
 - `moire_field/noixzy_moire_field.html`
 - `particle_orbitals/noixzy_particle_orbitals.html`
@@ -111,16 +111,14 @@ Already bridged before this rollout: `brutalist_massing`, `triangulated_signal_m
 - Module addition contract + validator: `LAB_MODULE_ADDITION_CONTRACT.md`, `scripts/validate_modules_manifest.js`, `npm run verify:modules`
 - Param panel sliders widened to 225px across all modules (`eec6a7e`)
 - grid_extrude: extrude-on form centering (-30px X shift in `drawScene()`) (`4d9b589`)
-- `_legacy_planning_docs/Users/` absolute-path clone removed: 44 outdated duplicates discarded, 21 unique files archived to `workspace/_legacy_archive_merge_20260629/` (hash TBD)
-- Bridge rollout batch 1 sub-batch 1: `hex_grid`, `rose_curve`, `lissajous_mesh` — PARAMS array + postMessage bridge wired (hash TBD)
-- Bridge rollout batch 1 sub-batch 2: `torus_knot`, `moire_field`, `particle_orbitals`, `radial_noise`, `kaleidoscope_field`, `topographic_rings`, `ribbon_flow` — PARAMS bridge + shell control shims wired (hash TBD)
+- `_legacy_planning_docs/Users/` absolute-path clone removed: 44 outdated duplicates discarded, 21 unique files archived to `workspace/_legacy_archive_merge_20260629/` (`1bc99fa`)
+- Bridge rollout batch 1 sub-batch 1: `hex_grid`, `rose_curve`, `lissajous_mesh` — PARAMS array + postMessage bridge wired (`5129b27`)
+- Bridge rollout batch 1 sub-batch 2: `torus_knot`, `moire_field`, `particle_orbitals`, `radial_noise`, `kaleidoscope_field`, `topographic_rings`, `ribbon_flow` — PARAMS bridge + shell control shims wired (`5129b27`)
 
 ## Git status
-Two commits staged, not yet committed:
-1. **Legacy cleanup** — 44 deletes + 21 renames: removes `_legacy_planning_docs/Users/` absolute-path clone, archives unique files to `workspace/_legacy_archive_merge_20260629/`
-2. **Bridge rollout batch 1 sub-batches 1–2** — `hex_grid`, `rose_curve`, `lissajous_mesh`, `torus_knot`, `moire_field`, `particle_orbitals`, `radial_noise`, `kaleidoscope_field`, `topographic_rings`, `ribbon_flow` + this handoff update
-
-Last committed HEAD: `b3339c6` (`docs(handoff): refresh to HEAD 00530de`).
+Clean on `main`. Last two commits:
+- `1bc99fa` — `chore: remove _legacy_planning_docs/ absolute-path clone (65 files)`
+- `5129b27` — `feat(bridge): roll out PARAMS/postMessage bridge — batch 1 sub-batches 1–2`
 
 ## Housekeeping Backlog
 
