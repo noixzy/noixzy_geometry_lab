@@ -1,13 +1,13 @@
 # Claude Code Handoff — noixzy_geometry_lab
 
-**Updated:** 2026-06-29 — commit `15a5e73` (brutalist_massing mouse pan/zoom wiring; param widening across modules)
+**Updated:** 2026-06-30 — commit `5813146` (brutalist_massing configurable draw order and mat z-offset)
 
 ## Repo
-`/Users/noixzy.macbookpro/Documents/noixzy_geometry_lab`
+Repo-relative paths only. Local checkout path varies by environment (e.g. devcontainer mounts at `/workspaces/noixzy_geometry_lab`).
 
 ## Dev server
 Already running: `npx serve . -l 3000`
-Test at: `http://localhost:3000/module_shell?module=grid_extrude`
+Test at: `http://localhost:3000/module_shell.html?module=grid_extrude`
 
 ## Current task
 _None active — pick from "Future Milestones" or open new work._
@@ -74,9 +74,12 @@ _None tracked here. Open new tasks as they come up._
 - sdf module archived and removed from manifest
 - 55 active modules, all listed and enabled
 - brutalist_massing and triangulated_signal_mesh migrated — bridge wired, native UI hidden
+- Full repo audit report added (`92e9037`)
+- brutalist_massing configurable draw order + mat z-offset shipped (`5813146`)
+- Module addition contract + validator: `LAB_MODULE_ADDITION_CONTRACT.md`, `scripts/validate_modules_manifest.js`, `npm run verify:modules`
 
 ## Git status
-Clean on `main`. Last commit: `feat: update brutalist massing parameters and add mouse interaction for pan/zoom` (`15a5e73`).
+Clean on `main`. Last commit: `feat(brutalist_massing): configurable draw order and mat z-offset` (`5813146`).
 
 ## Future Milestones
 
