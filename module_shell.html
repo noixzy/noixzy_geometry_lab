@@ -440,6 +440,41 @@ body {
   background:rgba(0,0,0,.6);
 }
 
+/* ── touch-only panel toggle (iPad / phones) ── */
+.panelToggle {
+  position:fixed;
+  bottom:16px;
+  right:16px;
+  width:48px;
+  height:48px;
+  z-index:90;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:12px;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  font:18px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
+.panelToggle.active {
+  background:rgba(216,192,106,.18);
+  border-color:rgba(216,192,106,.55);
+  color:rgb(216,192,106);
+}
+
+@media (hover: none) {
+  .panelToggle { display:flex; }
+  /* prevent the invisible hover strip from swallowing taps on touch devices */
+  .shellTrigger { pointer-events:none; }
+}
+
 
 </style>
 </head>
@@ -507,6 +542,8 @@ body {
     <div class="status" id="status">loading modules.manifest.json</div>
     <iframe id="moduleFrame" title="noixzy studio module"></iframe>
   </main>
+
+  <button type="button" class="panelToggle" id="panelToggle" aria-label="toggle controls panel" aria-expanded="false" aria-controls="shellControls">☰</button>
 
 <script>
 (() => {
@@ -826,6 +863,18 @@ body {
     trigger.addEventListener('mouseleave', scheduleHide);
     controls.addEventListener('mouseenter', showControls);
     controls.addEventListener('mouseleave', scheduleHide);
+  })();
+
+  // ── touch-only panel toggle button (iPad / phones) ──
+  (() => {
+    const toggle  = document.getElementById('panelToggle');
+    const controls = document.getElementById('shellControls');
+    if (!toggle || !controls) return;
+    toggle.addEventListener('click', () => {
+      const isShown = controls.classList.toggle('shown');
+      toggle.classList.toggle('active', isShown);
+      toggle.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+    });
   })();
 
   fetch(manifestPath, { cache:"no-store" })
