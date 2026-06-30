@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 55,
-    "liveCount": 55,
+    "listedCount": 56,
+    "liveCount": 56,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -556,6 +556,16 @@
       "title": "woven lattice relief",
       "file": "woven_lattice_relief/noixzy_woven_lattice_relief.html",
       "thumb": "home/thumbs/woven_lattice_relief.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "blob_field",
+      "title": "blob field",
+      "file": "blob_field/noixzy_blob_field.html",
+      "thumb": "home/thumbs/blob_field.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
