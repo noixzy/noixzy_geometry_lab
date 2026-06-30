@@ -184,7 +184,7 @@ const PARAMS = [
   {k:"scale",   g:"field",    label:"scale",      min:0,  max:1,   step:0.01, v:0.42},
   {k:"warp",    g:"field",    label:"warp",       min:0,  max:1,   step:0.01, v:0.30},
   {k:"thresh",  g:"field",    label:"threshold",  min:0,  max:0.8, step:0.01, v:0.28},
-  {k:"radius",  g:"form",     label:"radius",     min:0,  max:1,   step:0.01, v:0.55},
+  {k:"radius",  g:"form",     label:"radius",     min:0,  max:1,   step:0.01, v:0.72},
   {k:"height",  g:"form",     label:"height",     min:0,  max:1,   step:0.01, v:0.55},
   {k:"smooth",  g:"form",     label:"smooth",     min:0,  max:1,   step:0.01, v:0.45},
   {k:"spread",  g:"form",     label:"spread",     min:0,  max:1,   step:0.01, v:0.55},
@@ -274,7 +274,10 @@ function _buildBlobs(t) {
         const wx = (_hash2(fx + 1.73, fy + 1.73) * 2 - 1) * P.warp * 0.55;
         const wy = (_hash2(fx + 9.13, fy + 9.13) * 2 - 1) * P.warp * 0.55;
         const h  = Math.min(1, Math.max(0, _vnoise(fx + wx + tv * 0.13, fy + wy + tv * 0.09)));
-        const r  = rad * Math.max(0, h - P.thresh);
+        // Smoothstep gate: blobs above threshold get near-full radius immediately.
+        // Linear (h-thresh) made them too small to reach each other for smin to blend.
+        const f  = Math.max(0, Math.min(1, (h - P.thresh) / 0.12));
+        const r  = rad * f * f * (3 - 2 * f);
         arr[base+0] = (u - 0.5) * spr;
         arr[base+1] = h * ht - ht * 0.4;
         arr[base+2] = (v - 0.5) * spr;
