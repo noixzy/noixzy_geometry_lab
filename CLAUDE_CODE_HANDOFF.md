@@ -1,5 +1,7 @@
 # Claude Code Handoff — noixzy_geometry_lab
 
+**Updated:** 2026-06-29 — commit `96989fc` (restore param panel to sidebar, JS hover bridge for shell controls, brutalist_massing pan/zoom view layer)
+
 ## Repo
 `/Users/noixzy.macbookpro/Documents/noixzy_geometry_lab`
 
@@ -66,6 +68,16 @@ Every module migrated into the main lab MUST implement all of the following befo
 
 ### Reference implementation
 grid_extrude/noixzy_grid_extrude.html is the gold standard. Match its patterns.
+
+## brutalist_massing — in-progress work
+
+### Done this session
+- **Form mode 1 (megaform):** background/secondary form removed; mat now draws as base layer; mega tower is the only standing form. Modes 0 and 2 unchanged. No params, generators, or postMessage bridge touched.
+- **Pan/zoom view layer:** mouse-driven `view { panX, panY, zoom }` object added; wired into `getCamera()` so pan and dolly apply on top of existing param-driven camera. Not yet hooked to mouse events — wiring is the next step.
+
+### Still pending
+- **Mouse interaction:** wire `mousemove` / `wheel` events to mutate `view.panX`, `view.panY`, `view.zoom`; rotate on drag, pan on middle-click/two-finger, dolly on scroll.
+- **Mat z-order fix:** mat polygon is currently drawn mid-stack; needs to render as true ground plane beneath all towers regardless of sort order.
 
 ## What's already done and committed
 - CSS consolidated in `home/home.html` and `module_shell.html` (no overrides, no !important)

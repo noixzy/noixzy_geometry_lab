@@ -148,37 +148,44 @@
       { k:"formMode",      label:"form mode",      min:0,   max:2,   step:1,    v:0,  g:"mode" },
       { k:"showBase",      label:"show base",      min:0,   max:1,   step:1,    v:1,  g:"mode" },
       // base (standard massing)
-      { k:"density",       label:"density",        min:4,   max:128, step:1,    v:18, g:"base" },
-      { k:"slabWidth",     label:"slab width",     min:5,   max:240, step:1,    v:95, g:"base" },
-      { k:"slabDepth",     label:"slab depth",     min:5,   max:220, step:1,    v:85, g:"base" },
-      { k:"heightVariance",label:"height variance",min:0,   max:200, step:1,    v:45, g:"base" },
-      { k:"voidChance",    label:"void chance",    min:0,   max:140, step:1,    v:18, g:"base" },
-      { k:"cantilever",    label:"cantilever",     min:0,   max:200, step:1,    v:28, g:"base" },
+      { k:"density",       label:"(main) density",        min:4,   max:128, step:1,    v:18, g:"base" },
+      { k:"slabWidth",     label:"(main) slab width",     min:5,   max:240, step:1,    v:95, g:"base" },
+      { k:"slabDepth",     label:"(main) slab depth",     min:5,   max:220, step:1,    v:85, g:"base" },
+      { k:"heightVariance",label:"(main) height variance",min:0,   max:200, step:1,    v:45, g:"base" },
+      { k:"mainBarHeight", label:"(main) bar height", min:0, max:480, step:1, v:100, g:"base" },
+      { k:"voidChance",    label:"(main) void chance",    min:0,   max:140, step:1,    v:18, g:"base" },
+      { k:"cantilever",    label:"(main) cantilever",     min:0,   max:200, step:1,    v:28, g:"base" },
+      { k:"mainFoldEnabled", label:"(main) folding",    min:0, max:1,  step:1, v:0,  g:"base" },
+      { k:"mainFoldAngle",   label:"(main) fold angle", min:0, max:90, step:1, v:30, g:"base" },
+      { k:"mainFoldAxis",    label:"(main) fold axis",  min:0, max:2,  step:1, v:0,  g:"base" },
       { k:"perspective",   label:"perspective",    min:0,   max:200, step:1,    v:60, g:"base" },
       { k:"rotation",      label:"rotation",       min:-90, max:90,  step:1,    v:20, g:"base" },
       { k:"shadowStrength",label:"shadow strength",min:0,   max:200, step:1,    v:78, g:"base" },
       // megaform (formMode 1)
-      { k:"tiers",        label:"tiers",         min:1,  max:48,  step:1, v:14, g:"mega" },
-      { k:"baseWidth",    label:"base width",    min:10, max:300, step:1, v:95, g:"mega" },
-      { k:"baseDepth",    label:"base depth",    min:10, max:280, step:1, v:85, g:"mega" },
-      { k:"taperRate",    label:"taper rate",    min:0,  max:190, step:1, v:78, g:"mega" },
-      { k:"tierHeight",   label:"tier height",   min:1,  max:80,  step:1, v:22, g:"mega" },
-      { k:"asymmetry",    label:"asymmetry",     min:0,  max:100, step:1, v:15, g:"mega" },
-      { k:"incisions",    label:"incisions",     min:0,  max:120, step:1, v:32, g:"mega" },
-      { k:"terraceDepth", label:"terrace depth", min:0,  max:160, step:1, v:45, g:"mega" },
+      { k:"tiers",        label:"(tower) tiers",         min:1,  max:48,  step:1, v:14, g:"mega" },
+      { k:"baseWidth",    label:"(tower) base width",    min:10, max:300, step:1, v:95, g:"mega" },
+      { k:"baseDepth",    label:"(tower) base depth",    min:10, max:280, step:1, v:85, g:"mega" },
+      { k:"taperRate",    label:"(tower) taper rate",    min:0,  max:190, step:1, v:78, g:"mega" },
+      { k:"tierHeight",   label:"(tower) tier height",   min:1,  max:80,  step:1, v:22, g:"mega" },
+      { k:"towerBarHeight", label:"(tower) bar height", min:0, max:480, step:1, v:100, g:"mega" },
+      { k:"asymmetry",    label:"(tower) asymmetry",     min:0,  max:100, step:1, v:15, g:"mega" },
+      { k:"incisions",    label:"(tower) incisions",     min:0,  max:120, step:1, v:32, g:"mega" },
+      { k:"terraceDepth", label:"(tower) terrace depth", min:0,  max:160, step:1, v:45, g:"mega" },
+      { k:"towerFoldEnabled", label:"(tower) folding",    min:0, max:1,  step:1, v:0,  g:"mega" },
+      { k:"towerFoldAngle",   label:"(tower) fold angle", min:0, max:90, step:1, v:30, g:"mega" },
+      { k:"towerFoldAxis",    label:"(tower) fold axis",  min:0, max:2,  step:1, v:0,  g:"mega" },
       // mat (formMode 2) — widened: doubled max, halved min where applicable
-      { k:"gridSize",    label:"grid size",    min:2, max:80,  step:1, v:14, g:"mat" },
-      { k:"fieldExtent", label:"field extent", min:5, max:480, step:1, v:90, g:"mat" },
-      { k:"barHeight",   label:"bar height",   min:0, max:160, step:1, v:22, g:"mat" },
-      { k:"courtSize",   label:"court size",   min:2, max:240, step:1, v:38, g:"mat" },
-      { k:"matDensity",  label:"fill density", min:0, max:380, step:1, v:68, g:"mat" },
-      { k:"offsetJitter",label:"offset jitter",min:0, max:240, step:1, v:28, g:"mat" },
-      { k:"roofLevel",   label:"roof level",   min:0, max:320, step:1, v:42, g:"mat" },
-      { k:"connectivity",label:"connectivity", min:0, max:360, step:1, v:55, g:"mat" },
-      // fold add-on (any mode)
-      { k:"foldEnabled", label:"folding",    min:0, max:1,  step:1, v:0,  g:"fold" },
-      { k:"foldAngle",   label:"fold angle", min:0, max:90, step:1, v:30, g:"fold" },
-      { k:"foldAxis",    label:"fold axis",  min:0, max:2,  step:1, v:0,  g:"fold" },
+      { k:"gridSize",    label:"(mat) grid size",    min:2, max:80,  step:1, v:14, g:"mat" },
+      { k:"fieldExtent", label:"(mat) field extent", min:5, max:480, step:1, v:90, g:"mat" },
+      { k:"barHeight",   label:"(mat) bar height",   min:0, max:480, step:1, v:22, g:"mat" },
+      { k:"courtSize",   label:"(mat) court size",   min:2, max:240, step:1, v:38, g:"mat" },
+      { k:"matDensity",  label:"(mat) fill density", min:0, max:380, step:1, v:68, g:"mat" },
+      { k:"offsetJitter",label:"(mat) offset jitter",min:0, max:240, step:1, v:28, g:"mat" },
+      { k:"roofLevel",   label:"(mat) roof level",   min:0, max:320, step:1, v:42, g:"mat" },
+      { k:"connectivity",label:"(mat) connectivity", min:0, max:360, step:1, v:55, g:"mat" },
+      { k:"matFoldEnabled", label:"(mat) folding",    min:0, max:1,  step:1, v:0,  g:"mat" },
+      { k:"matFoldAngle",   label:"(mat) fold angle", min:0, max:90, step:1, v:30, g:"mat" },
+      { k:"matFoldAxis",    label:"(mat) fold axis",  min:0, max:2,  step:1, v:0,  g:"mat" },
     ];
 
     const P = {};
@@ -293,17 +300,17 @@
     }
 
     // ─── FOLD TRANSFORM ───────────────────────────────────────────────────────
-    function foldSignedDist(cx, cy) {
-      if (P.foldAxis === 0) return cx;
-      if (P.foldAxis === 1) return cy;
+    function foldSignedDist(cx, cy, axis) {
+      if (axis === 0) return cx;
+      if (axis === 1) return cy;
       return (cx + cy) * 0.707;
     }
 
-    function applyFold(items, getCx, getCy, getZ, setZ) {
-      if (!P.foldEnabled || P.foldAngle < 0.5) return items;
-      const slope = Math.tan(P.foldAngle * Math.PI / 180);
+    function applyFold(items, getCx, getCy, getZ, setZ, fold) {
+      if (!fold || !fold.enabled || fold.angle < 0.5) return items;
+      const slope = Math.tan(fold.angle * Math.PI / 180);
       return items.map(item => {
-        const lift = slope * foldSignedDist(getCx(item), getCy(item)) * 0.45;
+        const lift = slope * foldSignedDist(getCx(item), getCy(item), fold.axis) * 0.45;
         return setZ(item, getZ(item) + lift);
       });
     }
@@ -338,12 +345,13 @@
       const heightRange = P.heightVariance / 18;
       const cantilever = P.cantilever / 100;
       const voidChance = P.voidChance / 100;
+      const mainHeightFactor = P.mainBarHeight / 100;
 
       const towerCount = Math.max(2, Math.floor(count * 0.25));
       for (let i = 0; i < towerCount; i++) {
         const w = lerp(2.2, widthBase * 0.6, random());
         const d = lerp(2.0, depthBase * 0.55, random());
-        const h = lerp(3.5, 6.5 + heightRange * 1.5, random());
+        const h = lerp(3.5, 6.5 + heightRange * 1.5, random()) * mainHeightFactor;
         const ox = (random() - 0.5) * cantilever * 3.5;
         const oy = (random() - 0.5) * cantilever * 2.8;
         blocks.push({
@@ -360,7 +368,7 @@
         const isH  = random() > 0.35;
         const w = isH ? lerp(3.5, widthBase * 1.2, random()) : lerp(1.8, widthBase * 0.5, random());
         const d = isH ? lerp(1.5, depthBase * 0.6, random()) : lerp(2.5, depthBase * 0.8, random());
-        const h = lerp(0.6, 1.4 + heightRange, random());
+        const h = lerp(0.6, 1.4 + heightRange, random()) * mainHeightFactor;
         const radius = Math.max(1.2, 6.5 - tier * 0.45);
         const x = (random() - 0.5) * radius * cantilever * 1.8 - w * 0.5;
         const y = (random() - 0.5) * radius * cantilever * 1.5 - d * 0.5;
@@ -430,6 +438,7 @@
       const baseD  = P.baseDepth / 10;
       const taper  = P.taperRate / 100;
       const tierH  = P.tierHeight / 10;
+      const towerHeightFactor = P.towerBarHeight / 100;
       const asym   = P.asymmetry / 100;
       const incChance = P.incisions / 100;
       const terraceFactor = P.terraceDepth / 100;
@@ -440,7 +449,7 @@
         const taperFactor = 1 - progress * taper;
         const w = baseW * taperFactor;
         const d = baseD * taperFactor;
-        const h = tierH * (1 + (random() - 0.5) * 0.3);
+        const h = tierH * (1 + (random() - 0.5) * 0.3) * towerHeightFactor;
         const ax = (random() - 0.5) * asym * w * 0.3;
         const ay = (random() - 0.5) * asym * d * 0.3;
 
@@ -660,7 +669,8 @@
           c => c.x + c.w * 0.5,
           c => c.y + c.d * 0.5,
           c => c.zBase || 0,
-          (c, z) => ({ ...c, zBase: z })
+          (c, z) => ({ ...c, zBase: z }),
+          { enabled: P.matFoldEnabled, angle: P.matFoldAngle, axis: P.matFoldAxis }
         );
         cells.forEach(c => drawCell(c, cfg));
       }
@@ -672,7 +682,8 @@
           b => b.x + b.w * 0.5,
           b => b.y + b.d * 0.5,
           b => b.z,
-          (b, z) => ({ ...b, z })
+          (b, z) => ({ ...b, z }),
+          { enabled: P.mainFoldEnabled, angle: P.mainFoldAngle, axis: P.mainFoldAxis }
         );
         blocks.forEach(b => drawBox(b, cfg));
       }
@@ -685,7 +696,8 @@
           t => t.x + t.w * 0.5,
           t => t.y + t.d * 0.5,
           t => t.z,
-          (t, z) => ({ ...t, z })
+          (t, z) => ({ ...t, z }),
+          { enabled: P.towerFoldEnabled, angle: P.towerFoldAngle, axis: P.towerFoldAxis }
         );
         tiers.forEach(t => drawTier(t, cfg));
       }
@@ -808,7 +820,8 @@
       histSnapshot();
       PARAMS.forEach(p => {
         if (!groups.includes(p.g)) return;
-        if (p.k === "formMode" || p.k === "showBase" || p.k === "foldEnabled") return;
+        if (p.k === "formMode" || p.k === "showBase" ||
+            p.k === "mainFoldEnabled" || p.k === "towerFoldEnabled" || p.k === "matFoldEnabled") return;
         P[p.k] = snapToStep(p.min + (p.max - p.min) * randomBiasFor(p.label || p.k), p.min, p.max, p.step);
       });
       syncNativeControls();
@@ -941,7 +954,7 @@
     if (randomizeBtn) randomizeBtn.addEventListener("click", () => {
       seedStr = makeSeed();
       if (seedInput) seedInput.value = seedStr;
-      randomizeGroups(["base", "mega", "mat", "fold"]);
+      randomizeGroups(["base", "mega", "mat"]);
       draw();
     });
 
@@ -1010,8 +1023,8 @@
       if (type === "save2x") { exportSave2x(); return; }
       if (type === "thumb") { exportThumb(); return; }
 
-      if (type === "randomAll")   { seedStr = makeSeed(); if (seedInput) seedInput.value = seedStr; randomizeGroups(["mode","base","mega","mat","fold"]); return; }
-      if (type === "randomForm")  { randomizeGroups(["base","mega","mat","fold"]); return; }
+      if (type === "randomAll")   { seedStr = makeSeed(); if (seedInput) seedInput.value = seedStr; randomizeGroups(["mode","base","mega","mat"]); return; }
+      if (type === "randomForm")  { randomizeGroups(["base","mega","mat"]); return; }
       if (type === "randomColor") { /* no color params */ return; }
 
       if (type === "bgAlpha") {
