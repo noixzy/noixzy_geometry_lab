@@ -801,7 +801,10 @@ function drawScene(time){
   const pal=PALETTES[P.pal].map(hx);
   scene.push();
   scene.clear(); if(!transparentBg) scene.background(pal[0][0],pal[0][1],pal[0][2]);
-  scene.translate(W/2 + P.cx*W*0.5, H/2 - P.cy*H*0.5);
+  // when extrusion is active, the 3D depth pushes the form's visual mass to the right;
+  // shift the world origin ~30px left to keep the apparent center on canvas center.
+  const _extrudeCenterShift = extrudeOff ? 0 : -30;
+  scene.translate(W/2 + P.cx*W*0.5 + _extrudeCenterShift, H/2 - P.cy*H*0.5);
   scene.scale(P.zoom);
   const _rAng=P.rot*0.5;
   const _rAxis=Math.round(P.rotAxis||0);
