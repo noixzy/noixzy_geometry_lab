@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 59,
-    "liveCount": 59,
+    "listedCount": 58,
+    "liveCount": 58,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -572,30 +572,20 @@
       "status": "listed"
     },
     {
-      "id": "curl_tendrils",
-      "title": "curl tendrils",
-      "file": "curl_tendrils/noixzy_curl_tendrils.html",
-      "thumb": "home/thumbs/curl_tendrils.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "voronoi_foam",
-      "title": "voronoi foam",
-      "file": "voronoi_foam/noixzy_voronoi_foam.html",
-      "thumb": "home/thumbs/voronoi_foam.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
       "id": "poly_fold",
       "title": "poly fold",
       "file": "poly_fold/noixzy_poly_fold.html",
       "thumb": "home/thumbs/poly_fold.png",
+      "authorship": "generated",
+      "listedInHome": true,
+      "enabledInShell": true,
+      "status": "listed"
+    },
+    {
+      "id": "dipole",
+      "title": "dipole",
+      "file": "dipole/noixzy_dipole.html",
+      "thumb": "home/thumbs/dipole.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
