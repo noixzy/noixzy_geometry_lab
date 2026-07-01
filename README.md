@@ -1,6 +1,6 @@
 # noixzy_geometry_lab
 
-Browser-based generative module system. 53 geometry engines, each a self-contained HTML file. Central home grid and module shell for navigation and control.
+Browser-based generative module system. 57 geometry engines, each a self-contained HTML file. Central home grid and module shell for navigation and control.
 
 ## Structure
 
