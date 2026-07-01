@@ -2,6 +2,8 @@
 
 All 55 modules assessed for use as studio backdrops (live or static) in a broadcast/photo-studio context.
 
+> **Note (2026-07-01):** the manifest now has 57 modules. The assessment below covers the 55 modules present at audit time and has not been extended to the 2 added since.
+
 **Render types:**
 - `2D canvas` — p5.js Canvas 2D, CPU-only, low cost
 - `WebGL GLSL` — GLSL raymarcher/raytracer, GPU, moderate cost

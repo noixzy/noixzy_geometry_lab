@@ -2,6 +2,8 @@
 
 **55 modules total — 52 bridged, 0 PARAMS-only, 3 in migration**
 
+> **Note (2026-07-01):** the manifest now has 57 modules. The table below reflects the 55 modules present when this status was last compiled and has not been re-audited for the 2 added since.
+
 Legend:
 - `✅` — PARAMS array + postMessage bridge fully wired; shell can read/write all params
 - `〇` — PARAMS array present but bridge not yet wired; shell cannot control

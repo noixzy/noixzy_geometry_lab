@@ -67,7 +67,7 @@ _None tracked here. Open new tasks as they come up._
 
 ## Bridge Rollout
 
-Rolling out the PARAMS/postMessage bridge to all 55 modules. Reference implementation: `grid_extrude/noixzy_grid_extrude.html`.
+Rolling out the PARAMS/postMessage bridge to all 57 modules. Reference implementation: `grid_extrude/noixzy_grid_extrude.html`.
 
 ### Batch 1 — core visual modules
 
