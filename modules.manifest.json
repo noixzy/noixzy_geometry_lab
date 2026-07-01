@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "summary": {
-    "listedCount": 58,
-    "liveCount": 58,
+    "listedCount": 57,
+    "liveCount": 57,
     "unlistedLiveCount": 0,
     "listedMissingCount": 0
   },
@@ -576,16 +576,6 @@
       "title": "poly fold",
       "file": "poly_fold/noixzy_poly_fold.html",
       "thumb": "home/thumbs/poly_fold.png",
-      "authorship": "generated",
-      "listedInHome": true,
-      "enabledInShell": true,
-      "status": "listed"
-    },
-    {
-      "id": "dipole",
-      "title": "dipole",
-      "file": "dipole/noixzy_dipole.html",
-      "thumb": "home/thumbs/dipole.png",
       "authorship": "generated",
       "listedInHome": true,
       "enabledInShell": true,
