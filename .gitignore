@@ -10,3 +10,6 @@ __pycache__/
 _rollback_*/
 _panic_backup_*/
 node_modules/
+
+# scene working folders (large .blend/render assets, migrated off-repo when done)
+scenes/
